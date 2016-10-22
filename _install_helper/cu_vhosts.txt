@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+
+    <Directory "###insert path to the curservertool here ###">
+        Options Indexes FollowSymLinks Includes ExecCGI
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    DocumentRoot "###insert path to the curservertool here ###"
+    ServerName curserver
+</VirtualHost>

@@ -1,0 +1,30 @@
+{
+  "name": "computerundsound/curserver",
+  "description": "Sermanager for Windows XAMPP",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jörg Wrase - www.cusp.de",
+      "email": "info@cusp.de"
+    }
+  ],
+  "config": {
+    "vendor-dir": "inc/_close/vendor/"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/computerundsound/cuLibrary.git"
+    }
+  ],
+  "require": {
+    "computerundsound/cuLibrary": "2.1.0",
+    "smarty/smarty": "v3.1.29"
+  },
+  "autoload": {
+    "classmap": [
+      "inc/_close/app/"
+    ]
+  }
+}

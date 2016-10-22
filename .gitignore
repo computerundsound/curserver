@@ -1,0 +1,23 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+## Directory-based project format:
+.idea/
+
+## File-based project format:
+
+**/.sass-cache/
+**/views/templates_c/
+**/views/cache
+
+*.iml
+_config.php
+
+__BUILD
+
+**/node_modules
+
+app_api
+
+__writer
+
+gulpfile_config.json

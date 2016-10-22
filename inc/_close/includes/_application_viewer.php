@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
+ * Date: 27.06.2014
+ * Time: 01:45
+ *
+ * Created by IntelliJ IDEA
+ *
+ * Filename: _application_viewer.php
+ */
+
+use viewer\MakeView;
+
+require_once __DIR__ . '/_application_top.php';
+
+$smarty_standard = new MakeView(CU_SMARTY_DIR);
+
+$standards_view_elements = [
+    'application_root_HTTP' => $constant_container_coo->getAppRootHTTP(),
+    'project_name'          => 'curServer',
+    'php_self'              => $constant_container_coo->get_file_path_HTTP(),
+];
+
+$content = <<<HTML
+	<p>{$standards_view_elements['application_root_HTTP']}</p>
+HTML;
+
+$smarty_standard->assign('standards', $standards_view_elements);
+$smarty_standard->assign('content', $content);
+
+$smarty_standard->assign('javaScriptVariables',
+                         [
+                             'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
+                             'secret'       => AJAX_SECRET,
+                         ]);

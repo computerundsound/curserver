@@ -1,0 +1,25 @@
+{
+  "name": "curserver",
+  "homepage": "https://github.com/computerundsound/curserver",
+  "authors": [
+    "cu <gitcub2@cusp.de>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules"
+  ],
+  "dependencies": {
+    "bootbox.js": "bootbox#~4.4.0",
+    "mustache.js": "mustache#~2.2.0"
+  },
+  "devDependencies": {
+    "font-awesome": "~4.6.3"
+  }
+}
