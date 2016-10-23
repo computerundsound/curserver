@@ -20,11 +20,6 @@ define('DBNAME', 'curserver'); // DatabaseName - Insert your own value please
 define('DBUSER', 'curserver'); // Database UserName - Insert your own value please
 define('DBPW', 'curserver'); // Database Password - Insert your own value please
 
-/* If you want to make a backup from all Databases, curServer needs root credentials: */
-
-define('DBUSER_ROOT', 'root'); // Database UserName from Database-Root-User - Insert your own value please
-define('DBPW_ROOT', ''); // Database Password from Database-Root-User - Insert your own value please
-
 /* Pfade */
 
 // Path for the Windows host-File. Normal it's "c:\Windows\System32\drivers\etc\hosts"

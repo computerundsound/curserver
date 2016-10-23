@@ -74,7 +74,6 @@
             <div class="clearfix">
                 <p>
                     <button class="btn btn-warning hostmask_db_curserver_backup">Make Backup From curserver-DB</button>
-                    <button class="btn btn-warning hostmask_db_all_backup">Make Backup From all DBs</button>
                 </p>
             </div>
 

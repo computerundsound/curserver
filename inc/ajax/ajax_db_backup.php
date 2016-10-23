@@ -13,15 +13,10 @@ require_once __DIR__ . '/../_close/includes/_application_top.php';
 /**
  * @param string $action
  * @param string $mysqlDumpFilePath
- * @param bool   $backUpAll
  */
-function runMysqlDump($action, $mysqlDumpFilePath, $backUpAll = false) {
+function runMysqlDump($action, $mysqlDumpFilePath) {
 
     $execStr = 'mysqldump -u ' . DBUSER . ' -p' . DBPW . ' ' . DBNAME . ' > ' . $mysqlDumpFilePath;
-
-    if ($backUpAll) {
-        $execStr = 'mysqldump -u ' . DBUSER_ROOT . ' ' . DBPW_ROOT . ' --all-databases --lock-tables=false > ' . $mysqlDumpFilePath;
-    }
 
     $result = exec($execStr, $output, $return);
 
@@ -78,9 +73,6 @@ switch ($action) {
         break;
     case 'dbBackupCurServer':
         runMysqlDump($action, $mysqlDumpFilePath);
-        break;
-    case 'dbBackupAll':
-        runMysqlDump($action, $mysqlDumpFilePath, true);
         break;
     default:
         echo json_encode('ERROR');

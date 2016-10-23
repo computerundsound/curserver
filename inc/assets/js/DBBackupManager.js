@@ -20,9 +20,6 @@ var DBBackupManager;
             $(".hostmask_db_curserver_backup").on("click", function () {
                 dbBackup._createBackup();
             });
-            $(".hostmask_db_all_backup").on("click", function () {
-                dbBackup._createBackup(true);
-            });
         }
         DBBackup.prototype._createBackup = function (all) {
             if (all === void 0) { all = false; }

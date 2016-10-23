@@ -37,11 +37,6 @@ module DBBackupManager {
 
             });
 
-            $(".hostmask_db_all_backup").on("click", function () {
-                dbBackup._createBackup(true);
-            });
-
-
         }
 
         private _createBackup(all: boolean = false) {
