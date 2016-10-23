@@ -1,7 +1,10 @@
 # curServer - XAMPP-Manager (DNS) for Windows #
 
-You can manage your local host with this Tool
-Easy add new Hosts. This tool will add the new Hosts into Apache automatically and will help you
+You can manage your XAMPP Virtual-Hosts with this tool.
+
+You can easy add new Hosts, or change them - and of course - delete them.
+ 
+This tool will add the new Hosts into Apache automatically and will help you
 very easy to edit your .host - File on Windows (just copy-paste).
 
 You will see all installed vHost from your system in one File - all editable.
@@ -15,8 +18,8 @@ I will write the link here soon.
 
 The first local host must be created manually:
 
-I have made a short Video on youtoube.
-There you can see how you can install this tool, so that it can manage different XAMPP-Versions
+I will create a short Video on youtoube that will show you, how to install and manage different 
+XAMPP-Versions.
 
 But in short words:
 
