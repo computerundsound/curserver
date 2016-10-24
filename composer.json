@@ -12,12 +12,6 @@
   "config": {
     "vendor-dir": "inc/_close/vendor/"
   },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/computerundsound/cuLibrary.git"
-    }
-  ],
   "require": {
     "computerundsound/cuLibrary": "2.1.0",
     "smarty/smarty": "v3.1.29"
