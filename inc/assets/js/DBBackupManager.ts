@@ -42,7 +42,7 @@ module DBBackupManager {
         private _createBackup(all: boolean = false) {
             let sendDataLocal: SendData = this.sendData,
                 alertMessage: string,
-                dbBackup = this;
+                dbBackup                = this;
 
 
             console.log(this.ajaxURL);
@@ -61,19 +61,21 @@ module DBBackupManager {
 
                 if (data.success === true) {
                     alertMessage += "<p>DB Backup created. <a href='"
-                        + dbBackup.urlMySqlDumpFile
-                        + "'>Download " + dbBackup.urlMySqlDumpFile + "</a></p>";
+                                    + dbBackup.urlMySqlDumpFile
+                                    + "'>Download " + dbBackup.urlMySqlDumpFile + "</a></p>";
                 } else {
 
                     alertMessage += "<p>Error while creating MySQL-Dump-File:</p>" +
-                        "<p>Messages from System:</p>" +
-                        "<dl>" +
-                        "<dt>Action</dt><dl>" + data.action + "</dl>" +
-                        "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
-                        "<dt>Return</dt><dl>" + data.JSON.return + "</dl>" +
-                        "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
-                        "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
-                        "</dl>";
+                                    "<h4>Are you shure, you have mysqldump.exe in your PATH-Variable?</h4>" +
+                                    "<p>Messages from System:</p>" +
+                                    "<dl>" +
+                                    "<dt>Action</dt><dl>" + data.action + "</dl>" +
+                                    "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
+                                    "<dt>Return</dt><dl>" + data.JSON.return + "</dl>" +
+                                    "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
+                                    "<dt>ExecString</dt><dl>" + data.JSON.exec_string + "</dl>" +
+                                    "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
+                                    "</dl>";
 
                 }
 

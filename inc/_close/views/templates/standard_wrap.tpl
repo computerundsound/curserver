@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="?action=phpinfo" target="_blank">
+                    <a href="hostlister.php?action=phpinfo" target="_blank">
                         <i class="fa fa-server" aria-hidden="true"></i> PHPinfo
                     </a>
                 </li>

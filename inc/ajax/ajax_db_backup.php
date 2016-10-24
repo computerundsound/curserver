@@ -24,9 +24,10 @@ function runMysqlDump($action, $mysqlDumpFilePath) {
     $response['mysqlDumpFilePath'] = $mysqlDumpFilePath;
 
     $response['JSON'] = [
-        'result' => $result,
-        'output' => $output,
-        'return' => $return,
+        'result'   => $result,
+        'output'   => $output,
+        'return'   => $return,
+        'exec_str' => $execStr,
     ];
 
     array_walk_recursive($response,
