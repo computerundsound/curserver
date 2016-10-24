@@ -65,17 +65,24 @@
             "url": "https://github.com/computerundsound/cuLibrary.git",
             "reference": "66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8"
         },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8",
+            "reference": "66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8",
+            "shasum": ""
+        },
         "require": {
             "php": ">=5.4.0"
         },
         "time": "2016-09-22 05:15:08",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "computerundsound\\culibrary\\": ""
             }
         },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],

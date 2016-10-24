@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad4d5f20587c77a42616c04779227c69",
-    "content-hash": "738894d0304aabe741a08f1196b40e95",
+    "hash": "dc0f60b33874a17607090d9829870196",
+    "content-hash": "366e25542952effdd4d0476b41d08d28",
     "packages": [
         {
             "name": "computerundsound/culibrary",
@@ -14,6 +14,12 @@
                 "type": "git",
                 "url": "https://github.com/computerundsound/cuLibrary.git",
                 "reference": "66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8",
+                "reference": "66fe3469ad1e3ad1ac71d23647e3932b6dadf1b8",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -24,6 +30,7 @@
                     "computerundsound\\culibrary\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
