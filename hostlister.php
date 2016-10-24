@@ -24,7 +24,7 @@ $smarty_standard->assign('sitetitle', 'VHost Lister by cusp.de - Jörg Wrase');
 $action    = CuNet::get_post('action');
 $action_id = CuNet::get_post('action_id');
 
-if($action === 'phpinfo'){
+if ($action === 'phpinfo') {
     phpinfo();
     exit;
 }
@@ -68,10 +68,13 @@ if ($action === 'host_add') {
 /** @var array $server_multi_array */
 $server_multi_array = $dbi_coo->selectAsArray('hosts',
                                               '',
-                                              $sort_handler_coo->getAktSortItem() . ' '
-                                              . $sort_handler_coo->getAktSortDirection() . ', '
-                                              . $sort_handler_coo->getAktSortItem() . ' '
-                                              . $sort_handler_coo->getAktSortDirection());
+                                              $sort_handler_coo->getAktSortItem() .
+                                              ' ' .
+                                              $sort_handler_coo->getAktSortDirection() .
+                                              ', ' .
+                                              $sort_handler_coo->getAktSortItem() .
+                                              ' ' .
+                                              $sort_handler_coo->getAktSortDirection());
 
 $smarty_vhost_coo = new MakeView(CU_SMARTY_DIR);
 

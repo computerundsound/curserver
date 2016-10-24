@@ -24,9 +24,9 @@ function HostTableManager() {
 HostTableManager.prototype.input_standard_subdomain            = '';
 HostTableManager.prototype.input_standard_tld                  = 'myc';
 HostTableManager.prototype.input_standard_ip                   = '127.0.0.1';
-HostTableManager.prototype.input_standard_vhost_dir            = 'd:/_SERVER/_SELF (exmaple)';
+HostTableManager.prototype.input_standard_vhost_dir            = 'd:/_SERVER/_SELF';
 HostTableManager.prototype.input_standard_domain               = '';
-HostTableManager.prototype.input_standard_vhost_htdocs_relativ = '/htdocs (example)';
+HostTableManager.prototype.input_standard_vhost_htdocs_relativ = '/htdocs';
 
 HostTableManager.prototype.bind_add_btn = function () {
     var thiz = this;
