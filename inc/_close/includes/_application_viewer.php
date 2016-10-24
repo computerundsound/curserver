@@ -32,4 +32,5 @@ $smarty_standard->assign('javaScriptVariables',
                          [
                              'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
                              'secret'       => AJAX_SECRET,
+                             'standardTLD'  => STANDARD_TLD,
                          ]);

@@ -22,7 +22,9 @@ function HostTableManager() {
 }
 
 HostTableManager.prototype.input_standard_subdomain            = '';
-HostTableManager.prototype.input_standard_tld                  = 'myc';
+HostTableManager.prototype.input_standard_tld                  = $(
+    "meta[name=javascriptVariables][data-name=standardTLD]")
+    .attr("data-value");
 HostTableManager.prototype.input_standard_ip                   = '127.0.0.1';
 HostTableManager.prototype.input_standard_vhost_dir            = 'd:/_SERVER/_SELF';
 HostTableManager.prototype.input_standard_domain               = '';
