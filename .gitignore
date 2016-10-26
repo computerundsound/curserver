@@ -18,6 +18,7 @@ __BUILD
 
 app_api
 
-__writer
+__writer/**/*.*
+!__writer/mysqlDumpFile/index.html
 
 gulpfile_config.json
