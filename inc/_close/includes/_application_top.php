@@ -31,6 +31,6 @@ define('CU_SMARTY_DIR',
        DIRECTORY_SEPARATOR);
 
 /** @var CuDBi $dbi_coo */
-$dbi_coo = CuDBi::getInstance(new CuDBiResult(), DBSERVER, DBUSER, DBPW, DBNAME);
+$dbi_coo = CuDBi::getInstance(new CuDBiResult(), DB_SERVER, DB_USER, DB_PW, DB_NAME);
 
-$vHostFiles = unserialize(VHOSTFILES);
+$vHostFiles = unserialize(VHOST_FILES);

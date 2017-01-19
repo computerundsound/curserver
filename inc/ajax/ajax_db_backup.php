@@ -16,7 +16,7 @@ require_once __DIR__ . '/../_close/includes/_application_top.php';
  */
 function runMysqlDump($action, $mysqlDumpFilePath) {
 
-    $execStr = 'mysqldump -u ' . DBUSER . ' -p' . DBPW . ' ' . DBNAME . ' > ' . $mysqlDumpFilePath;
+    $execStr = 'mysqldump -u ' . DB_USER . ' -p' . DB_PW . ' ' . DB_NAME . ' > ' . $mysqlDumpFilePath;
 
     $result = exec($execStr, $output, $return);
 

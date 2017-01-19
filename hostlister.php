@@ -31,7 +31,7 @@ if ($action === 'phpinfo') {
 
 $sort_handler_coo = new SortHandler('hostlister');
 
-$hostfile_coo = new Hostfilehandler(HOSTFILE_PATH);
+$hostfile_coo = new Hostfilehandler(HOST_FILE_PATH);
 
 $prefix = $hostfile_coo->getPrefix();
 
@@ -156,6 +156,6 @@ $smarty_standard->display('c_hosttable.tpl');
 if ($action === 'host_prozess_hostfile') {
     $exec_command = $constant_container_coo->getAppRootServer();
     $exec_command = str_replace('/', DIRECTORY_SEPARATOR, $exec_command);
-    $exec_command .= EDITOR_COMMAND_OPEN_HOSTFILE;
+    $exec_command .= EDITOR_COMMAND_OPEN_HOST_FILE;
     exec($exec_command);
 }
