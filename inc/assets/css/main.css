@@ -4,28 +4,33 @@
   cursor: pointer;
 }
 
-/* line 10, main.scss */
+/* line 9, main.scss */
 #content_hosttable input {
   width: 90%;
 }
 
-/* line 14, main.scss */
+/* line 13, main.scss */
 #content_hosttable .table_edit_a, #content_hosttable .table_edit_b {
   display: none;
 }
 
-/* line 18, main.scss */
+/* line 17, main.scss */
 .navbar {
   border-radius: 0;
   border-top: none;
 }
 
-/* line 23, main.scss */
+/* line 22, main.scss */
 #top_impressum_short {
   background-color: #222222;
-  color: #dbdbdb;
+  color: #DBDBDB;
   border: none;
   font-size: 10px;
   text-align: right;
   padding-right: 10px;
+}
+
+/* line 31, main.scss */
+#hostmask_db_curserver_backup_info {
+  display: none;
 }

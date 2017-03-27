@@ -75,7 +75,22 @@
                 <p>
                     <button class="btn btn-warning hostmask_db_curserver_backup">Make Backup From curserver-DB</button>
                 </p>
+
+                <div id="hostmask_db_curserver_backup_info">
+
+                    <p>You can Backup all Databases with your console in your mysql/bin directory:</p>
+                    <p><code>mysqldump -u root -p --all-databases > alldb.sql</code></p>
+
+                    <p>Restore your DataBase:</p>
+                    <p><code>mysql -u root -p < alldb.sql</code></p>
+
+                    <p class="alert alert-danger">
+                        After that - please restart your mysql-Server <br>
+                        Be shore that your DatabaseServer you are working on is runnig
+                    </p>
+                </div>
             </div>
+
 
             <h1 class="page-header">XAMPP VHost Manager for Windows</h1>
 
@@ -84,7 +99,6 @@
         </div>
     </div>
 </div>
-
 <!-- Bootstrap-JavaScript
 ================================================== -->
 <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->

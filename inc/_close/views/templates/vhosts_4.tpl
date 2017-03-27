@@ -6,7 +6,7 @@
                Order allow,deny
                Allow from all
     </Directory>
-   DocumentRoot "{$host->getVhostHtdocs()}"
-   ServerName {$host->getFullDomain()}
+               DocumentRoot "{$host->getVhostHtdocs()}"
+               ServerName {$host->getFullDomain()}
 </VirtualHost>
 {/foreach}

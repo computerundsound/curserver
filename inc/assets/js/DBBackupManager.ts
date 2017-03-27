@@ -1,7 +1,9 @@
 /*
- * Created by cu on 22.10.2016.
+ * Copyright Jörg Wrase - www.Computer-Und-Sound.de
+ * Hire me! coder@cusp.de
+ *
+ * LastModified: 2017.03.27 at 21:51 MESZ
  */
-
 
 ///<reference path="../dts/jquery.d.ts" />
 ///<reference path="../dts/bootbox.d.ts" />
@@ -11,7 +13,6 @@ interface SendData {
 }
 
 module DBBackupManager {
-
 
     class DBBackup {
 
@@ -32,6 +33,8 @@ module DBBackupManager {
             console.log("Start DBBackupManager");
 
             $(".hostmask_db_curserver_backup").on("click", function () {
+
+                $('#hostmask_db_curserver_backup_info').show();
 
                 dbBackup._createBackup();
 
@@ -73,7 +76,7 @@ module DBBackupManager {
                                     "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
                                     "<dt>Return</dt><dl>" + data.JSON.return + "</dl>" +
                                     "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
-                                    "<dt>ExecString</dt><dl>" + data.JSON.exec_string + "</dl>" +
+                                    "<dt>ExecString</dt><dl>" + data.JSON.exec_str + "</dl>" +
                                     "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
                                     "</dl>";
 
@@ -97,6 +100,5 @@ module DBBackupManager {
 
     //noinspection JSUnusedLocalSymbols
     let dBBackup = new DBBackup(ajaxURL, secret);
-
 
 }
