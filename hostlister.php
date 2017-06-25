@@ -63,6 +63,9 @@ if ($action === 'host_add') {
     $update_msg = true;
 }
 
+$searchHandler = isset($_GET['search_handler']) ? $_GET['search_handler'] : '';
+$smarty_standard->assign('searchHandlerString', $searchHandler);
+
 /* Prozess Outputs */
 
 /** @var array $server_multi_array */
@@ -120,6 +123,23 @@ $smarty_standard->assign('update_msg', $update_msg);
 $host_list_coo = new Hostlist();
 
 foreach ($server_multi_array as $server_array) {
+
+    if ($searchHandler) {
+
+        $searchFields = [$server_array['tld'], $server_array['domain'], $server_array['subdomain']];
+
+        $found = false;
+        foreach ($searchFields as $searchField) {
+
+            $found = $found || false !== strpos($searchField, $searchHandler);
+
+        }
+
+        if(!$found){
+            continue;
+        }
+    }
+
     $host_coo = new Host();
     $host_coo->set_host($server_array['host_id'],
                         $server_array['tld'],

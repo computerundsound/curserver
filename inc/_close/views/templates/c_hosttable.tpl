@@ -49,16 +49,36 @@
 
         <div class="row">
 
-            <form class="form-inline" role="form" name="form_hostlister_sort_handler" method="post">
-                <div class="form-group">
-                    <label class="control-label" for="hostlist_sort_handler">Sortierung: </label>
+            <div class="col-md-6">
+                <form class="form-inline" role="form" name="form_hostlister_sort_handler" method="post">
+                    <div class="form-group">
+                        <label class="control-label" for="hostlist_sort_handler">Sort by: </label>
 
-                    <select name="sort_handler_arrayhostlister[item]" id="hostlist_sort_handler" class="form-control"
-                            onchange="document.form_hostlister_sort_handler.submit()">
-                        {html_options options=$hostlist_sorter_options selected=$hostlist_sort_handler_item}
-                    </select>
-                </div>
-            </form>
+                        <select name="sort_handler_arrayhostlister[item]"
+                                id="hostlist_sort_handler"
+                                class="form-control"
+                                onchange="document.form_hostlister_sort_handler.submit()">
+                            {html_options options=$hostlist_sorter_options selected=$hostlist_sort_handler_item}
+                        </select>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-6 text-right">
+
+                <form class="form-inline" role="form" name="form_hostlister_search_handler" method="get">
+                    <div class="form-group">
+                        <label class="control-label" for="hostlist_search_handler">Search for: </label>
+                        <input name="search_handler"
+                               id="hostlist_search_handler"
+                               class="form-control"
+                               onchange="document.form_hostlister_search_handler.submit()"
+                               value="{$searchHandlerString}">
+                    </div>
+                </form>
+
+            </div>
 
         </div>
 
