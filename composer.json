@@ -13,7 +13,7 @@
     "vendor-dir": "inc/_close/vendor/"
   },
   "require": {
-    "computerundsound/cuLibrary": "2.1.0",
+    "computerundsound/cuLibrary": "^2",
     "smarty/smarty": "v3.1.29"
   },
   "autoload": {

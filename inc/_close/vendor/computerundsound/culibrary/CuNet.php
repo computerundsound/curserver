@@ -1,13 +1,10 @@
 <?php
 
 /**
- * Copyright by Jörg Wrase - Computer-Und-Sound.de
- * Date: 24.06.12
- * Time: 00:49
+ * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
+ * Hire me! coder@cusp.de
  *
- * Created by JetBrains PhpStorm
- *
- * Filename: CuNet.class.php
+ * LastModified: 2017.03.20 at 02:59 MEZ
  */
 
 namespace computerundsound\culibrary;
@@ -17,7 +14,8 @@ namespace computerundsound\culibrary;
  *
  * @package curlibrary
  */
-class CuNet {
+class CuNet
+{
 
     /**
      * @return array | 'client', referer', 'server', 'site', 'query',
@@ -58,12 +56,16 @@ class CuNet {
      */
     public static function get_post_session_standard_value($variableName, $standard_value) {
 
-        if (self::get_post_session($variableName) !== null) {
-            $_SESSION[$variableName] = $standard_value;
-            return $standard_value;
+        $fromRequestOrSession = self::get_post_session($variableName);
+
+        if ($fromRequestOrSession) {
+            $value = $fromRequestOrSession;
         } else {
-            return self::get_post_session($variableName);
+            $_SESSION[$variableName] = $standard_value;
+            $value                   = $standard_value;
         }
+
+        return $value;
     }
 
 
