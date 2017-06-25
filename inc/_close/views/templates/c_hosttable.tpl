@@ -5,8 +5,8 @@
         <form action="{$standards.php_self}" method="post" enctype="application/x-www-form-urlencoded"
               name="form_host_action">
 
-            <input type="hidden" name="action" value="irgendewas"/>
-            <input type="hidden" name="action_id" value="peng"/>
+            <input type="hidden" name="action" value="something"/>
+            <input type="hidden" name="action_id" value="nothing"/>
 
         </form>
 
