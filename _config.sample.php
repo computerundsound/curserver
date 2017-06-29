@@ -72,3 +72,18 @@ define('EDITOR_COMMAND_OPEN_HOSTFILE', 'inc\_close\edit_host.bat');
 	You change every added Host with the curserver-Tool (when the host is added by curserver).
  */
 define('STANDARD_TLD', 'myc');
+
+/*
+ * Here you can define 2 own links wich will be shown in your navbar -
+ *
+ * Format: url|Linktext
+ *
+ * Example:
+ *
+ * define('USERL_LINK_IN_MENUE_1', 'https://cusp.de|My Homepage cusp');
+ *
+ * will create: <a href="https://cusp.de">My Homepage cusp
+ *
+ */
+define('USERL_LINK_IN_MENUE_1', '');
+define('USERL_LINK_IN_MENUE_2', '');
