@@ -1,26 +1,26 @@
-@import url(../bower_components/bootstrap/dist/css/bootstrap.min.css);
+@import url(bootstrap_parts.css);
 /* line 5, main.scss */
 .cuHoverPointer {
   cursor: pointer;
 }
 
-/* line 9, main.scss */
+/* line 8, main.scss */
 #content_hosttable input {
   width: 90%;
 }
 
-/* line 13, main.scss */
+/* line 12, main.scss */
 #content_hosttable .table_edit_a, #content_hosttable .table_edit_b {
   display: none;
 }
 
-/* line 17, main.scss */
+/* line 16, main.scss */
 .navbar {
   border-radius: 0;
   border-top: none;
 }
 
-/* line 22, main.scss */
+/* line 21, main.scss */
 #top_impressum_short {
   background-color: #222222;
   color: #DBDBDB;
@@ -30,7 +30,7 @@
   padding-right: 10px;
 }
 
-/* line 31, main.scss */
+/* line 30, main.scss */
 #hostmask_db_curserver_backup_info {
   display: none;
 }

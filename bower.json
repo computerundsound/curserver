@@ -16,6 +16,7 @@
     "node_modules"
   ],
   "dependencies": {
+    "bootstrap-sass-official": "3.3.7",
     "bootbox.js": "bootbox#~4.4.0",
     "mustache.js": "mustache#~2.2.0"
   },

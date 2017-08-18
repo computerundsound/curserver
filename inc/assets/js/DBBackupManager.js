@@ -48,7 +48,7 @@ var DBBackupManager;
                         "<dl>" +
                         "<dt>Action</dt><dl>" + data.action + "</dl>" +
                         "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
-                        "<dt>Return</dt><dl>" + data.JSON.return + "</dl>" +
+                        "<dt>Return</dt><dl>" + data.JSON["return"] + "</dl>" +
                         "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
                         "<dt>ExecString</dt><dl>" + data.JSON.exec_str + "</dl>" +
                         "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
@@ -70,3 +70,4 @@ var DBBackupManager;
     //noinspection JSUnusedLocalSymbols
     var dBBackup = new DBBackup(ajaxURL, secret);
 })(DBBackupManager || (DBBackupManager = {}));
+//# sourceMappingURL=DBBackupManager.js.map
