@@ -11,19 +11,24 @@
 
 // copy this file to _config.php
 
-define('CU_DEBUGMODUS', false); // false | true
+define('CU_DEBUG_MODUS', false); // false | true
 
 /* mysql */
 
-define('DBSERVER', 'localhost'); // Database ServerName.  # Normal: localhost
-define('DBNAME', 'curserver'); // DatabaseName - Insert your own value please
-define('DBUSER', 'curserver'); // Database UserName - Insert your own value please
-define('DBPW', 'curserver'); // Database Password - Insert your own value please
+define('DB_SERVER', 'localhost'); // Database ServerName.  # Normal: localhost
+define('DB_NAME', 'curserver'); // DatabaseName - Insert your own value please
+define('DB_USER', 'curserver'); // Database UserName - Insert your own value please
+define('DB_PW', 'curserver'); // Database Password - Insert your own value please
+
+/* If you want to make a backup from all Databases, curServer needs root credentials: */
+
+define('DB_USER_ROOT', 'root'); // Database UserName from Database-Root-User - Insert your own value please
+define('DB_PW_ROOT', ''); // Database Password from Database-Root-User - Insert your own value please
 
 /* Pfade */
 
 // Path for the Windows host-File. Normal it's "c:\Windows\System32\drivers\etc\hosts"
-define('HOSTFILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
+define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
 
 /*
  * The curserver-Tool must write into an Apache - vhost-File. (Example: \apache\conf\extra\httpd-vhosts.conf)
@@ -49,10 +54,11 @@ define('HOSTFILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
  *
  */
 
-define('VHOSTFILES',
+define('VHOST_FILES',
        serialize([
-	                 'e:\XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
-	                 'e:\XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
+	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
+	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
+	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_4.txt'   => ['templateName' => 'vhosts_4.tpl'],
                  ]
 
        ));
@@ -63,7 +69,7 @@ define('VHOSTFILES',
 
 	So you can easy copy/paste the content of the Windows - Host-File from the curserver-Tool
  */
-define('EDITOR_COMMAND_OPEN_HOSTFILE', 'inc\_close\edit_host.bat');
+define('EDITOR_COMMAND_OPEN_HOST_FILE', 'inc\_close\edit_host.bat');
 
 /*
 	When you add a new Host, you can choose your own toplevel-Domain (or even let it be blank).
