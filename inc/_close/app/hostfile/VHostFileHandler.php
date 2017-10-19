@@ -19,7 +19,8 @@ use viewer\MakeView;
  *
  * @package hostfile
  */
-class VHostFileHandler {
+class VHostFileHandler
+{
 
 	private $hosts_array = [];
 	/**
@@ -50,21 +51,31 @@ class VHostFileHandler {
 	 *
 	 */
 	public function add_host(Host $host_coo) {
+
 		$this->hosts_array[] = $host_coo;
 	}
 
 
-	public function build_content() {
+	/**
+	 * @param int $port
+	 *
+	 * @throws \Exception
+	 * @throws \SmartyException
+	 */
+	public function build_content($port) {
+
 		$smarty_coo = $this->smarty_vhost;
 
 		$smarty_coo->assign('vhosts_array', $this->hosts_array);
+		$smarty_coo->assign('port', $port);
 
 		$this->content = $smarty_coo->fetch($this->smarty_tpl);
 	}
 
 
 	public function write_content_to_vhost_file() {
-		$fh = fopen($this->vhost_file_path, 'w+');
+
+		$fh = fopen($this->vhost_file_path, 'wb+');
 		fwrite($fh, $this->content);
 		fclose($fh);
 	}
@@ -80,7 +91,7 @@ class VHostFileHandler {
 		foreach ($hostListAsArray as $host) {
 			$this->add_host($host);
 		}
-		
-		
+
+
 	}
 }

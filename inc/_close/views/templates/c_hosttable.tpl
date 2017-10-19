@@ -1,223 +1,229 @@
 {extends file='standard_wrap.tpl'}
 {block name=content}
-    <div id="content_hosttable">
+	<div id="content_hosttable">
 
-        <form action="{$standards.php_self}" method="post" enctype="application/x-www-form-urlencoded"
-              name="form_host_action">
+		<form action="{$standards.php_self}" method="post" enctype="application/x-www-form-urlencoded"
+			  name="form_host_action">
 
-            <input type="hidden" name="action" value="something"/>
-            <input type="hidden" name="action_id" value="nothing"/>
+			<input type="hidden" name="action" value="something"/>
+			<input type="hidden" name="action_id" value="nothing"/>
 
-        </form>
+		</form>
 
-        <button type="button" class="btn btn-default" id="hostmask_add_btn">
-            <span class="glyphicon glyphicon-plus"></span> New Host
-        </button>
-        <button type="button" id="hostmask_process_vhostfile_btn" class="btn btn-danger"><span
-                    class="glyphicon glyphicon-save"></span> Process - write vhost-File (Xampp)
-        </button>
-        <button type="button" id="hostmask_process_hostfile_btn" class="btn btn-danger"><span
-                    class="glyphicon glyphicon-save"></span> Process - edit Windows host-File
-        </button>
+		<div class="alert alert-warning" role="alert">All Templates run on the
+			<strong>port {$smarty.const.CU_PORT}</strong>. If you ever change this value in the _config.php, please make
+													  shure, that you have changed it in all httpd.conf - files from
+													  XAMPP, too
+		</div>
 
-        {if $update_msg === true}
-            <div class="jumbotron" style="margin: 10px;">
+		<button type="button" class="btn btn-default" id="hostmask_add_btn">
+			<span class="glyphicon glyphicon-plus"></span> New Host
+		</button>
+		<button type="button" id="hostmask_process_vhostfile_btn" class="btn btn-danger"><span
+					class="glyphicon glyphicon-save"></span> Process - write vhost-File (Xampp)
+		</button>
+		<button type="button" id="hostmask_process_hostfile_btn" class="btn btn-danger"><span
+					class="glyphicon glyphicon-save"></span> Process - edit Windows host-File
+		</button>
 
-
-                <div class="bg-primary" style="padding: 10px;">
-                    <p>You have updated your hosts...</p>
-                    <ul>
-                        <li>Edit your Windows host-File (click edit Hostfile, if you have everthing configured - read
-                            readmefile)
-                        </li>
-                        <li>Restart Apache (Xampp)</li>
-                    </ul>
-                </div>
-            </div>
-        {/if}
+		{if $update_msg === true}
+			<div class="jumbotron" style="margin: 10px;">
 
 
-        {if $hostfile_content !== ''}
-            <div class="row" style="margin: 10px 0;">
-                <label class="bg-info" for="hostfile_content">Your hostfile content: (please copy):</label>
-                <textarea name="hostfile_content" class="form-control cuTextSmall" id="hostfile_content" cols="30"
-                          rows="10">{$hostfile_content|escape}</textarea>
+				<div class="bg-primary" style="padding: 10px;">
+					<p>You have updated your hosts...</p>
+					<ul>
+						<li>Edit your Windows host-File (click edit Hostfile, if you have everthing configured - read
+							readmefile)
+						</li>
+						<li>Restart Apache (Xampp)</li>
+					</ul>
+				</div>
+			</div>
+		{/if}
 
 
-            </div>
-        {/if}
+		{if $hostfile_content !== ''}
+			<div class="row" style="margin: 10px 0;">
+				<label class="bg-info" for="hostfile_content">Your hostfile content: (please copy):</label>
+				<textarea name="hostfile_content" class="form-control cuTextSmall" id="hostfile_content" cols="30"
+						  rows="10">{$hostfile_content|escape}</textarea>
 
-        <div class="row">
 
-            <div class="col-md-6">
-                <form class="form-inline" role="form" name="form_hostlister_sort_handler" method="post">
-                    <div class="form-group">
-                        <label class="control-label" for="hostlist_sort_handler">Sort by: </label>
+			</div>
+		{/if}
 
-                        <select name="sort_handler_arrayhostlister[item]"
-                                id="hostlist_sort_handler"
-                                class="form-control"
-                                onchange="document.form_hostlister_sort_handler.submit()">
-                            {html_options options=$hostlist_sorter_options selected=$hostlist_sort_handler_item}
-                        </select>
-                    </div>
-                </form>
+		<div class="row">
 
-            </div>
+			<div class="col-md-6">
+				<form class="form-inline" role="form" name="form_hostlister_sort_handler" method="post">
+					<div class="form-group">
+						<label class="control-label" for="hostlist_sort_handler">Sort by: </label>
 
-            <div class="col-md-6 text-right">
+						<select name="sort_handler_arrayhostlister[item]"
+								id="hostlist_sort_handler"
+								class="form-control"
+								onchange="document.form_hostlister_sort_handler.submit()">
+							{html_options options=$hostlist_sorter_options selected=$hostlist_sort_handler_item}
+						</select>
+					</div>
+				</form>
 
-                <form class="form-inline" role="form" name="form_hostlister_search_handler" method="get">
-                    <div class="form-group">
-                        <label class="control-label" for="hostlist_search_handler">Search for: </label>
-                        <input name="search_handler"
-                               id="hostlist_search_handler"
-                               class="form-control"
-                               onchange="document.form_hostlister_search_handler.submit()"
-                               value="{$searchHandlerString}">
-                    </div>
-                </form>
+			</div>
 
-            </div>
+			<div class="col-md-6 text-right">
 
-        </div>
+				<form class="form-inline" role="form" name="form_hostlister_search_handler" method="get">
+					<div class="form-group">
+						<label class="control-label" for="hostlist_search_handler">Search for: </label>
+						<input name="search_handler"
+							   id="hostlist_search_handler"
+							   class="form-control"
+							   onchange="document.form_hostlister_search_handler.submit()"
+							   value="{$searchHandlerString}">
+					</div>
+				</form>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Host</th>
-                    <th>Path</th>
-                    <th>Comment</th>
-                    <th>&nbsp;</th>
-                </tr>
+			</div>
 
-                </thead>
-                <tbody>
-                {foreach $servers->get_host_list_array() as $server}
-                    <tr class="table_show_a">
-                        <td>
+		</div>
 
-                            <dl>
-                                <dt><a href="http://{$server->getFullDomain()}"
-                                       target="_blank">{$server->getFullDomain()}</a></dt>
-                                <dd>{$server->getIp()}</dd>
-                            </dl>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead>
+				<tr>
+					<th>Host</th>
+					<th>Path</th>
+					<th>Comment</th>
+					<th>&nbsp;</th>
+				</tr>
 
-                        </td>
-                        <td>
-                            {$server->getVhostDir()}<br>
-                            {$server->getVhostHtdocs()}
-                        </td>
-                        <td>
-                            {$server->getComment()|escape|nl2br}
-                        </td>
-                        <td>
+				</thead>
+				<tbody>
+				{foreach $servers->get_host_list_array() as $server}
+					<tr class="table_show_a">
+						<td>
+
+							<dl>
+								<dt><a href="http://{$server->getFullDomain()}"
+									   target="_blank">{$server->getFullDomain()}</a></dt>
+								<dd>{$server->getIp()}</dd>
+							</dl>
+
+						</td>
+						<td>
+							{$server->getVhostDir()}<br>
+							{$server->getVhostHtdocs()}
+						</td>
+						<td>
+							{$server->getComment()|escape|nl2br}
+						</td>
+						<td>
 							<span
-                                    class="glyphicon glyphicon-edit cuHoverPointer"
-                                    data-action='edit_host'
-                                    data-action_id='{$server->getHostId()}'
-                            >&nbsp;
+									class="glyphicon glyphicon-edit cuHoverPointer"
+									data-action='edit_host'
+									data-action_id='{$server->getHostId()}'
+							>&nbsp;
 							</span>
-                            <span
-                                    class="glyphicon glyphicon-remove btn-danger cuHoverPointer"
-                                    data-action='kill_host'
-                                    data-action_id='{$server->getHostId()}'
-                                    data-host_name='{$server->getFullDomain()}'
-                            >
+							<span
+									class="glyphicon glyphicon-remove btn-danger cuHoverPointer"
+									data-action='kill_host'
+									data-action_id='{$server->getHostId()}'
+									data-host_name='{$server->getFullDomain()}'
+							>
 							</span>
-                        </td>
-                    </tr>
-                {/foreach}
-                </tbody>
-            </table>
-        </div>
+						</td>
+					</tr>
+				{/foreach}
+				</tbody>
+			</table>
+		</div>
 
-        {* Modal EDIT *}
+		{* Modal EDIT *}
 
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="meinGroßesModalLabel"
-             aria-hidden="true" id="modal-mask-host-edit">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="padding: 20px;">
-
-
-                    <h3><span id="hostmask_headline"></span> <span id="editmask_hosts"></span></h3>
-
-                    <form class="form-horizontal" role="form" id="form_host_data" name="form_host_data"
-                          action="{$standards.php_self}" method="post">
-
-                        <div class="form-group">
-                            <label for="hostmask_subdomain" class="col-sm-2 control-label">Subdomain</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_subdomain" name="subdomain">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hostmask_domain" class="col-sm-2 control-label">Domain</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_domain" name="domain">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hostmask_tld" class="col-sm-2 control-label">Tld</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_tld" name="tld">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hostmask_ip" class="col-sm-2 control-label">IP</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_ip" name="ip">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hostmask_vhost_dir" class="col-sm-2 control-label">VHost - Dir</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_vhost_dir" name="vhost_dir">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hostmask_vhost_htdocs" class="col-sm-2 control-label">VHost - htdocs</label>
-
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="hostmask_vhost_htdocs" name="vhost_htdocs">
-                            </div>
-                        </div>
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="meinGroßesModalLabel"
+			 aria-hidden="true" id="modal-mask-host-edit">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content" style="padding: 20px;">
 
 
-                        <div class="form-group">
-                            <label for="hostmask_comment" class="col-sm-2 control-label">Comment</label>
+					<h3><span id="hostmask_headline"></span> <span id="editmask_hosts"></span></h3>
 
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="hostmask_comment" name="comment"></textarea>
-                            </div>
-                        </div>
+					<form class="form-horizontal" role="form" id="form_host_data" name="form_host_data"
+						  action="{$standards.php_self}" method="post">
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary host_action_btn"
-                                        id="hostmask_submit_btn"></button>
-                            </div>
-                        </div>
+						<div class="form-group">
+							<label for="hostmask_subdomain" class="col-sm-2 control-label">Subdomain</label>
 
-                        <input type="hidden" name="action" id="hostmask_action"/>
-                        <input type="hidden" name="action_id" id="hostmask_action_id"/>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_subdomain" name="subdomain">
+							</div>
+						</div>
 
-                    </form>
+						<div class="form-group">
+							<label for="hostmask_domain" class="col-sm-2 control-label">Domain</label>
 
-                </div>
-            </div>
-        </div>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_domain" name="domain">
+							</div>
+						</div>
 
-    </div>
+						<div class="form-group">
+							<label for="hostmask_tld" class="col-sm-2 control-label">Tld</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_tld" name="tld">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="hostmask_ip" class="col-sm-2 control-label">IP</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_ip" name="ip">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="hostmask_vhost_dir" class="col-sm-2 control-label">VHost - Dir</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_vhost_dir" name="vhost_dir">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="hostmask_vhost_htdocs" class="col-sm-2 control-label">VHost - htdocs</label>
+
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="hostmask_vhost_htdocs" name="vhost_htdocs">
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="hostmask_comment" class="col-sm-2 control-label">Comment</label>
+
+							<div class="col-sm-10">
+								<textarea class="form-control" rows="5" id="hostmask_comment" name="comment"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-primary host_action_btn"
+										id="hostmask_submit_btn"></button>
+							</div>
+						</div>
+
+						<input type="hidden" name="action" id="hostmask_action"/>
+						<input type="hidden" name="action_id" id="hostmask_action_id"/>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
 {/block}

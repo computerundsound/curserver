@@ -51,8 +51,8 @@ define('HOSTFILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
 
 define('VHOSTFILES',
        serialize([
-                     'e:\XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
-                     'e:\XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
+	                 'e:\XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
+	                 'e:\XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
                  ]
 
        ));
@@ -74,7 +74,17 @@ define('EDITOR_COMMAND_OPEN_HOSTFILE', 'inc\_close\edit_host.bat');
 define('STANDARD_TLD', 'myc');
 
 /*
- * Here you can define 2 own links wich will be shown in your navbar -
+ * If you change this port, you have to edit every httpd.conf file for every XAMPP installation.
+ * In the httpd.conf-Files you will find the line
+ *
+ * listen:80
+ *
+ * You have to change the default 80 value to the Value you change this CU_PORT value here
+ */
+define('CU_PORT', 80); // Default: 80
+
+/*
+ * Here you can define 2 own links witch will be shown in your navbar -
  *
  * Format: url|Linktext
  *

@@ -8,7 +8,7 @@
 ///<reference path="../dts/bootbox.d.ts" />
 var DBBackupManager;
 (function (DBBackupManager) {
-    var DBBackup = (function () {
+    var DBBackup = /** @class */ (function () {
         function DBBackup(urlMySqlDumpFile, secret) {
             this.ajaxURL = "/inc/ajax/ajax_db_backup.php";
             this.secret = '';

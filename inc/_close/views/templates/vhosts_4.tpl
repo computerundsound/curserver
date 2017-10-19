@@ -1,5 +1,5 @@
 {foreach $vhosts_array as $host}
-<VirtualHost *:80>
+<VirtualHost *:{$port}>
     <Directory "{$host->getVhostDir()}">
                Options Indexes FollowSymLinks Includes ExecCGI
                AllowOverride All
