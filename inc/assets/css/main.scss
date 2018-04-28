@@ -3,31 +3,37 @@
 @import url(bootstrap_parts.css);
 
 .cuHoverPointer {
-  cursor : pointer;
+  cursor: pointer;
+}
+
+h3 {
+  font-weight:   bold;
+  margin-top:    1.3rem;
+  margin-bottom: 1rem;
 }
 
 #content_hosttable input {
-  width : 90%;
+  width: 90%;
 }
 
 #content_hosttable .table_edit_a, #content_hosttable .table_edit_b {
-  display : none;
+  display: none;
 }
 
 .navbar {
-  border-radius : 0;
-  border-top    : none;
+  border-radius: 0;
+  border-top:    none;
 }
 
 #top_impressum_short {
-  background-color : #222222;
-  color            : #DBDBDB;
-  border           : none;
-  font-size        : 10px;
-  text-align       : right;
-  padding-right    : 10px;
+  background-color: #222222;
+  color:            #DBDBDB;
+  border:           none;
+  font-size:        10px;
+  text-align:       right;
+  padding-right:    10px;
 }
 
 #hostmask_db_curserver_backup_info {
-  display : none;
+  display: none;
 }

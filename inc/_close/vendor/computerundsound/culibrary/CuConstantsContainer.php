@@ -11,7 +11,8 @@ namespace computerundsound\culibrary;
 /**
  * Class CuConstantsContainer
  */
-class CuConstantsContainer {
+class CuConstantsContainer
+{
 
     /**
      * @var
@@ -79,7 +80,9 @@ class CuConstantsContainer {
         $doc_root = $this->server_document_root;
         $dirName  = __DIR__;
 
-        $app_root = substr($dirName, strlen($doc_root));
+        $app_root = preg_replace(';[/\\\]*$;', '', $doc_root);
+
+        $app_root = substr($dirName, strlen($app_root));
 
         $app_root            = str_replace(['\\', $this->pathFromAppRootToThisDirectory,],
                                            ['/', '',],

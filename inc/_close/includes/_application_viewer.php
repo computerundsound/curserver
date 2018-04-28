@@ -17,20 +17,22 @@ $smarty_standard = new MakeView(CU_SMARTY_DIR);
 
 $standards_view_elements = [
     'application_root_HTTP' => $constant_container_coo->getAppRootHTTP(),
-    'project_name'          => 'curServer',
-    'php_self'              => $constant_container_coo->get_file_path_HTTP(),
+    'project_name' => 'curServer',
+    'php_self' => $constant_container_coo->get_file_path_HTTP(),
 ];
 
-$content = <<<HTML
+$content
+    = <<<HTML
 	<p>{$standards_view_elements['application_root_HTTP']}</p>
 HTML;
 
+$smarty_standard->assign('siteTitle', '');
 $smarty_standard->assign('standards', $standards_view_elements);
 $smarty_standard->assign('content', $content);
 
 $smarty_standard->assign('javaScriptVariables',
                          [
                              'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
-                             'secret'       => AJAX_SECRET,
-                             'standardTLD'  => STANDARD_TLD,
+                             'secret' => AJAX_SECRET,
+                             'standardTLD' => STANDARD_TLD,
                          ]);

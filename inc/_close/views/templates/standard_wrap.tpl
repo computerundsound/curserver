@@ -8,7 +8,7 @@
 	<meta name="author" content="">
 	<base href="{$standards.application_root_HTTP}"/>
 
-	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="shortcut icon" href="favicon.ico">
 
 	{if isset($javaScriptVariables)}
 
@@ -18,7 +18,7 @@
 
 	{/if}
 
-	<title>{$sitetitle}</title>
+	<title>{$siteTitle}</title>
 	<link rel="stylesheet" href="inc/assets/bower_components/font-awesome/css/font-awesome.css">
 
 	<!-- Bootstrap-CSS -->

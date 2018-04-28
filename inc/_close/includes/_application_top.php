@@ -19,6 +19,19 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../../../_config.php';
 require_once __DIR__ . '/../config.system.inc.php';
 
+/**
+ * @param $value
+ */
+function cuPrint($value) {
+
+    $value = (array)$value;
+
+    $output = '<pre>' . print_r($value, true) . '</pre>';
+
+    echo $output;
+
+}
+
 $constant_container_coo = new CuConstantsContainer('inc/_close/vendor/computerundsound/culibrary');
 
 define('CU_SMARTY_DIR',

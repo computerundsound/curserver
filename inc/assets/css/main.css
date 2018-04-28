@@ -4,23 +4,30 @@
   cursor: pointer;
 }
 
-/* line 8, main.scss */
+/* line 9, main.scss */
+h3 {
+  font-weight: bold;
+  margin-top: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+/* line 15, main.scss */
 #content_hosttable input {
   width: 90%;
 }
 
-/* line 12, main.scss */
+/* line 19, main.scss */
 #content_hosttable .table_edit_a, #content_hosttable .table_edit_b {
   display: none;
 }
 
-/* line 16, main.scss */
+/* line 23, main.scss */
 .navbar {
   border-radius: 0;
   border-top: none;
 }
 
-/* line 21, main.scss */
+/* line 28, main.scss */
 #top_impressum_short {
   background-color: #222222;
   color: #DBDBDB;
@@ -30,7 +37,7 @@
   padding-right: 10px;
 }
 
-/* line 30, main.scss */
+/* line 37, main.scss */
 #hostmask_db_curserver_backup_info {
   display: none;
 }
