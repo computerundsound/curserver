@@ -34,13 +34,13 @@ define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
  * The curserver-Tool must write into an Apache - vhost-File. (Example: \apache\conf\extra\httpd-vhosts.conf)
  * I recommend that you create new vHost.conf - File (see video for details) and include this in each http-vhost.conf
  * PHP-5.3 needs an other <DIRECTORY> - Tag-Content.
- * So I have one File for PHP-Version > 5.3 and one for 5.3 (smaler once not tested)
+ * So I have one File for PHP-Version > 5.3 and one for 5.3 (smaller once not tested)
  *
  * So the curserver-Tool will only write into this both vhost-conf-Files (I have named them "cu_vhost.txt and cu_vhost_5_3.txt"
  *
- * Because of the different Structur of the <Directory> - Tag, we need 2 vhost-Files
+ * Because of the different Structure of the <Directory> - Tag, we need 2 vhost-Files
  * (only if you have one XAMPP with php5_3 ** and ** one XAMPP with a heiger php-Version.
- * Wich struktur you need, you can see in the origin httpd-vhost.conf - File of your XAMPP-Installation.
+ * Witch strukture you need, you can see in the origin httpd-vhost.conf - File of your XAMPP-Installation.
  *
  * curserver brings to vhost-Template with it.
  *
@@ -48,7 +48,7 @@ define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
  *
  *  "Path to your vhost-File" => "templateName" => "Name of the template-File, that will be used for this vhost-File
  *
- * If you have only one XAMPP-Installation, and the php-Version is heigher than 5_3,
+ * If you have only one XAMPP-Installation, and the php-Version is higher than 5_3,
  * you can delete the second line from the array.
  * And you have to update your Path to the cu_vhost.txt (that must be included by the origin vhost File from the Apache.
  *
@@ -56,9 +56,9 @@ define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
 
 define('VHOST_FILES',
        serialize([
-	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
-	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
-	                 'e:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_4.txt'   => ['templateName' => 'vhosts_4.tpl'],
+	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
+	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
+	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_4.txt'   => ['templateName' => 'vhosts_4.tpl'],
                  ]
 
        ));
