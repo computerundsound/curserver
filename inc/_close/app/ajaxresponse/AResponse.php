@@ -56,4 +56,12 @@ abstract class AResponse
     }
 
     abstract public function showAsJson();
+
+    /**
+     * @param array $jsonArray
+     */
+    protected function sendJsonToBrowser(array $jsonArray) {
+        header('Content-Type: application/json');
+        echo json_encode($jsonArray);
+    }
 }

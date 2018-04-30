@@ -19,7 +19,8 @@
     {/if}
 
     <title>{$siteTitle}</title>
-    <link rel="stylesheet" href="inc/assets/bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet"
+          href="inc/assets/bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css">
 
     <!-- Bootstrap-CSS -->
     <link href="inc/assets/css/main.css" rel="stylesheet">
@@ -27,6 +28,12 @@
 </head>
 
 <body>
+
+<div id="cuLoader">
+    <div>Working :<i class="fas fa-spinner fa-3x fa-spin"></i></div>
+</div>
+
+<iframe id="cu-iframe" style="display:none;"></iframe>
 
 <div id="top_impressum_short">
     Jörg Wrase &copy; 2016 - <a href="http://www.cusp.de">cusp.de</a>
@@ -74,18 +81,15 @@
             <div class="clearfix">
                 <p>
                     <button class="btn btn-warning hostmask_db_curserver_backup">Make Backup From curserver-DB</button>
-                </p>
 
-                {if $checkMysqlBackupFile}
-                    <p>
-                        <button class="btn btn-warning hostmask_db_curserver_backup">Save the Backupfile into the
-                                                                                     Database
-                        </button>
-                    </p>
-                {/if}
+                </p>
 
                 <div id="hostmask_db_curserver_backup_info">
 
+                    <h3>How to do this manually:</h3>
+
+                    <p class="text-info">If this will not work, you can do that in your console. Maybe this example will
+                                         help you:</p>
 
                     <p>You can Backup all Databases with your console in your mysql/bin directory:</p>
                     <p><code>mysqldump -u root -p --all-databases > alldb.sql</code></p>
@@ -95,9 +99,19 @@
 
                     <p class="alert alert-danger">
                         After that - please restart your mysql-Server <br>
-                        Be shore that your DatabaseServer you are working on is runnig
+                        Be shore that your DatabaseServer you are working on is running.<br>
+                        Also make sure that your database is clean.
+
                     </p>
                 </div>
+
+                {if $checkMysqlBackupFile}
+                    <p>There is a db-backup. What do you want to do?</p>
+                    <button class="btn btn-primary hostmask_db_curserver_backup_download">Download the file</button>
+                    <button class="btn btn-warning hostmask_db_curserver_backup_delete">Delete the file</button>
+                    <button class="btn btn-danger hostmask_db_curserver_backup_restore">Restore into DB</button>
+                {/if}
+
             </div>
 
 
@@ -118,6 +132,7 @@
 <script type="text/javascript" src="inc/assets/bower_components/bootbox.js/bootbox.js"></script>
 <script type="text/javascript" src="inc/assets/bower_components/mustache.js/mustache.js"></script>
 <script type="text/javascript" src="inc/assets/js/_main.js"></script>
+<script type="text/javascript" src="inc/assets/js/CuLoader.js"></script>
 <script type="text/javascript" src="inc/assets/js/HostTableManager.js"></script>
 <script type="text/javascript" src="inc/assets/js/DBBackupManager.js"></script>
 <!-- endbuild -->

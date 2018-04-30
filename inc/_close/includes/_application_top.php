@@ -44,7 +44,7 @@ function cuPrint($value, $endScript = false) {
 
 }
 
-$constant_container_coo = new CuConstantsContainer('inc/_close/vendor/computerundsound/culibrary');
+$constant_container_coo = new CuConstantsContainer('/');
 
 define('CU_SMARTY_DIR',
        $constant_container_coo->getAppRootServer() .

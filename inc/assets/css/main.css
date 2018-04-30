@@ -5,29 +5,46 @@
 }
 
 /* line 9, main.scss */
+#cuLoader {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200, 200, 200, 0.7);
+  position: fixed;
+  z-index: 1000;
+  box-sizing: border-box;
+  padding: 20%;
+  display: none;
+}
+/* line 18, main.scss */
+#cuLoader div {
+  font-size: 5rem;
+  text-align: center;
+}
+
+/* line 26, main.scss */
 h3 {
   font-weight: bold;
   margin-top: 1.3rem;
   margin-bottom: 1rem;
 }
 
-/* line 15, main.scss */
+/* line 32, main.scss */
 #content_hosttable input {
   width: 90%;
 }
 
-/* line 19, main.scss */
+/* line 36, main.scss */
 #content_hosttable .table_edit_a, #content_hosttable .table_edit_b {
   display: none;
 }
 
-/* line 23, main.scss */
+/* line 40, main.scss */
 .navbar {
   border-radius: 0;
   border-top: none;
 }
 
-/* line 28, main.scss */
+/* line 45, main.scss */
 #top_impressum_short {
   background-color: #222222;
   color: #DBDBDB;
@@ -37,7 +54,7 @@ h3 {
   padding-right: 10px;
 }
 
-/* line 37, main.scss */
+/* line 54, main.scss */
 #hostmask_db_curserver_backup_info {
-  display: none;
+  margin: 1rem 0;
 }

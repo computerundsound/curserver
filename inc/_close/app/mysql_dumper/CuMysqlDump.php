@@ -18,6 +18,7 @@
 namespace app\mysql_dumper;
 
 use app\ajaxresponse\ResponseCreateDBBackup;
+use app\ajaxresponse\ResponseDeleteBackupFile;
 use computerundsound\culibrary\CuConstantsContainer;
 
 
@@ -98,9 +99,7 @@ class CuMysqlDump
 
         try {
 
-            $phpInfoContent  = $this->getPhpInfoContent();
-            $mysqlDumperPath = $this->getMysqlDumperPath($phpInfoContent);
-
+            $mysqlDumperPath = $this->getMysqlDumperPath();
 
             $ajaxResponse = $this->dumpToFile($mysqlDumperPath);
 
@@ -111,6 +110,49 @@ class CuMysqlDump
 
         return $ajaxResponse;
 
+    }
+
+    /**
+     *
+     * @return string
+     * @throws \RuntimeException
+     */
+    protected function getMysqlDumperPath() {
+
+        $pathToMysqlDump = $this->getPathFromMysqlBin('mysqldump.exe');
+
+        return $pathToMysqlDump;
+    }
+
+    /**
+     * @param string $fileName
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
+    private function getPathFromMysqlBin($fileName) {
+
+        $pattern        = ';Server Root </td><td[^>]*>([^<]*);i';
+        $phpInfoContent = $this->getPhpInfoContent();
+
+        preg_match($pattern, $phpInfoContent, $matches);
+
+        $match = (string)is_array($matches) && array_key_exists(1, $matches) ? $matches[1] : '';
+
+        $match = trim($match);
+
+        $pathToFile = $match . '/../mysql/bin/' . $fileName;
+
+        $pathToFile = self::makeGoodPath($pathToFile, '/');
+
+        if (is_string($pathToFile) === false || file_exists($pathToFile) === false) {
+
+            throw new \RuntimeException('Error searching for ' . $fileName);
+
+        }
+
+        return $pathToFile;
     }
 
     /**
@@ -128,35 +170,6 @@ class CuMysqlDump
 
 
         return $content;
-    }
-
-    /**
-     * @param string $phpInfoContent
-     *
-     * @return string
-     * @throws \RuntimeException
-     */
-    protected function getMysqlDumperPath($phpInfoContent) {
-        $pattern = ';Server Root </td><td[^>]*>([^<]*);i';
-
-        preg_match($pattern, $phpInfoContent, $matches);
-
-        $match = (string)is_array($matches) && array_key_exists(1, $matches) ? $matches[1] : '';
-
-        $match = trim($match);
-
-        $pathToMysqlDump = $match . '/../mysql/bin/mysqldump.exe';
-
-        $pathToMysqlDump = self::makeGoodPath($pathToMysqlDump, '/');
-
-        if (is_string($pathToMysqlDump) && file_exists($pathToMysqlDump) === false) {
-
-            throw new \RuntimeException('Error searching for mysqldump.exe');
-
-        }
-
-
-        return $pathToMysqlDump;
     }
 
     /**
@@ -192,6 +205,27 @@ class CuMysqlDump
     }
 
     /**
+     * @return ResponseDeleteBackupFile
+     */
+    public function deleteFile() {
+
+        if ($this->checkMysqlBackupExists()) {
+            /** @noinspection PhpUsageOfSilenceOperatorInspection */
+            $success      = @unlink($this->pathToMySqlBackupFile);
+            $errorMessage = "Can't delete Backup-file in " . $this->pathToMySqlBackupFile;
+        } else {
+            $errorMessage = 'No Backup-file found in ' . $this->pathToMySqlBackupFile;
+            $success      = false;
+        }
+
+        $ajaxResponse = new ResponseDeleteBackupFile(!$success, $errorMessage);
+
+        return $ajaxResponse;
+
+
+    }
+
+    /**
      * @return bool
      */
     public function checkMysqlBackupExists() {
@@ -202,4 +236,72 @@ class CuMysqlDump
         return $fileExists;
 
     }
+
+    public function provideFile() {
+
+        if (file_exists($this->pathToMySqlBackupFile)) {
+
+            $fileSize = filesize($this->pathToMySqlBackupFile);
+
+            header('Content-Type: application/sql');
+            header('Content-Description: File Transfer');
+            header('Content-Transfer-Encoding: text');
+            header('Content-Disposition: attachment; filename="mysqlBackup.sql"');
+            header("Content-Length: $fileSize");
+            readfile($this->pathToMySqlBackupFile);
+        }
+    }
+
+    /**
+     * @return ResponseCreateDBBackup
+     */
+    public function restoreMySqlDatabase() {
+
+        try {
+
+            $mysqlExe = $this->getMysqlPath();
+
+            $passwordElement = $this->mysqlPassword !== '' ? ' -p ' . $this->mysqlPassword : '';
+
+            $execution = $mysqlExe .
+                         ' -u ' .
+                         $this->mysqlUser .
+                         $passwordElement .
+                         ' < ' .
+                         $this->pathToMySqlBackupFile;
+
+            exec($execution, $output, $return);
+
+            $hasError = $return !== 0;
+
+            $output = (array)$output;
+
+            if (count($output) === 0) {
+                $output = ['Error execute database-restore command'];
+            }
+
+            $errorMessage = implode($output, "\n");
+            $errorMessage = trim($errorMessage);
+
+            $ajaxResponse = new ResponseCreateDBBackup($hasError, $errorMessage, $this->pathToMySqlBackupFile);
+        } catch (\Exception $exception) {
+            $ajaxResponse = new ResponseCreateDBBackup(true, 'Error restoring Database', $this->pathToMySqlBackupFile);
+        }
+
+        return $ajaxResponse;
+
+
+    }
+
+    /**
+     * @return string
+     * @throws \RuntimeException
+     */
+    private function getMysqlPath() {
+        $mysqlExe = $this->getPathFromMysqlBin('mysql.exe');
+
+        return $mysqlExe;
+
+    }
+
 }

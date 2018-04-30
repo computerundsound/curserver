@@ -63,8 +63,8 @@ class ResponseCreateDBBackup extends AResponse
 
         ];
 
-        header('Content-Type: application/json');
-        echo json_encode($jsonArray);
+        $this->sendJsonToBrowser($jsonArray);
+
     }
 
 

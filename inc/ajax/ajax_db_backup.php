@@ -8,9 +8,11 @@
  *
  */
 
-use app\ajaxresponse\ResponseCreateDBBackup;
+use app\ajaxresponse\ResponseStandard;
 use app\mysql_dumper\CuMysqlDump;
 use computerundsound\culibrary\CuRequester;
+
+ini_set('html_errors', 'off');
 
 require_once __DIR__ . '/../_close/includes/_application_top.php';
 
@@ -22,18 +24,32 @@ $pathToMysqlBackupFile = $constant_container_coo->getAppRootServer() . MYSQL_DUM
 
 $pathToMysqlBackupFile = CuMysqlDump::makeGoodPath($pathToMysqlBackupFile, '/', false);
 
+$mysqlDumper = CuMysqlDump::getInstance($constant_container_coo,
+                                        MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
+
 /** @noinspection DegradedSwitchInspection */
 switch ($action) {
     case 'CreateMysqlBackup':
 
-        $mysqlDumper  = CuMysqlDump::getInstance($constant_container_coo,
-                                                                   MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
         $ajaxResponse = $mysqlDumper->dumpMysql();
+        break;
+
+    case 'DeleteDbBackupFile':
+        $ajaxResponse = $mysqlDumper->deleteFile();
+        break;
+
+    case 'DownloadBackupFile':
+        $mysqlDumper->provideFile();
+        exit;
+        break;
+
+    case 'RestoreMySqlBackupIntoDataBase':
+        $ajaxResponse = $mysqlDumper->restoreMySqlDatabase();
         break;
 
     default:
 
-        $ajaxResponse = new ResponseCreateDBBackup(true, 'Unknown Action', '');
+        $ajaxResponse = new ResponseStandard(true, 'Unknown Action');
 
         break;
 }

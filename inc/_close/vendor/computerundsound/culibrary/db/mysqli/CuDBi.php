@@ -61,7 +61,7 @@ class CuDBi extends mysqli implements CuDB
                 /** @noinspection PhpUsageOfSilenceOperatorInspection */
                 self::$instance = @new static($serverName, $username, $password, $dbName, $port, $socket);
 
-                if (!self::$instance || (self::$instance instanceof self) || self::$instance->connect_errno > 0) {
+                if (!self::$instance || ((self::$instance instanceof self) === false) || self::$instance->connect_errno > 0) {
 
                     $errorMessage = 'Error while connecting to Database';
 
