@@ -13,12 +13,12 @@
     "vendor-dir": "inc/_close/vendor/"
   },
   "require": {
-    "computerundsound/cuLibrary": "^2",
+    "computerundsound/cuLibrary": "^3",
     "smarty/smarty": "v3.1.29"
   },
   "autoload": {
-    "classmap": [
-      "inc/_close/app/"
-    ]
+    "psr-4": {
+      "app\\": "inc/_close/app/"
+    }
   }
 }

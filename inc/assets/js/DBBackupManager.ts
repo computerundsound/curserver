@@ -17,20 +17,17 @@ module DBBackupManager {
     class DBBackup {
 
         ajaxURL: string = "/inc/ajax/ajax_db_backup.php";
-        secret: string = '';
-        sendData: SendData = {
-            action: "dbBackupCurServer"
-        };
+        secret: string  = '';
+
         urlMySqlDumpFile: string = "";
 
         constructor(urlMySqlDumpFile, secret) {
 
             let dbBackup = this;
 
-            this.secret = secret;
+            this.secret           = secret;
             this.urlMySqlDumpFile = urlMySqlDumpFile;
 
-            console.log("Start DBBackupManager");
 
             $(".hostmask_db_curserver_backup").on("click", function () {
 
@@ -43,52 +40,37 @@ module DBBackupManager {
         }
 
         private _createBackup(all: boolean = false) {
-            let sendDataLocal: SendData = this.sendData,
-                alertMessage: string,
-                dbBackup                = this;
 
+            let sendDataLocal: SendData = {
+                action: "CreateMysqlBackup"
+            };
 
-            console.log(this.ajaxURL);
-
-            alertMessage = "<h3>Download curServer - Database</h3>";
-
-            if (all) {
-                sendDataLocal.action = 'dbBackupAll';
-                alertMessage = "<h3>Download all Database</h3>";
-            }
-
-
-            $.post(this.ajaxURL, sendDataLocal, function (data) {
+            $.post(this.ajaxURL, sendDataLocal, function (data: AjaxResponseCreateMysqlBackup) {
 
                 console.log(data);
 
-                if (data.success === true) {
-                    alertMessage += "<p>DB Backup created. <a href='"
-                                    + dbBackup.urlMySqlDumpFile
-                                    + "'>Download " + dbBackup.urlMySqlDumpFile + "</a></p>";
-                } else {
+                try {
 
-                    alertMessage += "<p>Error while creating MySQL-Dump-File:</p>" +
-                                    "<h4>Are you shure, you have mysqldump.exe in your PATH-Variable?</h4>" +
-                                    "<p>Messages from System:</p>" +
-                                    "<dl>" +
-                                    "<dt>Action</dt><dl>" + data.action + "</dl>" +
-                                    "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
-                                    "<dt>Return</dt><dl>" + data.JSON.return + "</dl>" +
-                                    "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
-                                    "<dt>ExecString</dt><dl>" + data.JSON.exec_str + "</dl>" +
-                                    "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
-                                    "</dl>";
+                    if (data.hasError === false) {
+
+                        bootbox.alert('<p>The file has been created in <div class="form-group"><input class="form-control input-alert-url" value="' +
+                                      data.fileUrl +
+                                      '" readonly /></div></p>');
+
+                    } else {
+                        bootbox.alert('<p class="warning">Error creating Backupfile: </p><p>' +
+                                      data.errorMessage +
+                                      '</p>')
+                    }
+                } catch (exception) {
+
+                    alert(exception);
+                    console.log(exception);
 
                 }
 
-                // console.log(data);
-                bootbox.alert(alertMessage, function () {
-                    $.post(dbBackup.ajaxURL, {action: "deleteMySQLDumpFile"});
-                });
-
             }, 'JSON').fail(function (data) {
-                alert("Error");
+                alert("Error getting AJAXResponse");
                 console.log(data)
             });
 
@@ -96,7 +78,7 @@ module DBBackupManager {
     }
 
     let ajaxURL = $("[name=javascriptVariables][data-name=mysqlFileURL]").attr("data-value");
-    let secret = $("[name=javascriptVariables][data-name=secret]").attr("data-value");
+    let secret  = $("[name=javascriptVariables][data-name=secret]").attr("data-value");
 
     //noinspection JSUnusedLocalSymbols
     let dBBackup = new DBBackup(ajaxURL, secret);

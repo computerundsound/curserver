@@ -3,7 +3,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.20 at 02:47 MEZ
+ * LastModified: 2017.02.05 at 06:13 MEZ
  */
 
 namespace computerundsound\culibrary\db\mysqli;
@@ -12,8 +12,6 @@ use computerundsound\culibrary\db\CuDB;
 use computerundsound\culibrary\db\CuDBResult;
 use mysqli;
 
-/** @noinspection SingletonFactoryPatternViolationInspection */
-
 /**
  * Class CuDBi
  */
@@ -21,25 +19,8 @@ class CuDBi extends mysqli implements CuDB
 {
 
     protected static $instance;
-    /** @var  CuDBResult */
+    /** @var  CuDBiResult */
     protected static $cuDBiResult;
-
-
-    /** @noinspection PhpHierarchyChecksInspection
-     * @param string $host
-     * @param string $username
-     * @param string $password
-     * @param string $dbName
-     * @param int    $port
-     * @param string $socket
-     */
-    public function __construct($host, $username, $password, $dbName, $port, $socket) {
-
-        if (self::$instance === null) {
-            parent::__construct($host, $username, $password, $dbName, $port, $socket);
-            self::$instance = $this;
-        }
-    }
 
 
     /**
@@ -51,6 +32,8 @@ class CuDBi extends mysqli implements CuDB
      * @param string      $port
      * @param string      $socket
      *
+     * @return mysqli | null
+     * @throws \Exception
      */
     public static function getInstance(
         CuDBiResult $cuDBiResult,
@@ -73,12 +56,122 @@ class CuDBi extends mysqli implements CuDB
         }
 
         if (self::$instance === null) {
-            self::$instance = new static($serverName, $username, $password, $dbName, $port, $socket);
+
+            try {
+                /** @noinspection PhpUsageOfSilenceOperatorInspection */
+                self::$instance = @new static($serverName, $username, $password, $dbName, $port, $socket);
+
+                if (!self::$instance || (self::$instance instanceof self) || self::$instance->connect_errno > 0) {
+
+                    $errorMessage = 'Error while connecting to Database';
+
+                    /** @noinspection NotOptimalIfConditionsInspection */
+                    if (self::$instance instanceof self) {
+                        $errorMessage = self::$instance->connect_error;
+                    }
+
+                    throw new \RuntimeException($errorMessage);
+
+                }
+
+            } catch (\Exception $e) {
+                throw new \RuntimeException($e->getMessage());
+            }
         }
 
         return self::$instance;
     }
 
+    /**
+     * @param string $tableName
+     * @param array  $assocDataArray
+     *
+     * @return CuDBiResult
+     */
+    public function cuInsert($tableName, array $assocDataArray) {
+
+        $insert_string = '';
+        foreach ($assocDataArray as $key => $val) {
+            $val           = $this->real_escape_string($val);
+            $insert_string .= ' ' . $key . '= "' . $this->real_escape_string($val) . '", ';
+        }
+
+        $insert_string = substr($insert_string, 0, -2);
+        /** @noinspection SqlNoDataSourceInspection */
+        $q   = 'INSERT INTO `%s` SET %s;';
+        $q   = sprintf($q, $tableName, $insert_string);
+        $ret = $this->cuQuery($q);
+
+        return $ret;
+    }
+
+    /**
+     * @param $query
+     *
+     * @return CuDBiResult
+     */
+    public function cuQuery($query) {
+
+        $result = $this->query($query);
+        $id     = $this->insert_id;
+
+        self::$cuDBiResult->setResult($result);
+        self::$cuDBiResult->setLastInsertId($id);
+        self::$cuDBiResult->setQuery($query);
+
+        return self::$cuDBiResult;
+    }
+
+    /**
+     * @param       $tableName
+     * @param array $assocDataArray
+     * @param       $idName
+     * @param       $id
+     *
+     * @return CuDBResult
+     */
+    public function updateOneDataSet($tableName, array $assocDataArray, $idName, $id) {
+
+        $where = "$idName = '$id' ";
+        $ret   = $this->cuUpdate($tableName, $assocDataArray, $where);
+
+        return $ret;
+    }
+
+    /**
+     * @param       $tableName
+     * @param array $assocDataArray
+     * @param       $where
+     *
+     * @return CuDBResult
+     */
+    public function cuUpdate($tableName, array $assocDataArray, $where) {
+
+        $updateStr = '';
+        $where     = ' WHERE ' . $where;
+
+        foreach ($assocDataArray as $key => $val) {
+            $val       = $this->real_escape_string($val);
+            $updateStr .= ' ' . $key . ' = "' . $val . '", ';
+        }
+
+        $updateStr = substr($updateStr, 0, -2);
+        $q         = 'UPDATE ' . $tableName . ' SET ' . $updateStr . $where;
+        $ret       = $this->cuQuery($q);
+
+        return $ret;
+    }
+
+    /**
+     * @param $tableName
+     * @param $idName
+     * @param $idValue
+     */
+    public function deleteOneDataSet($tableName, $idName, $idValue) {
+
+        $where = " $idName='$idValue' ";
+        $this->cuDelete($tableName, $where);
+    }
 
     /**
      * @param $tableName
@@ -101,108 +194,6 @@ class CuDBi extends mysqli implements CuDB
         return $result;
     }
 
-
-    /**
-     * @param $query
-     *
-     * @return CuDBResult
-     */
-    public function cuQuery($query) {
-
-        $result = $this->query($query);
-        $id     = mysqli_insert_id(self::$instance);
-
-        self::$cuDBiResult->setResult($result);
-        self::$cuDBiResult->setLastInsertId($id);
-        self::$cuDBiResult->setQuery($query);
-
-        return self::$cuDBiResult;
-    }
-
-
-    /**
-     * @param string $tableName
-     * @param array  $assocDataArray
-     *
-     * @return CuDBResult
-     */
-    public function cuInsert($tableName, array $assocDataArray) {
-
-        $insert_string = '';
-        foreach ($assocDataArray as $key => $val) {
-            $val           = $this->real_escape_string($val);
-            $insert_string .= ' ' . $key . '= "' . $this->real_escape_string($val) . '", ';
-        }
-
-        $insert_string = substr($insert_string, 0, -2);
-        /** @noinspection SqlNoDataSourceInspection */
-        $q   = 'INSERT INTO `%s` SET %s;';
-        $q   = sprintf($q, $tableName, $insert_string);
-        $ret = $this->cuQuery($q);
-
-        return $ret;
-    }
-
-
-    /**
-     * @param       $tableName
-     * @param array $assocDataArray
-     * @param       $idName
-     * @param       $id
-     *
-     * @return CuDBResult
-     */
-    public function updateOneDataSet($tableName, array $assocDataArray, $idName, $id) {
-
-        $where = "$idName = '$id' ";
-        $ret   = $this->cuUpdate($tableName, $assocDataArray, $where);
-
-        return $ret;
-    }
-
-
-    /**
-     * @param string $tableName
-     * @param string $idName
-     * @param        $idValue
-     *
-     * @return
-     */
-    public function deleteOneDataSet($tableName, $idName, $idValue) {
-
-        $where      = " $idName='$idValue' ";
-        $cuDBResult = $this->cuDelete($tableName, $where);
-
-        return $cuDBResult;
-
-    }
-
-
-    /**
-     * @param string $tableName
-     * @param array  $assocDataArray
-     * @param        $where
-     *
-     * @return CuDBResult
-     */
-    public function cuUpdate($tableName, array $assocDataArray, $where) {
-
-        $updateStr = '';
-        $where     = ' WHERE ' . $where;
-
-        foreach ($assocDataArray as $key => $val) {
-            $val       = $this->real_escape_string($val);
-            $updateStr .= ' ' . $key . ' = "' . $val . '", ';
-        }
-
-        $updateStr = substr($updateStr, 0, -2);
-        $q         = 'UPDATE ' . $tableName . ' SET ' . $updateStr . $where;
-        $ret       = $this->cuQuery($q);
-
-        return $ret;
-    }
-
-
     /**
      * @param $tableName
      * @param $fieldName
@@ -222,118 +213,6 @@ class CuDBi extends mysqli implements CuDB
 
         return $dataSetArray;
     }
-
-    /**
-     * @param string $tableName
-     * @param string $where
-     *
-     * @return bool
-     */
-    public function dataSetExist($tableName, $where = '') {
-
-        $dataSets = $this->selectAsArray($tableName, $where);
-
-        return (count($dataSets) > 0);
-
-    }
-
-
-    /**
-     * @param string $tableName
-     *
-     * @param string $where
-     *
-     * @return int
-     */
-    public function getQuantityOfDataSets($tableName, $where = '') {
-
-        $q                = "SELECT * FROM `%s` $where;";
-        $q                = sprintf($q, $tableName);
-        $result           = $this->query($q);
-        $data_sets_counts = $result->num_rows;
-
-        return $data_sets_counts;
-    }
-
-
-    /**
-     * @param $tableName
-     *
-     * @return array
-     */
-    public function getColNamesFromTable($tableName) {
-
-        $sql        = 'DESCRIBE ' . $tableName;
-        $result     = $this->query($sql);
-        $field_name = [];
-        $data_array = [];
-        while ($data = $result->fetch_assoc()) {
-            $data_array[] = $data;
-        }
-
-        foreach ($data_array as $val) {
-            $field_name[] = $val['Field'];
-        }
-
-        return $field_name;
-    }
-
-
-    /**
-     *
-     */
-    public function closeConnection() {
-
-        $this->close();
-    }
-
-
-    /**
-     * @param $tableName
-     * @param $fieldName
-     *
-     * @return mixed;
-     */
-    public function getFieldInfo($tableName, $fieldName) {
-
-        $query  = 'SELECT `%s` FROM `%s`;';
-        $query  = sprintf($query, $fieldName, $tableName);
-        $result = $this->query($query);
-        $info   = $result->fetch_field_direct(0);
-
-        return $info;
-    }
-
-
-    /**
-     * @param $tabName
-     *
-     */
-    public function truncateTAB($tabName) {
-
-        $q          = 'TRUNCATE ' . $tabName;
-        $cuDBResult = $this->cuQuery($q);
-
-        return $cuDBResult;
-    }
-
-
-    /**
-     * @param       $tab_name
-     * @param array $data
-     * @param       $id
-     * @param       $id_name
-     *
-     * @return CuDBResult
-     */
-    public function update_one_data_set($tab_name, array $data, $id, $id_name) {
-
-        $where = "$id_name = '$id' ";
-        $ret   = $this->cuUpdate($tab_name, $data, $where);
-
-        return $ret;
-    }
-
 
     /**
      * @param string $tableName
@@ -362,6 +241,7 @@ class CuDBi extends mysqli implements CuDB
             $limit = ' LIMIT ' . $limit;
         }
 
+        /** @noinspection SqlNoDataSourceInspection */
         $q      = 'SELECT * FROM `%s` %s %s %s;';
         $q      = sprintf($q, $tableName, $where, $order, $limit);
         $result = $this->query($q);
@@ -375,6 +255,94 @@ class CuDBi extends mysqli implements CuDB
         return $data_array;
     }
 
+    /**
+     * @param string $tableName
+     *
+     * @param string $where
+     *
+     * @return int
+     */
+    public function getQuantityOfDataSets($tableName, $where = '') {
+
+        $q                = "SELECT * FROM `%s` $where;";
+        $q                = sprintf($q, $tableName);
+        $result           = $this->query($q);
+        $data_sets_counts = $result->num_rows;
+
+        return $data_sets_counts;
+    }
+
+    /**
+     * @param $tableName
+     *
+     * @return array
+     */
+    public function getColNamesFromTable($tableName) {
+
+        $sql        = 'DESCRIBE ' . $tableName;
+        $result     = $this->query($sql);
+        $field_name = [];
+        $data_array = [];
+        while ($data = $result->fetch_assoc()) {
+            $data_array[] = $data;
+        }
+
+        foreach ($data_array as $val) {
+            $field_name[] = $val['Field'];
+        }
+
+        return $field_name;
+    }
+
+    /**
+     *
+     */
+    public function closeConnection() {
+
+        $this->close();
+    }
+
+    /**
+     * @param $tableName
+     * @param $fieldName
+     *
+     * @return object;
+     */
+    public function getFieldInfo($tableName, $fieldName) {
+
+        /** @noinspection SqlNoDataSourceInspection */
+        $query  = 'SELECT `%s` FROM `%s`;';
+        $query  = sprintf($query, $fieldName, $tableName);
+        $result = $this->query($query);
+        $info   = $result->fetch_field_direct(0);
+
+        return $info;
+    }
+
+    /**
+     * @param $tabName
+     */
+    public function truncateTAB($tabName) {
+
+        $q = 'TRUNCATE ' . $tabName;
+        $this->query($q);
+    }
+
+    /**
+     * @param       $tab_name
+     * @param array $data
+     * @param       $id
+     * @param       $id_name
+     *
+     * @return CuDBResult
+     */
+    public function update_one_data_set($tab_name, array $data, $id, $id_name) {
+
+        $where = "$id_name = '$id' ";
+        $ret   = $this->cuUpdate($tab_name, $data, $where);
+
+        return $ret;
+    }
 
     protected function __clone() {
     }

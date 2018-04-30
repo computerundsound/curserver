@@ -12,14 +12,10 @@ var DBBackupManager;
         function DBBackup(urlMySqlDumpFile, secret) {
             this.ajaxURL = "/inc/ajax/ajax_db_backup.php";
             this.secret = '';
-            this.sendData = {
-                action: "dbBackupCurServer"
-            };
             this.urlMySqlDumpFile = "";
             var dbBackup = this;
             this.secret = secret;
             this.urlMySqlDumpFile = urlMySqlDumpFile;
-            console.log("Start DBBackupManager");
             $(".hostmask_db_curserver_backup").on("click", function () {
                 $('#hostmask_db_curserver_backup_info').show();
                 dbBackup._createBackup();
@@ -27,39 +23,29 @@ var DBBackupManager;
         }
         DBBackup.prototype._createBackup = function (all) {
             if (all === void 0) { all = false; }
-            var sendDataLocal = this.sendData, alertMessage, dbBackup = this;
-            console.log(this.ajaxURL);
-            alertMessage = "<h3>Download curServer - Database</h3>";
-            if (all) {
-                sendDataLocal.action = 'dbBackupAll';
-                alertMessage = "<h3>Download all Database</h3>";
-            }
+            var sendDataLocal = {
+                action: "CreateMysqlBackup"
+            };
             $.post(this.ajaxURL, sendDataLocal, function (data) {
                 console.log(data);
-                if (data.success === true) {
-                    alertMessage += "<p>DB Backup created. <a href='"
-                        + dbBackup.urlMySqlDumpFile
-                        + "'>Download " + dbBackup.urlMySqlDumpFile + "</a></p>";
+                try {
+                    if (data.hasError === false) {
+                        bootbox.alert('<p>The file has been created in <div class="form-group"><input class="form-control input-alert-url" value="' +
+                            data.fileUrl +
+                            '" readonly /></div></p>');
+                    }
+                    else {
+                        bootbox.alert('<p class="warning">Error creating Backupfile: </p><p>' +
+                            data.errorMessage +
+                            '</p>');
+                    }
                 }
-                else {
-                    alertMessage += "<p>Error while creating MySQL-Dump-File:</p>" +
-                        "<h4>Are you shure, you have mysqldump.exe in your PATH-Variable?</h4>" +
-                        "<p>Messages from System:</p>" +
-                        "<dl>" +
-                        "<dt>Action</dt><dl>" + data.action + "</dl>" +
-                        "<dt>MysqlDumpFilePath</dt><dl>" + data.mysqlDumpFilePath + "</dl>" +
-                        "<dt>Return</dt><dl>" + data.JSON["return"] + "</dl>" +
-                        "<dt>Result</dt><dl>" + data.JSON.result + "</dl>" +
-                        "<dt>ExecString</dt><dl>" + data.JSON.exec_str + "</dl>" +
-                        "<dt>CMD Output</dt><dl>" + data.JSON.output.join('<br>') + "</dl>" +
-                        "</dl>";
+                catch (exception) {
+                    alert(exception);
+                    console.log(exception);
                 }
-                // console.log(data);
-                bootbox.alert(alertMessage, function () {
-                    $.post(dbBackup.ajaxURL, { action: "deleteMySQLDumpFile" });
-                });
             }, 'JSON').fail(function (data) {
-                alert("Error");
+                alert("Error getting AJAXResponse");
                 console.log(data);
             });
         };

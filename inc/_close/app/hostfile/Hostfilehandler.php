@@ -12,19 +12,20 @@
 /**
  * Class Hostfilehandler
  *
- * @package hostfile
+ * @package app\hostfile
  */
 
-namespace hostfile;
+namespace app\hostfile;
 
-use computerundsound\culibrary\CuNet;
+use computerundsound\culibrary\CuRequester;
 
 /**
  * Class Hostfilehandler
  *
- * @package hostfile
+ * @package app\hostfile
  */
-class Hostfilehandler {
+class Hostfilehandler
+{
 
     private static $hostfile_separator = '# ************ Next content is from curServer ************';
     private        $path_to_hostfile;
@@ -43,6 +44,11 @@ class Hostfilehandler {
         $this->build_host_prefix();
     }
 
+    private function build_host_prefix() {
+        $host_content                = file_get_contents($this->path_to_hostfile);
+        $host_content_elements_array = explode(self::$hostfile_separator, $host_content);
+        $this->prefix                = $host_content_elements_array[0];
+    }
 
     /**
      * @param      $p_prefix
@@ -56,7 +62,7 @@ class Hostfilehandler {
             if ($p_get_id === false && $field_name === 'host_id') {
                 continue;
             }
-            $val = CuNet::get_post($p_prefix . $field_name);
+            $val = CuRequester::getGetPost($p_prefix . $field_name);
             if ('vhost_dir' === $field_name || 'vhost_htdocs' === $field_name) {
                 $val = str_replace('\\', '/', $val);
             }
@@ -72,7 +78,6 @@ class Hostfilehandler {
         return $data_array;
     }
 
-
     /**
      * @return mixed
      */
@@ -80,18 +85,9 @@ class Hostfilehandler {
         return $this->path_to_hostfile;
     }
 
-
-    /**
-     * @param \hostfile\Host $host_coo
-     */
-    public function add_host(Host $host_coo) {
-        $this->hosts_array[] = $host_coo;
-    }
-
-
     public function build_host_content() {
         $host_content = $this->prefix;
-        $host_content .= self::$hostfile_separator . PHP_EOL  . PHP_EOL;
+        $host_content .= self::$hostfile_separator . PHP_EOL . PHP_EOL;
 
         /** @var Host $host */
         foreach ($this->hosts_array as $host) {
@@ -117,15 +113,8 @@ class Hostfilehandler {
         return $this->host_file_content;
     }
 
-
-    private function build_host_prefix() {
-        $host_content                = file_get_contents($this->path_to_hostfile);
-        $host_content_elements_array = explode(self::$hostfile_separator, $host_content);
-        $this->prefix                = $host_content_elements_array[0];
-    }
-
     /**
-     * @param \hostfile\Hostlist $host_list_coo
+     * @param \app\hostfile\Hostlist $host_list_coo
      */
     public function add_host_list(Hostlist $host_list_coo) {
 
@@ -136,5 +125,12 @@ class Hostfilehandler {
             $this->add_host($host);
         }
 
+    }
+
+    /**
+     * @param \app\hostfile\Host $host_coo
+     */
+    public function add_host(Host $host_coo) {
+        $this->hosts_array[] = $host_coo;
     }
 }

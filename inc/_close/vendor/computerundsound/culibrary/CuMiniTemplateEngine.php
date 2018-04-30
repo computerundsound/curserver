@@ -3,7 +3,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.19 at 01:47 MEZ
+ * LastModified: 2017.02.04 at 23:47 MEZ
  */
 
 namespace computerundsound\culibrary;
@@ -30,7 +30,6 @@ class CuMiniTemplateEngine
     public function __construct($templateFolder) {
 
         $this->setTemplateFolder($templateFolder);
-
     }
 
 
@@ -59,6 +58,18 @@ class CuMiniTemplateEngine
     }
 
     /**
+     * @param $template
+     *
+     * @throws \DomainException
+     */
+    public function display($template) {
+
+        $content = $this->fetch($template);
+
+        echo $content;
+    }
+
+    /**
      * @param string $template
      * @param bool   $clearAssignments
      *
@@ -75,7 +86,13 @@ class CuMiniTemplateEngine
             throw new \DomainException('Template not found in ' . $template);
         }
 
-        $content = $this->sendToBrowser($template);
+        ob_start();
+
+        /** @noinspection PhpIncludeInspection */
+        include $template;
+
+        $content = ob_get_contents();
+        ob_end_clean();
 
         if ($clearAssignments) {
             $this->variablesForTemplate = [];
@@ -85,17 +102,19 @@ class CuMiniTemplateEngine
     }
 
     /**
-     * @param $template
-     *
-     * @throws \DomainException
+     * @param      $name
+     * @param bool $html
      */
-    public function display($template) {
+    public function showValue($name, $html = true) {
 
-        $content = $this->fetch($template);
+        $value = $this->getValue($name);
 
-        echo $content;
+        if ($html) {
+            $value = $this->getAsHtml($value);
+        }
+
+        echo $value;
     }
-
 
     /**
      * @param $name
@@ -113,37 +132,21 @@ class CuMiniTemplateEngine
         return $returnValue;
     }
 
-
     /**
-     * @param      $name
-     * @param bool $html
-     */
-    public function showValue($name, $html = false) {
-
-        $value = $this->getValue($name);
-
-        if ($html) {
-            $value = htmlspecialchars($html, ENT_COMPAT, 'utf-8');
-        }
-
-        echo $value;
-    }
-
-    /**
-     * @param string $template
+     * @param string $value
      *
      * @return string
      */
-    protected function sendToBrowser($template) {
+    private function getAsHtml($value) {
 
-        ob_start();
+        return htmlspecialchars($value, ENT_COMPAT, 'utf-8');
+    }
 
-        /** @noinspection PhpIncludeInspection */
-        include $template;
+    /**
+     * @param string $value
+     */
+    public function showAsHtml($value) {
 
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        return $content;
+        echo $this->getAsHtml($value);
     }
 }

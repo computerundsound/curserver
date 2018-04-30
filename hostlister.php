@@ -9,20 +9,20 @@
  * Filename: index.php
  */
 
-use computerundsound\culibrary\CuNet;
-use hostfile\Host;
-use hostfile\Hostfilehandler;
-use hostfile\Hostlist;
-use hostfile\SortHandler;
-use hostfile\VHostFileHandler;
-use viewer\MakeView;
+use app\hostfile\Host;
+use app\hostfile\Hostfilehandler;
+use app\hostfile\Hostlist;
+use app\hostfile\SortHandler;
+use app\hostfile\VHostFileHandler;
+use app\viewer\MakeView;
+use computerundsound\culibrary\CuRequester;
 
 include_once __DIR__ . '/inc/_close/includes/_application_viewer.php';
 
 $smarty_standard->assign('siteTitle', 'VHost Lister by cusp.de - Jörg Wrase');
 
-$action    = CuNet::get_post('action');
-$action_id = CuNet::get_post('action_id');
+$action    = CuRequester::getGetPost('action');
+$action_id = CuRequester::getGetPost('action_id');
 
 if ($action === 'phpinfo') {
     phpinfo();
@@ -40,6 +40,15 @@ $smarty_standard->assign('prefix', $prefix);
 $hostfile_content = '';
 
 $update_msg = false;
+
+$mysqlDumper = \app\mysql_dumper\CuMysqlDump::getInstance($constant_container_coo,
+                                                          MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
+
+
+$checkMysqlBackupFile = $mysqlDumper->checkMysqlBackupExists();
+
+$smarty_standard->assign('checkMysqlBackupFile', $checkMysqlBackupFile);
+
 
 /* On Update */
 
@@ -83,7 +92,7 @@ $server_multi_array = $dbi_coo->selectAsArray('hosts',
 
 $smarty_vhost_coo = new MakeView(CU_SMARTY_DIR);
 
-$vHostFileList = new \hostfile\VHostFileList();
+$vHostFileList = new \app\hostfile\VHostFileList();
 $host_list_coo = new Hostlist();
 
 foreach ($server_multi_array as $server_array) {

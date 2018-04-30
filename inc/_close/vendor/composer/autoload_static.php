@@ -11,12 +11,20 @@ class ComposerStaticInit35fbdecb22e794c46887aa55c8001bae
         array (
             'computerundsound\\culibrary\\' => 27,
         ),
+        'a' => 
+        array (
+            'app\\' => 4,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'computerundsound\\culibrary\\' => 
         array (
             0 => __DIR__ . '/..' . '/computerundsound/culibrary',
+        ),
+        'app\\' => 
+        array (
+            0 => __DIR__ . '/../../../..' . '/inc/_close/app',
         ),
     );
 
@@ -187,14 +195,6 @@ class ComposerStaticInit35fbdecb22e794c46887aa55c8001bae
         'TPC_yyToken' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_configfileparser.php',
         'TP_yyStackEntry' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
         'TP_yyToken' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
-        'hostfile\\Host' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/Host.php',
-        'hostfile\\Hostfilehandler' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/Hostfilehandler.php',
-        'hostfile\\Hostlist' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/Hostlist.php',
-        'hostfile\\SortHandler' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/SortHandler.php',
-        'hostfile\\VHostFileHandler' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/VHostFileHandler.php',
-        'hostfile\\VHostFileList' => __DIR__ . '/../../../..' . '/inc/_close/app/hostfile/VHostFileList.php',
-        'system\\Confighandler' => __DIR__ . '/../../../..' . '/inc/_close/app/system/Confighandler.php',
-        'viewer\\MakeView' => __DIR__ . '/../../../..' . '/inc/_close/app/viewer/MakeView.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

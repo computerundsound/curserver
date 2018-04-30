@@ -3,12 +3,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.20 at 02:54 MEZ
- */
-
-/**
- * @author    Jörg Wrase
- * @copyright 2011
+ * LastModified: 2017.02.05 at 06:13 MEZ
  */
 
 namespace computerundsound\culibrary\db\pdo;
@@ -77,6 +72,33 @@ class CuDBpdo extends PDO implements CuDB
         return self::$instance;
     }
 
+    /**
+     * @param $tabName
+     */
+    public function truncateTAB($tabName) {
+
+        $q = 'TRUNCATE ' . $tabName;
+        $this->query($q);
+    }
+
+    /**
+     * @param $tableName
+     * @param $idName
+     * @param $idValue
+     */
+    public function deleteOneDataSet($tableName, $idName, $idValue) {
+
+        $where = " $idValue='$idName' ";
+        $this->cuDelete($tableName, $where);
+    }
+
+    /****************************************************************************************/
+    /****************************************************************************************/
+    /****************************************************************************************/
+    /****************************************************************************************/
+    /****************************************************************************************/
+    /****************************************************************************************/
+    /****************************************************************************************/
 
     /**
      * @param $tableName
@@ -91,51 +113,13 @@ class CuDBpdo extends PDO implements CuDB
         $query = "DELETE FROM $tableName WHERE $where";
         $stmt  = $this->prepare($query);
 
-        $this->exec($stmt);
+        $stmt->execute();
 
         self::$cuDBpdoResult->setQuery($query);
         self::$cuDBpdoResult->setPdoStatement($stmt);
 
         return self::$cuDBpdoResult;
     }
-
-
-    /**
-     * @param $tabName
-     *
-     * @return \computerundsound\culibrary\db\CuDBResult|\computerundsound\culibrary\db\mysqli\CuDBiResult
-     */
-    public function truncateTAB($tabName) {
-
-        $q          = 'TRUNCATE ' . $tabName;
-        $cuDBResult = $this->cuQuery($q);
-
-        return $cuDBResult;
-    }
-
-    /****************************************************************************************/
-    /****************************************************************************************/
-    /****************************************************************************************/
-    /****************************************************************************************/
-    /****************************************************************************************/
-    /****************************************************************************************/
-    /****************************************************************************************/
-
-    /**
-     * @param $tableName
-     * @param $idName
-     * @param $idValue
-     *
-     * @return \computerundsound\culibrary\db\CuDBResult|\computerundsound\culibrary\db\mysqli\CuDBiResult
-     */
-    public function deleteOneDataSet($tableName, $idName, $idValue) {
-
-        $where      = " $idValue='$idName' ";
-        $cuDBResult = $this->cuDelete($tableName, $where);
-
-        return $cuDBResult;
-    }
-
 
     /**
      * @param $tableName
@@ -184,49 +168,12 @@ class CuDBpdo extends PDO implements CuDB
 
         $query = "SELECT * FROM `$tableName` $where $order $limit";
         $stmt  = $this->prepare($query);
-
-        $this->exec($stmt);
+        $stmt->execute();
 
         $resultArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $resultArray;
     }
-
-    //
-    //	/**
-    //	 * @param $string
-    //	 *
-    //	 * @return string
-    //	 */
-    //	public function real_escape($string) {
-    //		if($string) {
-    //			$string = $this->dbiConObj->real_escape_string($string);
-    //		}
-    //
-    //		return $string;
-    //	}
-    //
-    //
-
-    /**
-     * @param $query
-     *
-     * @return CuDBResult
-     */
-    public function cuQuery($query) {
-
-        $statement = $this->query($query);
-        $id        = (int)$this->lastInsertId();
-
-        if ($statement) {
-            self::$cuDBpdoResult->setPdoStatement($statement);
-        }
-
-        self::$cuDBpdoResult->setLastInsertId($id);
-
-        return self::$cuDBpdoResult;
-    }
-
 
     /**
      * @param       $tableName
@@ -235,7 +182,6 @@ class CuDBpdo extends PDO implements CuDB
      * @param       $fieldValue
      *
      * @return \PDOStatement
-     * @throws \InvalidArgumentException
      */
     public function updateOneDataSet($tableName, array $data, $fieldName, $fieldValue) {
 
@@ -246,14 +192,12 @@ class CuDBpdo extends PDO implements CuDB
         return $statement;
     }
 
-
     /**
      * @param       $tableName
      * @param array $dataArray
      * @param       $where
      *
      * @return \PDOStatement
-     * @throws \InvalidArgumentException
      */
     public function cuUpdate($tableName, array $dataArray, $where = '') {
 
@@ -268,148 +212,6 @@ class CuDBpdo extends PDO implements CuDB
 
         return $statement;
     }
-
-
-    /**
-     * @param $tableName
-     * @param $fieldName
-     * @param $fieldValue
-     *
-     * @return array
-     */
-    public function selectOneDataEasySet($tableName, $fieldName, $fieldValue) {
-
-        $where         = " $fieldName='$fieldValue' ";
-        $dataSetsArray = $this->selectAsArray($tableName, $where);
-
-        $dataSetArray = [];
-        if (array_key_exists(0, $dataSetsArray)) {
-            $dataSetArray = $dataSetsArray[0];
-        }
-
-        return $dataSetArray;
-    }
-
-    /**
-     * @param string $tableName
-     * @param string $where
-     *
-     * @return bool
-     */
-    public function dataSetExist($tableName, $where = '') {
-
-        $dataSets = $this->selectAsArray($tableName, $where);
-
-        return (count($dataSets) > 0);
-
-    }
-
-
-    /**
-     * @param $tableName
-     * @param $where
-     * @param $order
-     * @param $limit
-     *
-     * @return CuDBResult
-     */
-    public function selectAsCuResult($tableName, $where = '', $order = '', $limit = '') {
-
-        $where = trim($where);
-        $order = trim($order);
-        $limit = trim($limit);
-        if ($where !== '') {
-            $where = ' WHERE ' . $where;
-        }
-        if ($order !== '') {
-            $order = ' ORDER BY ' . $order;
-        }
-        if ($limit !== '') {
-            $limit = ' LIMIT ' . $limit;
-        }
-
-        $q = "SELECT * FROM `$tableName` $where $order $limit";
-
-        $cuResult = $this->cuQuery($q);
-
-        return $cuResult;
-    }
-
-
-    /**
-     * @param       $tableName
-     * @param array $dataArray
-     *
-     * @return \PDOStatement
-     * @throws \InvalidArgumentException
-     */
-    public function cuInsert($tableName, array $dataArray) {
-
-        $insert_string = "INSERT INTO $tableName SET ";
-
-        $statement = $this->buildQueryStringAndBindParameters($insert_string, $dataArray);
-        $statement->execute();
-
-        return $statement;
-    }
-
-
-    /**
-     * @param        $tableName
-     * @param string $where
-     *
-     * @return int
-     */
-    public function getQuantityOfDataSets($tableName, $where = '') {
-
-        if ($where !== '') {
-            $where = " WHERE $where";
-        }
-        $query = "SELECT count(*) as countDataSets FROM $tableName $where;";
-        $stmt  = $this->query($query);
-
-        return $stmt->fetchColumn(0);
-
-    }
-
-
-    /**
-     *
-     */
-    public function closeConnection() {
-
-        $this->closeConnection();
-    }
-
-
-    /**
-     * @param $tableName
-     *
-     * @return array
-     */
-    public function getColNamesFromTable($tableName) {
-
-        $query = 'DESCRIBE ' . $tableName;
-
-        $stmt = $this->prepare($query);
-
-        $this->exec($stmt);
-
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-    }
-
-
-    /**
-     * @param $tableName
-     * @param $fieldName
-     *
-     * @return mixed;
-     */
-    public function getFieldInfo($tableName, $fieldName) {
-        // TODO: Implement getFieldInfo() method.
-    }
-
 
     /**
      * @param        $queryStartString
@@ -439,7 +241,6 @@ class CuDBpdo extends PDO implements CuDB
         return $statement;
     }
 
-
     /**
      * @param array $dataArray
      *
@@ -456,7 +257,6 @@ class CuDBpdo extends PDO implements CuDB
 
         return $valueQuery;
     }
-
 
     /**
      * @param $val
@@ -492,6 +292,143 @@ class CuDBpdo extends PDO implements CuDB
         return $pdoParameterInfo;
     }
 
+    /**
+     * @param $tableName
+     * @param $fieldName
+     * @param $fieldValue
+     *
+     * @return array
+     */
+    public function selectOneDataEasySet($tableName, $fieldName, $fieldValue) {
+
+        $where         = " $fieldName='$fieldValue' ";
+        $dataSetsArray = $this->selectAsArray($tableName, $where);
+
+        $dataSetArray = [];
+        if (array_key_exists(0, $dataSetsArray)) {
+            $dataSetArray = $dataSetsArray[0];
+        }
+
+        return $dataSetArray;
+    }
+
+    /**
+     * @param $tableName
+     * @param $where
+     * @param $order
+     * @param $limit
+     *
+     * @return CuDBResult
+     */
+    public function selectAsCuResult($tableName, $where = '', $order = '', $limit = '') {
+
+        $where = trim($where);
+        $order = trim($order);
+        $limit = trim($limit);
+        if ($where !== '') {
+            $where = ' WHERE ' . $where;
+        }
+        if ($order !== '') {
+            $order = ' ORDER BY ' . $order;
+        }
+        if ($limit !== '') {
+            $limit = ' LIMIT ' . $limit;
+        }
+
+        $q = "SELECT * FROM `$tableName` $where $order $limit";
+
+        $cuResult = $this->cuQuery($q);
+
+        return $cuResult;
+    }
+
+    /**
+     * @param $query
+     *
+     * @return CuDBResult
+     */
+    public function cuQuery($query) {
+
+        $statement = $this->query($query);
+        $id        = (int)$this->lastInsertId();
+
+        if ($statement) {
+            self::$cuDBpdoResult->setPdoStatement($statement);
+        }
+
+        self::$cuDBpdoResult->setLastInsertId($id);
+
+        return self::$cuDBpdoResult;
+    }
+
+    /**
+     * @param       $tableName
+     * @param array $dataArray
+     *
+     * @return \PDOStatement
+     */
+    public function cuInsert($tableName, array $dataArray) {
+
+        $insert_string = "INSERT INTO $tableName SET ";
+
+        $statement = $this->buildQueryStringAndBindParameters($insert_string, $dataArray);
+        $statement->execute();
+
+        return $statement;
+    }
+
+    /**
+     * @param        $tableName
+     * @param string $where
+     *
+     * @return int
+     */
+    public function getQuantityOfDataSets($tableName, $where = '') {
+
+        if ($where !== '') {
+            $where = " WHERE $where";
+        }
+        $query = "SELECT count(*) as countDataSets FROM $tableName $where;";
+        $stmt  = $this->query($query);
+
+        return $stmt->fetchColumn(0);
+
+    }
+
+    /**
+     *
+     */
+    public function closeConnection() {
+
+        $this->closeConnection();
+    }
+
+    /**
+     * @param $tableName
+     *
+     * @return array
+     */
+    public function getColNamesFromTable($tableName) {
+
+        $query = 'DESCRIBE ' . $tableName;
+
+        $stmt = $this->prepare($query);
+        /* TODO-Jörg Wrase See IDE-Warning - for all ->execute(s) */
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    }
+
+    /**
+     * @param $tableName
+     * @param $fieldName
+     *
+     * @return object;
+     */
+    public function getFieldInfo($tableName, $fieldName) {
+        // TODO: Implement getFieldInfo() method.
+    }
 
     private function __clone() {
     }

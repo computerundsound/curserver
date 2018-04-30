@@ -8,86 +8,34 @@
  *
  */
 
+use app\ajaxresponse\ResponseCreateDBBackup;
+use app\mysql_dumper\CuMysqlDump;
+use computerundsound\culibrary\CuRequester;
+
 require_once __DIR__ . '/../_close/includes/_application_top.php';
 
-/**
- * @param string $action
- * @param string $mysqlDumpFilePath
- * @param string $pathToMysqlDumpExe
- */
-function runMysqlDump($action, $mysqlDumpFilePath, $pathToMysqlDumpExe = '') {
+/** @var \computerundsound\culibrary\CuConstantsContainer $constant_container_coo */
 
-    $execStr =
-        $pathToMysqlDumpExe .
-        'mysqldump.exe -u ' .
-        DB_USER .
-        ' -p' .
-        DB_PW .
-        ' ' .
-        DB_NAME .
-        ' > ' .
-        $mysqlDumpFilePath;
+$action = CuRequester::getGetPost('action');
 
-    $result = exec($execStr, $output, $return);
+$pathToMysqlBackupFile = $constant_container_coo->getAppRootServer() . MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT;
 
-    $response['action']            = $action;
-    $response['mysqlDumpFilePath'] = $mysqlDumpFilePath;
+$pathToMysqlBackupFile = CuMysqlDump::makeGoodPath($pathToMysqlBackupFile, '/', false);
 
-    $response['JSON'] = [
-        'result'   => $result,
-        'output'   => $output,
-        'return'   => $return,
-        'exec_str' => $execStr,
-    ];
-
-    array_walk_recursive($response,
-        function (&$value) {
-
-            $pattern = '/[äöüÄÖÜß]/';
-
-            if (preg_match($pattern, $value)) {
-                $value = utf8_encode($value);
-            }
-
-
-        });
-
-    if ($return === 0 && file_exists($mysqlDumpFilePath)) {
-        $response['fileCreated'] = true;
-        $response['success']     = true;
-    }
-
-    $responseJSON = json_encode($response);
-
-    echo $responseJSON;
-}
-
-$response = [
-    'fileCreated' => false,
-    'success'     => false,
-];
-
-$mysqlDumpFilePath = $constant_container_coo->getAppRootServer() . MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT;
-
-$mysqlDumpFilePath = str_replace(['/', '\\', '//', '\\\\'], DIRECTORY_SEPARATOR, $mysqlDumpFilePath);
-
-if (file_exists($mysqlDumpFilePath)) {
-    unlink($mysqlDumpFilePath);
-}
-
-$action = isset($_POST['action']) ? $_POST['action'] : null;
-$secret = isset($_POST['secret']) ? $_POST['secret'] : null;
-
+/** @noinspection DegradedSwitchInspection */
 switch ($action) {
-    case 'deleteMySQLDumpFile':
-        echo json_encode('File deleted');
+    case 'CreateMysqlBackup':
+
+        $mysqlDumper  = CuMysqlDump::getInstance($constant_container_coo,
+                                                                   MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
+        $ajaxResponse = $mysqlDumper->dumpMysql();
         break;
-    case 'dbBackupCurServer':
-        runMysqlDump($action, $mysqlDumpFilePath);
-        break;
+
     default:
-        echo json_encode('ERROR');
+
+        $ajaxResponse = new ResponseCreateDBBackup(true, 'Unknown Action', '');
+
         break;
 }
 
-
+$ajaxResponse->showAsJson();

@@ -8,52 +8,54 @@
  *
  */
 
-namespace hostfile;
+namespace app\hostfile;
 
 
 /**
  * Class VHostFileList
  *
- * @package hostfile
+ * @package app\hostfile
  */
-class VHostFileList {
+class VHostFileList
+{
 
-	protected $vhostsList = [];
+    protected $vhostsList = [];
 
-	/**
-	 * @param \hostfile\VHostFileHandler $vHostFileHandler
-	 */
-	public function add(VHostFileHandler $vHostFileHandler) {
-		$this->vhostsList[] = $vHostFileHandler;
-	}
+    /**
+     * @param \app\hostfile\VHostFileHandler $vHostFileHandler
+     */
+    public function add(VHostFileHandler $vHostFileHandler) {
+        $this->vhostsList[] = $vHostFileHandler;
+    }
 
-	/**
-	 *
-	 */
-	public function reset() {
-		reset($this->vhostsList);
-	}
+    /**
+     *
+     */
+    public function reset() {
+        reset($this->vhostsList);
+    }
 
-	/**
-	 *
-	 */
-	public function clear() {
-		$this->vhostsList = [];
-	}
+    /**
+     *
+     */
+    public function clear() {
+        $this->vhostsList = [];
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getListAsArray() {
-		return $this->vhostsList;
-	}
+    /**
+     * @return array
+     */
+    public function getListAsArray() {
+        return $this->vhostsList;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getNext() {
-		$vHost = next($this->vhostsList);
+    /**
+     * @return mixed
+     */
+    public function getNext() {
+        /** @noinspection OneTimeUseVariablesInspection */
+        $vHost = next($this->vhostsList);
 
-		return $vHost;
-	}
+        return $vHost;
+    }
 }

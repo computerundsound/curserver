@@ -3,7 +3,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.20 at 02:44 MEZ
+ * LastModified: 2017.02.05 at 06:13 MEZ
  */
 
 namespace computerundsound\culibrary\db;
@@ -16,8 +16,6 @@ interface CuDB
 
     /**
      * @param $tableName
-     *
-     * @return \computerundsound\culibrary\db\mysqli\CuDBiResult
      */
     public function truncateTab($tableName);
 
@@ -26,8 +24,6 @@ interface CuDB
      * @param $tableName
      * @param $idName
      * @param $idValue
-     *
-     * @return \computerundsound\culibrary\db\mysqli\CuDBiResult
      *
      */
     public function deleteOneDataSet($tableName, $idName, $idValue);
@@ -89,16 +85,6 @@ interface CuDB
      */
     public function selectOneDataSet($tableName, $fieldName, $fieldValue);
 
-    /**
-     * @param string $tableName
-     * @param string $where
-     *
-     * @return array
-     * @internal param $fieldName
-     * @internal param $fieldValue
-     *
-     */
-    public function dataSetExist($tableName, $where = '');
 
     /**
      * @param        $tableName
@@ -137,7 +123,7 @@ interface CuDB
      * @param $tableName
      * @param $fieldName
      *
-     * @return mixed;
+     * @return Object;
      */
     public function getFieldInfo($tableName, $fieldName);
 }

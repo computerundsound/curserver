@@ -4,7 +4,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.20 at 02:59 MEZ
+ * LastModified: 2017.02.05 at 00:23 MEZ
  */
 
 namespace computerundsound\culibrary;
@@ -113,7 +113,6 @@ class CuString
 
         if (is_array($ip_array)) {
             foreach ($ip_array as $val) {
-
                 $newIP .= str_pad($val, 3, '0', STR_PAD_LEFT) . '.';
             }
         }
@@ -128,7 +127,7 @@ class CuString
      *
      * @return string
      */
-    public static function make_good_ip_to_trace($ip) {
+    public static function makeGoodIpToTrace($ip) {
 
         $newIP = '';
 
@@ -137,9 +136,15 @@ class CuString
         if (is_array($ip_array)) {
             foreach ($ip_array as $val) {
 
-                $valNew = preg_replace('/^0+([\d]+)/', '$1', $val);
+                if ($val[0] === '0') {
+                    $val = $val[1] . $val[2];
+                }
 
-                $newIP .= $valNew . '.';
+                if ($val[0] === '0') {
+                    $val = $val[1] . $val[2];
+                }
+
+                $newIP .= $val . '.';
             }
         }
 
@@ -193,12 +198,12 @@ class CuString
 
 
     /**
-     * @param $variName
-     * @param $variValue
+     * @param $variableName
+     * @param $variableValue
      */
-    public static function cuEchoVari($variName, $variValue) {
+    public static function cuEchoVariable($variableName, $variableValue) {
 
-        CuString::cuEcho($variName . ' => ' . $variValue);
+        CuString::cuEcho($variableName . ' => ' . $variableValue);
     }
 
 
@@ -216,7 +221,7 @@ class CuString
      *
      * @return string
      */
-    public static function make_price_from_db($price) {
+    public static function makePriceFromDB($price) {
 
         $price_element = explode('.', $price);
 

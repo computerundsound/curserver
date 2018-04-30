@@ -8,7 +8,7 @@
  * Filename: _main.js
  */
 
-/*global HostTableManager:false */
+/*global HostTableManager:false, $ */
 
 var host_table_manager_coo = {};
 
@@ -16,11 +16,10 @@ $(document).ready(function () {
     'use strict';
     host_table_manager_coo = new HostTableManager();
 
-    /* TODO-Jörg Wrase: Wieder entfernen! */
-    $('textarea[name=hostfile_content]')[0].scrollTop = 9999 ;
+    var $hostFileContent = $('textarea[name=hostfile_content]');
 
-    $('textarea[name=hostfile_content]').on('click', function(){
-       this.select();
+    $hostFileContent.on('click', function () {
+        this.select();
     });
 
 });

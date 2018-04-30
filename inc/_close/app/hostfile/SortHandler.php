@@ -9,19 +9,20 @@
  * Filename: SortHandler.php
  */
 
-namespace hostfile;
+namespace app\hostfile;
 
-use computerundsound\culibrary\CuNet;
+use computerundsound\culibrary\CuRequester;
 
 /**
  * Class SortHandler
  *
- * @package hostfile
+ * @package app\hostfile
  */
-class SortHandler {
+class SortHandler
+{
 
-    private $akt_sort_item      = 'domain';
-    private $akt_sort_direction = 'ASC';
+    private $akt_sort_item;
+    private $akt_sort_direction;
 
     private $vari_name = 'sort_handler_array';
 
@@ -33,7 +34,7 @@ class SortHandler {
 
         $this->vari_name .= $p_name_appendix;
 
-        $akt_sort_array = CuNet::get_post_session($this->vari_name);
+        $akt_sort_array = CuRequester::getGetPostSession($this->vari_name);
 
         /** array $akt_sort_array */
         if (!isset($akt_sort_array['item'])) {

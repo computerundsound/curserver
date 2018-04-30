@@ -9,7 +9,7 @@
  * Filename: _application_viewer.php
  */
 
-use viewer\MakeView;
+use app\viewer\MakeView;
 
 require_once __DIR__ . '/_application_top.php';
 
@@ -18,7 +18,7 @@ $smarty_standard = new MakeView(CU_SMARTY_DIR);
 $standards_view_elements = [
     'application_root_HTTP' => $constant_container_coo->getAppRootHTTP(),
     'project_name' => 'curServer',
-    'php_self' => $constant_container_coo->get_file_path_HTTP(),
+    'php_self' => $constant_container_coo->getFilePath_HTTP(),
 ];
 
 $content

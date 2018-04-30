@@ -3,7 +3,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.19 at 01:47 MEZ
+ * LastModified: 2016.10.30 at 07:42 MEZ
  */
 
 namespace computerundsound\culibrary\db\mysqli;
@@ -19,16 +19,15 @@ class CuDBiResult implements CuDBResult
     /** @var  \mysqli_result */
     private $result;
 
-    /** @var  int|float|string|null */
     private $lastInsertId;
     /** @var  string */
-    private $message = '';
+    private $message;
     /** @var  string */
     private $query;
 
 
     /**
-     * @return int|float|string|null
+     * @return int
      */
     public function getLastInsertId() {
 
@@ -37,7 +36,7 @@ class CuDBiResult implements CuDBResult
 
 
     /**
-     * @param int|float|string $lastInsertId
+     * @param mixed $lastInsertId
      */
     public function setLastInsertId($lastInsertId) {
 

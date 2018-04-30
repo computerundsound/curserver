@@ -9,182 +9,181 @@
  * Filename: Host.php
  */
 
-namespace hostfile;
+namespace app\hostfile;
 
 /**
  * Class Host
  *
- * @package hostfile
+ * @package app\hostfile
  */
-class Host {
+class Host
+{
 
-	public static $fields_from_post_for_db_array = [
-		'host_id',
-		'tld',
-		'domain',
-		'subdomain',
-		'ip',
-		'comment',
-		'vhost_dir',
-		'vhost_htdocs',
-	];
-	private       $host_id;
-	private       $tld;
-	private       $domain;
-	private       $subdomain;
-	private       $ip;
-	private       $comment;
-	private       $last_change;
-	private       $vhost_dir;
-	private       $vhost_htdocs;
+    public static $fields_from_post_for_db_array
+        = [
+            'host_id',
+            'tld',
+            'domain',
+            'subdomain',
+            'ip',
+            'comment',
+            'vhost_dir',
+            'vhost_htdocs',
+        ];
+    private       $host_id;
+    private       $tld;
+    private       $domain;
+    private       $subdomain;
+    private       $ip;
+    private       $comment;
+    private       $last_change;
+    private       $vhost_dir;
+    private       $vhost_htdocs;
 
+    /**
+     * @param $host_id
+     * @param $tld
+     * @param $domain
+     * @param $subDomain
+     * @param $ip
+     * @param $comment
+     * @param $last_change
+     * @param $vhost_dir
+     * @param $vhost_htdocs
+     */
+    public function set_host($host_id,
+                             $tld,
+                             $domain,
+                             $subDomain,
+                             $ip,
+                             $comment,
+                             $last_change,
+                             $vhost_dir,
+                             $vhost_htdocs) {
+        $this->host_id      = $host_id;
+        $this->tld          = $tld;
+        $this->domain       = $domain;
+        $this->subdomain    = $subDomain;
+        $this->ip           = $ip;
+        $this->comment      = $comment;
+        $this->last_change  = $last_change;
+        $this->vhost_dir    = self::make_vhost_dir($vhost_dir);
+        $this->vhost_htdocs = self::make_vhost_dir($vhost_htdocs);
+    }
 
-	/**
-	 * @param $dir
-	 *
-	 * @return mixed
-	 */
-	private static function make_vhost_dir($dir) {
-		$dir = str_replace('\\', '/', $dir);
+    /**
+     * @param $dir
+     *
+     * @return mixed
+     */
+    private static function make_vhost_dir($dir) {
+        $dir = str_replace('\\', '/', $dir);
 
-		return $dir;
-	}
+        return $dir;
+    }
 
+    /**
+     * @return mixed|string
+     */
+    public function getFullDomain() {
+        $full_domain = '';
 
-	/**
-	 * @param $host_id
-	 * @param $tld
-	 * @param $domain
-	 * @param $subDomain
-	 * @param $ip
-	 * @param $comment
-	 * @param $last_change
-	 * @param $vhost_dir
-	 * @param $vhost_htdocs
-	 */
-	public function set_host($host_id,
-	                         $tld,
-	                         $domain,
-	                         $subDomain,
-	                         $ip,
-	                         $comment,
-	                         $last_change,
-	                         $vhost_dir,
-	                         $vhost_htdocs) {
-		$this->host_id = $host_id;
-		$this->tld = $tld;
-		$this->domain = $domain;
-		$this->subdomain = $subDomain;
-		$this->ip = $ip;
-		$this->comment = $comment;
-		$this->last_change = $last_change;
-		$this->vhost_dir = self::make_vhost_dir($vhost_dir);
-		$this->vhost_htdocs = self::make_vhost_dir($vhost_htdocs);;
-	}
+        if (strlen($this->subdomain) > 0) {
+            $full_domain .= $this->subdomain . '.';
+        }
 
+        if (strlen($this->domain) > 0) {
+            $full_domain .= $this->domain . '.';
+        }
 
-	/**
-	 * @return mixed|string
-	 */
-	public function getFullDomain() {
-		$full_domain = '';
+        if (strlen($this->tld) > 0) {
+            $full_domain .= $this->tld;
+        }
 
-		if(strlen($this->subdomain) > 0) {
-			$full_domain .= $this->subdomain . '.';
-		}
+        $full_domain = str_replace(['..', '.'], '.', $full_domain);
 
-		if(strlen($this->domain) > 0) {
-			$full_domain .= $this->domain . '.';
-		}
+        if ($full_domain[strlen($full_domain) - 1] === '.') {
+            $full_domain = substr($full_domain, 0, -1);
+        }
 
-		if(strlen($this->tld) > 0) {
-			$full_domain .= $this->tld;
-		}
-
-		$full_domain = str_replace(['..', '..'], '.', $full_domain);
-
-		if(substr($full_domain, -1, 1) === '.') {
-			$full_domain = substr($full_domain, 0, strlen($full_domain) - 1);
-		}
-
-		return $full_domain;
-	}
-
-
-	/**
-	 * @return mixed
-	 */
-	public function getComment() {
-		return $this->comment;
-	}
+        return $full_domain;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getDomain() {
-		return $this->domain;
-	}
+    /**
+     * @return mixed
+     */
+    public function getComment() {
+        return $this->comment;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getHostId() {
-		return $this->host_id;
-	}
+    /**
+     * @return mixed
+     */
+    public function getDomain() {
+        return $this->domain;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getIp() {
-		return $this->ip;
-	}
+    /**
+     * @return mixed
+     */
+    public function getHostId() {
+        return $this->host_id;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getLastChange() {
-		return $this->last_change;
-	}
+    /**
+     * @return mixed
+     */
+    public function getIp() {
+        return $this->ip;
+    }
 
 
-	public function set_last_change() {
-		$date_time = date('Y-m-d H-i-s');
-		$this->last_change = $date_time;
-	}
+    /**
+     * @return mixed
+     */
+    public function getLastChange() {
+        return $this->last_change;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getSubdomain() {
-		return $this->subdomain;
-	}
+    public function set_last_change() {
+        $date_time         = date('Y-m-d H-i-s');
+        $this->last_change = $date_time;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getTld() {
-		return $this->tld;
-	}
+    /**
+     * @return mixed
+     */
+    public function getSubdomain() {
+        return $this->subdomain;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getVhostDir() {
-		return $this->vhost_dir;
-	}
+    /**
+     * @return mixed
+     */
+    public function getTld() {
+        return $this->tld;
+    }
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getVhostHtdocs() {
-		return $this->vhost_htdocs;
-	}
+    /**
+     * @return mixed
+     */
+    public function getVhostDir() {
+        return $this->vhost_dir;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getVhostHtdocs() {
+        return $this->vhost_htdocs;
+    }
 }

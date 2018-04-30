@@ -10,39 +10,40 @@
  */
 
 
-namespace hostfile;
+namespace app\hostfile;
 
 /**
  * Class Hostlist
  *
- * @package hostfile
+ * @package app\hostfile
  */
-class Hostlist {
+class Hostlist
+{
 
-	public  $test            = ['a', 'b'];
-	private $host_list_array = [];
-
-
-	/**
-	 *
-	 */
-	public function __construct() {
-		$this->test = 'Das ist ein Test';
-	}
+    public  $test            = ['a', 'b'];
+    private $host_list_array = [];
 
 
-	/**
-	 * @param \hostfile\Host $host_coo
-	 */
-	public function add_host(Host $host_coo) {
-		$this->host_list_array[] = $host_coo;
-	}
+    /**
+     *
+     */
+    public function __construct() {
+        $this->test = 'Das ist ein Test';
+    }
 
 
-	/**
-	 * @return array
-	 */
-	public function get_host_list_array() {
-		return $this->host_list_array;
-	}
+    /**
+     * @param \app\hostfile\Host $host_coo
+     */
+    public function add_host(Host $host_coo) {
+        $this->host_list_array[] = $host_coo;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function get_host_list_array() {
+        return $this->host_list_array;
+    }
 }

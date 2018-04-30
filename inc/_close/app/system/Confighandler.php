@@ -9,31 +9,32 @@
  * Filename: Confighandler.php
  */
 
-namespace system;
+namespace app\system;
 
 /**
  * Class Confighandler
  *
- * @package system
+ * @package app\system
  */
-class Confighandler {
+class Confighandler
+{
 
-	private $pathToConfigFile;
-
-
-	/**
-	 * @param $pathToConfigFile
-	 */
-	public function __construct($pathToConfigFile) {
-
-		$this->pathToConfigFile = $pathToConfigFile;
-	}
+    private $pathToConfigFile;
 
 
-	/**
-	 * @return mixed
-	 */
-	public function getPathToConfigFile() {
-		return $this->pathToConfigFile;
-	}
+    /**
+     * @param $pathToConfigFile
+     */
+    public function __construct($pathToConfigFile) {
+
+        $this->pathToConfigFile = $pathToConfigFile;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPathToConfigFile() {
+        return $this->pathToConfigFile;
+    }
 }

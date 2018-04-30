@@ -16,19 +16,31 @@ use computerundsound\culibrary\db\mysqli\CuDBiResult;
 session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
+
+if(file_exists(__DIR__ . '/../../../_config.php') === false){
+
+    die('_config.php file not found. Please make sure that you have the _config.php - file in application root. You can copy the _config.sample.php to _config.php and insert your own values (maybe most values are already good for you');
+
+}
+
 require_once __DIR__ . '/../../../_config.php';
 require_once __DIR__ . '/../config.system.inc.php';
 
 /**
- * @param $value
+ * @param mixed $value
+ * @param bool  $endScript
  */
-function cuPrint($value) {
+function cuPrint($value, $endScript = false) {
 
     $value = (array)$value;
 
     $output = '<pre>' . print_r($value, true) . '</pre>';
 
     echo $output;
+
+    if ($endScript) {
+        exit;
+    }
 
 }
 
@@ -43,7 +55,19 @@ define('CU_SMARTY_DIR',
        'views' .
        DIRECTORY_SEPARATOR);
 
-/** @var CuDBi $dbi_coo */
-$dbi_coo = CuDBi::getInstance(new CuDBiResult(), DB_SERVER, DB_USER, DB_PW, DB_NAME);
+try {
+
+    /** @var CuDBi $dbi_coo */
+    $dbi_coo = CuDBi::getInstance(new CuDBiResult(), DB_SERVER, DB_USER, DB_PW, DB_NAME);
+
+    define('NO_DB_CONNECTION', false);
+
+} catch (Exception $exception) {
+
+    define('NO_DB_CONNECTION', true);
+
+    die('Could not connect do Database. Please make sure that mysql is running and you have insert the credentials in _config.php');
+}
+
 
 $vHostFiles = unserialize(VHOST_FILES);

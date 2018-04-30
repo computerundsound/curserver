@@ -12,10 +12,10 @@
 /**
  * Class MakeView
  *
- * @package viewer
+ * @package app\viewer
  */
 
-namespace viewer;
+namespace app\viewer;
 
 use computerundsound\culibrary\CuString;
 
@@ -24,14 +24,11 @@ use computerundsound\culibrary\CuString;
  *
  * @package viewer
  */
-
 /** @noinspection LongInheritanceChainInspection */
-class MakeView extends \Smarty {
 
-    /**
-     * @var
-     */
-    private        $smarty_dir;
+class MakeView extends \Smarty
+{
+
     private static $smarty_dirs_not_provided
         = [
             'templates',
@@ -39,11 +36,17 @@ class MakeView extends \Smarty {
             'configs',
             'cache',
         ];
+    /**
+     * @var
+     */
+    private $smarty_dir;
 
     /**
      * MakeView constructor.
      *
      * @param $smartyDir
+     *
+     * @throws \RuntimeException
      */
     public function __construct($smartyDir) {
 
@@ -67,6 +70,7 @@ class MakeView extends \Smarty {
 
     /**
      *
+     * @throws \RuntimeException
      */
     private function test_and_create_smarty_dirs() {
 
@@ -109,13 +113,15 @@ class MakeView extends \Smarty {
      * @param $dirname
      *
      * @return bool
+     * @throws \RuntimeException
      */
     private function mkDir($dirname) {
 
-        /** @noinspection PhpUsageOfSilenceOperatorInspection */
-        $result = @mkdir($dirname);
+        if (!mkdir($dirname) && !is_dir($dirname)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dirname));
+        }
 
-        return $result;
+        return true;
     }
 
 

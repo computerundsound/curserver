@@ -9,12 +9,12 @@
  * Filename: ajax_get_host_datas.php
  */
 
-use computerundsound\culibrary\CuNet;
+use computerundsound\culibrary\CuRequester;
 
 require_once __DIR__ . '/../_close/includes/_application_top.php';
 
-$action    = CuNet::get_post('action');
-$action_id = CuNet::get_post('action_id');
+$action    = CuRequester::getGetPost('action');
+$action_id = CuRequester::getGetPost('action_id');
 
 if ($action !== 'load_host' || empty($action_id)) {
     die('wrong parameter');

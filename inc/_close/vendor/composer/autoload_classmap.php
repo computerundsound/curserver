@@ -172,12 +172,4 @@ return array(
     'TPC_yyToken' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_configfileparser.php',
     'TP_yyStackEntry' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
     'TP_yyToken' => $vendorDir . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
-    'hostfile\\Host' => $baseDir . '/inc/_close/app/hostfile/Host.php',
-    'hostfile\\Hostfilehandler' => $baseDir . '/inc/_close/app/hostfile/Hostfilehandler.php',
-    'hostfile\\Hostlist' => $baseDir . '/inc/_close/app/hostfile/Hostlist.php',
-    'hostfile\\SortHandler' => $baseDir . '/inc/_close/app/hostfile/SortHandler.php',
-    'hostfile\\VHostFileHandler' => $baseDir . '/inc/_close/app/hostfile/VHostFileHandler.php',
-    'hostfile\\VHostFileList' => $baseDir . '/inc/_close/app/hostfile/VHostFileList.php',
-    'system\\Confighandler' => $baseDir . '/inc/_close/app/system/Confighandler.php',
-    'viewer\\MakeView' => $baseDir . '/inc/_close/app/viewer/MakeView.php',
 );

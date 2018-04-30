@@ -4,7 +4,7 @@
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2017.03.20 at 02:59 MEZ
+ * LastModified: 2017.02.05 at 00:20 MEZ
  */
 
 namespace computerundsound\culibrary;
@@ -14,7 +14,7 @@ namespace computerundsound\culibrary;
  *
  * @package curlibrary
  */
-class CuNet
+class CuRequester
 {
 
     /**
@@ -24,10 +24,10 @@ class CuNet
 
         $user_data_array = [];
 
-        $ip                      = $_SERVER['REMOTE_ADDR'];
-        $user_data_array['host'] = gethostbyaddr($ip);
+        $ip                      = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        $user_data_array['host'] = gethostbyaddr($ip) ?: '';
 
-        $user_data_array['ip'] = $ip;
+        $user_data_array['ip'] = $ip ?: '';
 
         $userDataKeyValueArray = [
             'HTTP_USER_AGENT' => 'client',
@@ -54,27 +54,24 @@ class CuNet
      *
      * @return bool|string
      */
-    public static function get_post_session_standard_value($variableName, $standard_value) {
+    public static function getGetOrPostSessionStandardValue($variableName, $standard_value) {
 
-        $fromRequestOrSession = self::get_post_session($variableName);
-
-        if ($fromRequestOrSession) {
-            $value = $fromRequestOrSession;
-        } else {
+        if (self::getGetPostSession($variableName) !== null) {
             $_SESSION[$variableName] = $standard_value;
-            $value                   = $standard_value;
-        }
 
-        return $value;
+            return $standard_value;
+        } else {
+            return self::getGetPostSession($variableName);
+        }
     }
 
 
     /**
-     * @param $variableName
+     * @param string $variableName
      *
-     * @return mixed
+     * @return string|array|null
      */
-    public static function get_post_session($variableName) {
+    public static function getGetPostSession($variableName) {
 
         $value = null;
 
@@ -82,7 +79,7 @@ class CuNet
             $value = $_SESSION[$variableName];
         }
 
-        $postGetValue = self::get_post($variableName);
+        $postGetValue = self::getGetPost($variableName);
 
         if ($postGetValue !== null) {
             $value                   = $postGetValue;
@@ -94,11 +91,11 @@ class CuNet
 
 
     /**
-     * @param $variableName
+     * @param string $variableName
      *
-     * @return mixed
+     * @return string|array|null
      */
-    public static function get_post($variableName) {
+    public static function getGetPost($variableName) {
 
         $value = null;
 
@@ -109,8 +106,8 @@ class CuNet
         if (isset($_POST[$variableName])) {
             $value = $_POST[$variableName];
         }
-
-        $value = self::strip_slashes_deep($value);
+        
+        $value = self::stripSlashesDeep($value);
 
         return $value;
     }
@@ -123,14 +120,10 @@ class CuNet
      * @return array|string
      * will only do something when get_magic_quotes_gpc === true
      */
-    public static function strip_slashes_deep($value) {
+    public static function stripSlashesDeep($value) {
 
-        if (get_magic_quotes_gpc()) {
-            $value = is_array($value) ? array_map([
-                                                      __CLASS__,
-                                                      'strip_slashes_deep',
-                                                  ],
-                                                  $value) : stripcslashes($value);
+        if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+            $value = is_array($value) ? array_map([__CLASS__, 'stripSlashesDeep'], $value) : stripcslashes($value);
         }
 
         return $value;
