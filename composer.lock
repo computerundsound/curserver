@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "45b1e5822deccc5a093b9f489a576566",
+    "content-hash": "56aeb29b20ce50dde946d75366960331",
     "packages": [
         {
             "name": "computerundsound/culibrary",
@@ -47,16 +47,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.32",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "ac9d4b587e5bf53381e21881820a9830765cb459"
+                "reference": "cc4d8fa1a07e18f00951a921041e37c87015dcb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/ac9d4b587e5bf53381e21881820a9830765cb459",
-                "reference": "ac9d4b587e5bf53381e21881820a9830765cb459",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/cc4d8fa1a07e18f00951a921041e37c87015dcb2",
+                "reference": "cc4d8fa1a07e18f00951a921041e37c87015dcb2",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +96,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-04-24T14:53:33+00:00"
+            "time": "2018-05-17T14:04:48+00:00"
         }
     ],
     "packages-dev": [],
