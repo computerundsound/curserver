@@ -22,66 +22,83 @@
     <link rel="stylesheet"
           href="inc/assets/bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css">
 
-    <!-- Bootstrap-CSS -->
+    <link href="inc/assets/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="inc/assets/css/main.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div id="cuLoader">
-    <div>Working :<i class="fas fa-spinner fa-3x fa-spin"></i></div>
-</div>
+{*<div id="cuLoader">*}
+{*<div>Working :<i class="fas fa-spinner fa-3x fa-spin"></i></div>*}
+{*</div>*}
 
-<iframe id="cu-iframe" style="display:none;"></iframe>
+{*<iframe id="cu-iframe" style="display:none;"></iframe>*}
 
-<div id="top_impressum_short">
-    Jörg Wrase &copy; 2016 - <a href="http://www.cusp.de">cusp.de</a>
-</div>
+{*<div id="top_impressum_short">*}
+{*Jörg Wrase &copy; 2016 - <a href="http://www.cusp.de">cusp.de</a>*}
+{*</div>*}
 
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Navigation ein-/ausblenden</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">{$standards.project_name}</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="http://localhost/phpmyadmin/" target="_blank">
-                        <i class="fa fa-database" aria-hidden="true"></i> PHPmyAdmin
-                    </a>
-                </li>
-                <li>
-                    <a href="hostlister.php?action=phpinfo" target="_blank">
-                        <i class="fa fa-server" aria-hidden="true"></i> PHPinfo
-                    </a>
-                </li>
-                <li>
-                    <a href="http://www.CUS-production.com" target="_blank">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> www.CUS-production.com
-                    </a>
-                </li>
-            </ul>
+<div class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
 
-        </div>
+    <a class="navbar-brand" href="#">{$standards.project_name}</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="navbar-collapse collapse" id="navbarNavDropdown">
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="http://localhost/phpmyadmin/" target="_blank" class="nav-link">
+                    <i class="fa fa-database" aria-hidden="true"></i> PHPmyAdmin
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="hostlister.php?action=phpinfo" class="nav-link" target="_blank">
+                    <i class="fa fa-server" aria-hidden="true"></i> PHPinfo
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="http://www.CUS-production.com" target="_blank" class="nav-link">
+                    <i class="fa fa-external-link" aria-hidden="true"></i> www.CUS-production.com
+                </a>
+            </li>
+        </ul>
+
     </div>
+
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" style="width: 90%; padding-bottom: 5rem;">
     <div class="row">
+        <div class="col-12">
 
-        <div class="col-sm-10 col-lg-offset-1">
+            <h1>curServer</h1>
 
-            <div class="clearfix">
+            <p>
+                <button class="btn btn-dark" data-toggle="collapse" data-target="#cuDBInformation">Want to change
+                                                                                                   XAMPP-Version? You
+                                                                                                   need to backup or
+                                                                                                   restore your
+                                                                                                   Database: <strong>click
+                                                                                                                     here
+                                                                                                                     for
+                                                                                                                     information.</strong>
+                </button>
+            </p>
+
+            <div class="collapse" id="cuDBInformation">
+
                 <p>
                     <button class="btn btn-warning hostmask_db_curserver_backup">Make Backup From curserver-DB</button>
-
                 </p>
 
                 <div id="hostmask_db_curserver_backup_info">
@@ -97,21 +114,30 @@
                     <p>Restore your DataBase:</p>
                     <p><code>mysql -u root -p < alldb.sql</code></p>
 
-                    <p class="alert alert-danger">
-                        After that - please restart your mysql-Server <br>
-                        Be shore that your DatabaseServer you are working on is running.<br>
-                        Also make sure that your database is clean.
+                    <div class="alert alert-danger">
+                        <p>After that - please restart your mysql-Server</p>
 
-                    </p>
+                        <p>Be shure that your DatabaseServer you are working on is running.</p>
+                        <p>
+                            Also make sure that your database is clean.
+                        </p>
+
+                        <p class="alert-info">
+                            After restoring all database you have to run
+                        </p>
+
+                        <pre>FLUSH PRIVILEGES;</pre>
+
+                    </div>
+
+                    {if $checkMysqlBackupFile}
+                        <p>There is a db-backup. What do you want to do?</p>
+                        <button class="btn btn-primary hostmask_db_curserver_backup_download">Download the file</button>
+                        <button class="btn btn-warning hostmask_db_curserver_backup_delete">Delete the file</button>
+                        <button class="btn btn-danger hostmask_db_curserver_backup_restore">Restore into DB</button>
+                    {/if}
+
                 </div>
-
-                {if $checkMysqlBackupFile}
-                    <p>There is a db-backup. What do you want to do?</p>
-                    <button class="btn btn-primary hostmask_db_curserver_backup_download">Download the file</button>
-                    <button class="btn btn-warning hostmask_db_curserver_backup_delete">Delete the file</button>
-                    <button class="btn btn-danger hostmask_db_curserver_backup_restore">Restore into DB</button>
-                {/if}
-
             </div>
 
 
@@ -121,20 +147,21 @@
 
         </div>
     </div>
-</div>
-<!-- Bootstrap-JavaScript
-================================================== -->
-<!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
 
-<!-- build:js -->
-<script type="text/javascript" src="inc/assets/bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="inc/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="inc/assets/bower_components/bootbox.js/bootbox.js"></script>
-<script type="text/javascript" src="inc/assets/bower_components/mustache.js/mustache.js"></script>
-<script type="text/javascript" src="inc/assets/js/_main.js"></script>
-<script type="text/javascript" src="inc/assets/js/CuLoader.js"></script>
-<script type="text/javascript" src="inc/assets/js/HostTableManager.js"></script>
-<script type="text/javascript" src="inc/assets/js/DBBackupManager.js"></script>
-<!-- endbuild -->
+    <!-- Bootstrap-JavaScript
+    ================================================== -->
+    <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
+
+    <!-- build:js -->
+    <script type="text/javascript" src="inc/assets/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="inc/assets/bower_components/popper.js/dist/popper.js"></script>
+    <script type="text/javascript" src="inc/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="inc/assets/bower_components/bootbox.js/bootbox.js"></script>
+    <script type="text/javascript" src="inc/assets/bower_components/mustache.js/mustache.js"></script>
+    <script type="text/javascript" src="inc/assets/js/_main.js"></script>
+    <script type="text/javascript" src="inc/assets/js/CuLoader.js"></script>
+    <script type="text/javascript" src="inc/assets/js/HostTableManager.js"></script>
+    <script type="text/javascript" src="inc/assets/js/DBBackupManager.js"></script>
+    <!-- endbuild -->
 </body>
 </html>
