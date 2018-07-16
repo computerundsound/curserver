@@ -13,8 +13,8 @@
     "vendor-dir": "inc/_close/vendor/"
   },
   "require": {
-    "computerundsound/cuLibrary": "^3",
-    "smarty/smarty": "3.1.32"
+    "computerundsound/cuLibrary": "~3.0",
+    "smarty/smarty": "~3.1"
   },
   "autoload": {
     "psr-4": {
