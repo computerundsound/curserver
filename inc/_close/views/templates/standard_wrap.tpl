@@ -128,6 +128,10 @@
 
                         <pre>FLUSH PRIVILEGES;</pre>
 
+                        <p>in mysql (use <a href="http://localhost/phpmyadmin/" target="_blank">phpmyadmin</a> - select
+                           no DB and enter
+                           it into the sql-filed).</p>
+
                     </div>
 
                     {if $checkMysqlBackupFile}

@@ -33,7 +33,7 @@
                 </button>
             </p>
 
-            {if $update_msg === false}
+            {if $update_msg === true}
                 <div class="jumbotron">
 
                     <div class="alert alert-primary">
