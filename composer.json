@@ -14,7 +14,7 @@
   },
   "require": {
     "computerundsound/cuLibrary": "^3",
-    "smarty/smarty": "v3.1.29"
+    "smarty/smarty": "3.1.*"
   },
   "autoload": {
     "psr-4": {

@@ -18,8 +18,14 @@ $(document).ready(function () {
 
     var $hostFileContent = $('textarea[name=hostfile_content]');
 
+    var $hostFileContentLabel = $("label[for=hostfile_content]");
+
     $hostFileContent.on('click', function () {
-        this.select();
+        $hostFileContent.select();
+    });
+
+    $hostFileContentLabel.on('click', function () {
+        $hostFileContent.select();
     });
 
 });
