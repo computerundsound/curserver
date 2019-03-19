@@ -1,0 +1,21 @@
+{
+  "name": "cu/cur-server-unittests",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "cu",
+      "email": "cu@cusp.de"
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "testApp\\": "tests"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.5.*"
+  }
+}
