@@ -26,14 +26,14 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
     protected $pathIniTemplateFile;
 
     /**
-     *
+     * @inheritDoc
      */
-    public function modify(): void
+    public function modify(array $replacer): void
     {
 
         $this->buildPaths();
         $this->backup();
-        $this->copyTemplate();
+        $this->copyTemplate($replacer);
         exit;
 
 
@@ -57,14 +57,16 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
     }
 
     /**
+     * @param array $replacer
+     *
      * @return void
      */
-    protected function copyTemplate(): void
+    protected function copyTemplate(array $replacer): void
     {
 
         $content = $this->getContentFromFile($this->pathIniTemplateFile);
 
-        $contentNew = $this->replaceContents($content);
+        $contentNew = $this->replaceContents($content, $replacer);
 
         $this->writeContent($this->pathIniFile, $contentNew);
 
@@ -73,19 +75,12 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
 
     /**
      * @param string $content
+     * @param array  $replacer
      *
      * @return string
      */
-    protected function replaceContents(string $content): string
+    protected function replaceContents(string $content, array $replacer): string
     {
-
-        $replacer = [
-            'key_buffer'         => '64M',
-            'max_allowed_packet' => '200M',
-            'sort_buffer_size'   => '1024K',
-            'read_buffer_size'   => '512K',
-        ];
-
 
         foreach ($replacer as $search => $newValue) {
             $content = $this->replaceLine($search, $newValue, $content);

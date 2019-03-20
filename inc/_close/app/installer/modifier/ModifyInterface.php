@@ -17,6 +17,11 @@ namespace app\installer\modifier;
 interface ModifyInterface
 {
 
-    public function modify();
+    /**
+     * @param array $replacer
+     *
+     * @return void
+     */
+    public function modify(array $replacer):void ;
 
 }

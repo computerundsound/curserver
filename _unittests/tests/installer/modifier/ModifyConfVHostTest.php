@@ -33,6 +33,8 @@ class ModifyConfVHostTest extends TestCase
     public function testModify(): void
     {
 
+        $replacer = $this->createMock();
+
         $this->modifierVHost->modify();
         $this->modifierMysqlIni->modify();
 

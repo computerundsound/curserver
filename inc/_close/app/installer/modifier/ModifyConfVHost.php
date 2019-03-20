@@ -20,9 +20,9 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     protected $vhostFileName = 'cu_vhosts.txt';
 
     /**
-     *
+     * @inheritDoc
      */
-    public function modify(): void
+    public function modify(array $replacer): void
     {
 
         $content      = $this->getContentFromFile($this->fileInfo->getFullPath());
