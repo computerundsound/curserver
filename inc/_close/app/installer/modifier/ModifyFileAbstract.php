@@ -30,10 +30,6 @@ class ModifyFileAbstract
     protected $fileInfo;
 
     protected $xamppDir;
-    /**
-     * @var string
-     */
-    private $xamppContainerDir;
 
 
     /**
@@ -45,18 +41,19 @@ class ModifyFileAbstract
     public function __construct(FileInfo $fileInfo, string $xamppDir)
     {
 
-        $this->fileInfo          = $fileInfo;
-        $this->xamppDir          = $xamppDir;
-        $this->xamppContainerDir = realpath($xamppDir . '/../');
+        $this->fileInfo = $fileInfo;
+        $this->xamppDir = $xamppDir;
     }
 
     /**
+     * @param string $path
+     *
      * @return string
      */
-    protected function getContentFromFile(): string
+    protected function getContentFromFile(string $path): string
     {
 
-        $content = file_get_contents($this->fileInfo->getFullPath());
+        $content = file_get_contents($path);
 
         if ($content === false) {
             throw new RuntimeException('No content found');
@@ -66,12 +63,13 @@ class ModifyFileAbstract
     }
 
     /**
+     * @param string $path
      * @param string $content
      */
-    protected function writeContent(string $content): void
+    protected function writeContent(string $path, string $content): void
     {
 
-        file_put_contents($this->fileInfo->getFullPath(), $content);
+        file_put_contents($path, $content);
 
     }
 

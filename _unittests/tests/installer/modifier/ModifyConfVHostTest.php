@@ -10,6 +10,7 @@ namespace _unittests\tests\installer\modifier;
 
 use app\installer\file\FileInfo;
 use app\installer\modifier\ModifyConfVHost;
+use app\installer\modifier\ModifyMysqlIni;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,7 +21,11 @@ use PHPUnit\Framework\TestCase;
 class ModifyConfVHostTest extends TestCase
 {
 
-    protected $modifier;
+    protected $modifierVHost;
+    /**
+     * @var ModifyMysqlIni
+     */
+    protected $modifierMysqlIni;
 
     /**
      *
@@ -28,19 +33,21 @@ class ModifyConfVHostTest extends TestCase
     public function testModify(): void
     {
 
-        $this->modifier->modify();
+        $this->modifierVHost->modify();
+        $this->modifierMysqlIni->modify();
 
     }
 
     protected function setUp()
     {
 
-        $filePath = realpath(__DIR__ . '/../../../../../xampp-test/apache/conf/extra/httpd-vhosts.conf');
+        $filePath = realpath(__DIR__ . '/../../../../../xampp-test/mysql/bin/my.ini');
         $xamppDir = realpath(__DIR__ . '/../../../../../xampp-test/');
 
         $fileInfo = FileInfo::createInstance($filePath);
 
-        $this->modifier = new ModifyConfVHost($fileInfo, $xamppDir);
+        $this->modifierVHost    = new ModifyConfVHost($fileInfo, $xamppDir);
+        $this->modifierMysqlIni = new ModifyMysqlIni($fileInfo, $xamppDir);
 
         parent::setUp();
     }

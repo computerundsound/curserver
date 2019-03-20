@@ -22,17 +22,17 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     /**
      *
      */
-    public function modify()
+    public function modify(): void
     {
 
-        $content      = $this->getContentFromFile();
+        $content      = $this->getContentFromFile($this->fileInfo->getFullPath());
         $insertString = $this->buildInsertString();
 
         if (strpos($content, $insertString) === false) {
 
             $contentNew = $content . "\n" . $insertString;
 
-            $this->writeContent($contentNew);
+            $this->writeContent($this->fileInfo->getFullPath(), $contentNew);
 
         }
 
