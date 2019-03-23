@@ -1,3 +1,7 @@
+# New:
+
+Added an Installhelper. Please read the [installer/readme](installer/readme.md)
+
 # curServer - XAMPP-Manager (DNS) for Windows #
 
 You can manage your XAMPP Virtual-Hosts with this tool.

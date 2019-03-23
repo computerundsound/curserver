@@ -34,8 +34,6 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
         $this->buildPaths();
         $this->backup();
         $this->copyTemplate($replacer);
-        exit;
-
 
     }
 
@@ -70,40 +68,6 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
 
         $this->writeContent($this->pathIniFile, $contentNew);
 
-
-    }
-
-    /**
-     * @param string $content
-     * @param array  $replacer
-     *
-     * @return string
-     */
-    protected function replaceContents(string $content, array $replacer): string
-    {
-
-        foreach ($replacer as $search => $newValue) {
-            $content = $this->replaceLine($search, $newValue, $content);
-        }
-
-        return $content;
-    }
-
-    /**
-     * @param string $search
-     * @param string $newValue
-     * @param string $content
-     *
-     * @return string
-     */
-    protected function replaceLine(string $search, string $newValue, string $content): string
-    {
-
-        $replace = "$search = $newValue";
-
-        $content = preg_replace("/^[\\s]*$search.*/m", $replace, $content);
-
-        return $content;
 
     }
 

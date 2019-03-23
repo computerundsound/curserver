@@ -25,14 +25,14 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     public function modify(array $replacer): void
     {
 
-        $content      = $this->getContentFromFile($this->fileInfo->getFullPath());
+        $content      = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
         $insertString = $this->buildInsertString();
 
         if (strpos($content, $insertString) === false) {
 
             $contentNew = $content . "\n" . $insertString;
 
-            $this->writeContent($this->fileInfo->getFullPath(), $contentNew);
+            $this->writeContent($this->fileInfoFromFileToModify->getFullPath(), $contentNew);
 
         }
 

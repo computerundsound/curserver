@@ -27,7 +27,7 @@ class ModifyFileAbstract
     /**
      * @var FileInfo
      */
-    protected $fileInfo;
+    protected $fileInfoFromFileToModify;
 
     protected $xamppDir;
 
@@ -35,14 +35,14 @@ class ModifyFileAbstract
     /**
      * ModifiyFileAbstract constructor.
      *
-     * @param FileInfo $fileInfo
+     * @param FileInfo $fileInfoFromFileToModify
      * @param string   $xamppDir
      */
-    public function __construct(FileInfo $fileInfo, string $xamppDir)
+    public function __construct(FileInfo $fileInfoFromFileToModify, string $xamppDir)
     {
 
-        $this->fileInfo = $fileInfo;
-        $this->xamppDir = $xamppDir;
+        $this->fileInfoFromFileToModify = $fileInfoFromFileToModify;
+        $this->xamppDir                 = $xamppDir;
     }
 
     /**
@@ -72,5 +72,40 @@ class ModifyFileAbstract
         file_put_contents($path, $content);
 
     }
+
+    /**
+     * @param string $content
+     * @param array  $replacer
+     *
+     * @return string
+     */
+    protected function replaceContents(string $content, array $replacer): string
+    {
+
+        foreach ($replacer as $search => $newValue) {
+            $content = $this->replaceLine($search, $newValue, $content);
+        }
+
+        return $content;
+    }
+
+    /**
+     * @param string $search
+     * @param string $newValue
+     * @param string $content
+     *
+     * @return string
+     */
+    protected function replaceLine(string $search, string $newValue, string $content): string
+    {
+
+        $replace = "$search = $newValue";
+
+        $content = preg_replace("/^[\\s]*$search.*/m", $replace, $content);
+
+        return $content;
+
+    }
+
 
 }

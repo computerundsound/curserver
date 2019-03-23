@@ -22,14 +22,14 @@ class ReplaceBuilder
     use ArrayTrait;
 
     /**
-     * @param string $pathToEnvironmentFile
+     * @param string $pathToReplacerIni
      *
      * @return Replacer
      */
-    public function getReplacer(string $pathToEnvironmentFile): Replacer
+    public function getReplacer(string $pathToReplacerIni): Replacer
     {
 
-        $parsedIni = parse_ini_file($pathToEnvironmentFile, true);
+        $parsedIni = parse_ini_file($pathToReplacerIni, true);
 
         $vhost    = self::getValueFromArray('vhost', $parsedIni, []);
         $phpIni   = self::getValueFromArray('phpIni', $parsedIni, []);
