@@ -9,11 +9,6 @@
 namespace app\installer\xampp;
 
 
-use app\installer\modifier\ModifyConfVHost;
-use app\installer\modifier\ModifyMysqlIni;
-use app\installer\modifier\ModifyPHPIni;
-use app\installer\Replacer\Replacer;
-
 /**
  * Class Xampp
  *
@@ -21,42 +16,27 @@ use app\installer\Replacer\Replacer;
  */
 class Xampp
 {
+
     /**
      * @var string
      */
     protected $xamppDir;
     /**
-     * @var ModifyMysqlIni
+     * @var string
      */
-    protected $modifyMysqlIni;
-    /**
-     * @var ModifyConfVHost
-     */
-    protected $modifyConfVHost;
-    /**
-     * @var ModifyPHPIni
-     */
-    protected $modifyPHPIni;
-
+    protected $correspondingVHostFilePath;
 
     /**
      * Xampp constructor.
      *
-     * @param string          $xamppDir
-     * @param ModifyMysqlIni  $modifyMysqlIni
-     * @param ModifyConfVHost $modifyConfVHost
-     * @param ModifyPHPini    $modifyPHPIni
+     * @param string $existingXamppDir
+     * @param string $correspondingVHostFilePath
      */
-    public function __construct(string $xamppDir,
-                                ModifyMysqlIni $modifyMysqlIni,
-                                ModifyConfVHost $modifyConfVHost,
-                                ModifyPHPIni $modifyPHPIni)
+    public function __construct(string $existingXamppDir, string $correspondingVHostFilePath)
     {
 
-        $this->xamppDir        = $xamppDir;
-        $this->modifyMysqlIni  = $modifyMysqlIni;
-        $this->modifyConfVHost = $modifyConfVHost;
-        $this->modifyPHPIni    = $modifyPHPIni;
+        $this->xamppDir                   = realpath($existingXamppDir);
+        $this->correspondingVHostFilePath = realpath($correspondingVHostFilePath);
     }
 
     /**
@@ -79,16 +59,31 @@ class Xampp
     }
 
     /**
-     * @param Replacer $replacer
+     * @return string
      */
-    public function update(Replacer $replacer): void
+    public function getXamppVersion(): string
     {
 
-        $this->modifyConfVHost->modify($replacer->getVhostReplacer());
-        $this->modifyMysqlIni->modify($replacer->getMysqlIniReplacer());
-        $this->modifyPHPIni->modify($replacer->getPhpIniReplacer());
+        $dirName = $this->getXamppDirName();
 
+        $versionString = '';
+
+        if (preg_match('/xampp-([^-]*)/', $dirName, $matches)) {
+
+            $versionString = array_key_exists(1, $matches) ? (string)$matches[1] : '';
+
+        }
+
+        return $versionString;
     }
 
+    /**
+     * @return string
+     */
+    public function getCorrespondingVHostFilePath(): string
+    {
+
+        return $this->correspondingVHostFilePath;
+    }
 
 }

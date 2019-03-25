@@ -9,7 +9,15 @@
 namespace app\installer;
 
 
+use app\installer\file\FileInfo;
+use app\installer\modifier\ModifyConfVHost;
+use app\installer\modifier\ModifyMysqlIni;
+use app\installer\modifier\ModifyPHPIni;
+use app\installer\Replacer\ReplaceBuilder;
+use app\installer\Replacer\Replacer;
+use app\installer\xampp\Xampp;
 use app\installer\xampp\XamppListBuilder;
+use app\installer\xampp\XamppUpdater;
 
 /**
  * Class UpdateControler
@@ -20,26 +28,62 @@ class UpdateController
 {
 
     /**
-     * @param string $xamppDir
+     * @param string $xamppContainerPath
      * @param string $pathToReplacerIni
      */
-    public function update(string $xamppDir, $pathToReplacerIni)
+    public function update(string $xamppContainerPath, $pathToReplacerIni): void
     {
 
         $xamppController = new XamppListBuilder();
 
-        $xamppList = $xamppController->getXamppList($xamppDir);
+        $xamppList = $xamppController->getXamppList($xamppContainerPath);
 
         $xamppListArray = $xamppList->getXampps();
 
-        $replaceBuilder = new Replacer\ReplaceBuilder();
+        $replaceBuilder = new ReplaceBuilder();
         $replacer       = $replaceBuilder->getReplacer($pathToReplacerIni);
 
         foreach ($xamppListArray as $xampp) {
 
-            $xampp->update($replacer);
+            $this->updateXampp($xampp, $replacer);
 
         }
+
+    }
+
+    /**
+     * @param Xampp    $xampp
+     * @param Replacer $replacer
+     */
+    protected function updateXampp(Xampp $xampp, Replacer $replacer): void
+    {
+
+        $xamppDir = $xampp->getXamppDir();
+
+        $vHostFilePath = realpath($xamppDir . '/apache/conf/extra/httpd-vhosts.conf');
+
+        $modifyConfVHost = new ModifyConfVHost(
+            FileInfo::createInstance($vHostFilePath),
+            $xampp);
+
+        $mysqlIniPath = realpath($xamppDir . '/mysql/bin/my.ini');
+
+        $modifyMysqlIni = new ModifyMysqlIni(
+            FileInfo::createInstance($mysqlIniPath),
+            $xampp);
+
+        $phpIniPath = realpath($xamppDir . '/php/php.ini');
+
+        $modifyPhpIni = new ModifyPHPIni(
+            FileInfo::createInstance($phpIniPath),
+            $xampp);
+
+        $xamppUpdater = new XamppUpdater($xampp,
+                                         $modifyMysqlIni,
+                                         $modifyConfVHost,
+                                         $modifyPhpIni);
+
+        $xamppUpdater->update($replacer);
 
     }
 

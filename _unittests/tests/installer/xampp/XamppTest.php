@@ -26,7 +26,7 @@ class XamppTest extends TestCase
 
     protected $xampp;
 
-    public function testUpdate()
+    public function _testUpdate(): void
     {
 
         $replaceBuilder = new ReplaceBuilder();
@@ -34,7 +34,28 @@ class XamppTest extends TestCase
         $replacer = $replaceBuilder->getReplacer(
             __DIR__ . '/../../../../installer/replacement.ini');
 
-        $this->xampp->update($replacer);
+//        $this->xampp->update($replacer);
+
+    }
+
+    public function testGetVersion(): void
+    {
+
+        $xamppDir = __DIR__ . '/xampp-232.23-paff';
+
+        $modifyMySqlIni = $this->createMock(ModifyMysqlIni::class);
+        $modifyConfHost = $this->createMock(ModifyConfVHost::class);
+        $modifyPHPIni   = $this->createMock(ModifyPHPIni::class);
+
+        $xampp = new Xampp($xamppDir,
+                           $modifyMySqlIni,
+                           $modifyConfHost,
+                           $modifyPHPIni);
+
+        $version = $xampp->getXamppVersion();
+
+        $this->assertSame('232.23', $version);
+
 
     }
 

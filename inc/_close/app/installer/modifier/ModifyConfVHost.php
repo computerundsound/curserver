@@ -8,6 +8,7 @@
 
 namespace app\installer\modifier;
 
+use app\ArrayTrait;
 
 /**
  * Class ModifyConfVHost
@@ -17,12 +18,14 @@ namespace app\installer\modifier;
 class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
 {
 
-    protected $vhostFileName = 'cu_vhosts.txt';
+    use ArrayTrait;
 
     /**
      * @inheritDoc
+     *
+     * @return ModifyConfVHost
      */
-    public function modify(array $replacer): void
+    public function modify(array $replacer): ModifyInterface
     {
 
         $content      = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
@@ -36,7 +39,6 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
 
         }
 
-
     }
 
     /**
@@ -45,14 +47,15 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     protected function buildInsertString(): string
     {
 
-        $path = $this->xamppDir . '/' . $this->vhostFileName;
+        $path = $this->xampp->getXamppDir() . '/' . $this->xampp->;
 
-        $pathWithoutDriveLetter = $this->removeDiskLetter($path);
+        $pathWithoutDriveLetter = self::removeDiskLetter($path);
 
-        $pathWithoutDriveLetterClean = $this->buildGoodPath($pathWithoutDriveLetter, '/');
+        $pathWithoutDriveLetterClean = self::buildGoodPath($pathWithoutDriveLetter, '/');
 
         $insertString = 'include "' . $pathWithoutDriveLetterClean . '"';
 
         return $insertString;
     }
+
 }

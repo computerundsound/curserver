@@ -19,6 +19,7 @@ class Replacer
 
     protected $vhostReplacer    = [];
     protected $phpIniReplacer   = [];
+    protected $phpIniExtend     = [];
     protected $mysqlIniReplacer = [];
 
     /**
@@ -26,13 +27,18 @@ class Replacer
      *
      * @param array $vhostReplacer
      * @param array $phpIniReplacer
+     * @param array $phpIniExtend
      * @param array $mysqlIniReplacer
      */
-    public function __construct(array $vhostReplacer, array $phpIniReplacer, array $mysqlIniReplacer)
+    public function __construct(array $vhostReplacer,
+                                array $phpIniReplacer,
+                                array $phpIniExtend,
+                                array $mysqlIniReplacer)
     {
 
         $this->vhostReplacer    = $vhostReplacer;
         $this->phpIniReplacer   = $phpIniReplacer;
+        $this->phpIniExtend     = $phpIniExtend;
         $this->mysqlIniReplacer = $mysqlIniReplacer;
     }
 
@@ -61,6 +67,15 @@ class Replacer
     {
 
         return $this->mysqlIniReplacer;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPhpIniExtend(): array
+    {
+
+        return $this->phpIniExtend;
     }
 
 }

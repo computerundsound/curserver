@@ -11,7 +11,8 @@ namespace app\installer\modifier;
 
 
 use app\installer\file\FileInfo;
-use app\installer\file\PathWorker;
+use app\installer\xampp\Xampp;
+use app\PathTrait;
 use RuntimeException;
 
 /**
@@ -22,27 +23,29 @@ use RuntimeException;
 class ModifyFileAbstract
 {
 
-    use PathWorker;
+    use PathTrait;
 
     /**
      * @var FileInfo
      */
     protected $fileInfoFromFileToModify;
-
-    protected $xamppDir;
+    /**
+     * @var Xampp
+     */
+    protected $xampp;
 
 
     /**
      * ModifiyFileAbstract constructor.
      *
      * @param FileInfo $fileInfoFromFileToModify
-     * @param string   $xamppDir
+     * @param Xampp    $xampp
      */
-    public function __construct(FileInfo $fileInfoFromFileToModify, string $xamppDir)
+    public function __construct(FileInfo $fileInfoFromFileToModify, Xampp $xampp)
     {
 
         $this->fileInfoFromFileToModify = $fileInfoFromFileToModify;
-        $this->xamppDir                 = $xamppDir;
+        $this->xampp                    = $xampp;
     }
 
     /**

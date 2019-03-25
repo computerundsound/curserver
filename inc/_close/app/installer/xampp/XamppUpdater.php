@@ -9,6 +9,11 @@
 namespace app\installer\xampp;
 
 
+use app\installer\modifier\ModifyConfVHost;
+use app\installer\modifier\ModifyMysqlIni;
+use app\installer\modifier\ModifyPHPIni;
+use app\installer\Replacer\Replacer;
+
 /**
  * Class XamppUpdater
  *
@@ -16,12 +21,70 @@ namespace app\installer\xampp;
  */
 class XamppUpdater
 {
+    /**
+     * @var Xampp
+     */
+    protected $xampp;
+    /**
+     * @var ModifyMysqlIni
+     */
+    protected $modifyMysqlIni;
+    /**
+     * @var ModifyConfVHost
+     */
+    protected $modifyConfVHost;
+    /**
+     * @var ModifyPHPIni
+     */
+    protected $modifyPHPIni;
+
+    /**
+     * XamppUpdater constructor.
+     *
+     * @param Xampp           $xampp
+     * @param ModifyMysqlIni  $modifyMysqlIni
+     * @param ModifyConfVHost $modifyConfVHost
+     * @param ModifyPHPIni    $modifyPHPIni
+     */
+    public function __construct(Xampp $xampp,
+                                ModifyMysqlIni $modifyMysqlIni,
+                                ModifyConfVHost $modifyConfVHost,
+                                ModifyPHPIni $modifyPHPIni)
+    {
+
+        $this->xampp           = $xampp;
+        $this->modifyMysqlIni  = $modifyMysqlIni;
+        $this->modifyConfVHost = $modifyConfVHost;
+        $this->modifyPHPIni    = $modifyPHPIni;
+    }
 
 
-    public function update(Xampp $xampp)
+    /**
+     * @param Replacer $replacer
+     */
+    public function update(Replacer $replacer)
     {
 
 
+        $this->modifyConfVHost->modify($replacer->getVhostReplacer());
+        $this->modifyMysqlIni->modify($replacer->getMysqlIniReplacer());
+        $this->xdebug($replacer);
+        $this->modifyPHPIni->modify($replacer->getPhpIniReplacer());
+
+
+    }
+
+    /**
+     * @param Replacer $replacer
+     */
+    protected function xdebug(Replacer $replacer): void
+    {
+
+        $xdebugDllPath = realpath($this->xampp->getXamppDir() . '/php/ext/php_xdebug.dll');
+
+        if ($xdebugDllPath) {
+            $this->modifyPHPIni->addXDebug($replacer);
+        }
     }
 
 

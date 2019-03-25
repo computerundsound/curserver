@@ -27,8 +27,10 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
 
     /**
      * @inheritDoc
+     *
+     * @return ModifyMysqlIni
      */
-    public function modify(array $replacer): void
+    public function modify(array $replacer): ModifyInterface
     {
 
         $this->buildPaths();
@@ -40,9 +42,11 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
     protected function buildPaths()
     {
 
-        $this->pathIniFile         = $this->buildGoodPath($this->xamppDir . self::$pathIniFileFromXamppRoot);
-        $this->pathIniBackupFile   = $this->buildGoodPath($this->xamppDir . self::$pathIniFileBackupFromXamppRoot);
-        $this->pathIniTemplateFile = $this->buildGoodPath($this->xamppDir . self::$pathIniTemplateFileFromXamppRoot);
+        $xamppDir = $this->xampp->getXamppDir();
+
+        $this->pathIniFile         = self::buildGoodPath($xamppDir . self::$pathIniFileFromXamppRoot);
+        $this->pathIniBackupFile   = self::buildGoodPath($xamppDir . self::$pathIniFileBackupFromXamppRoot);
+        $this->pathIniTemplateFile = self::buildGoodPath($xamppDir . self::$pathIniTemplateFileFromXamppRoot);
 
     }
 

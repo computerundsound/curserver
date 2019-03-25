@@ -10,7 +10,6 @@ namespace _unittests\tests\installer\modifier;
 
 use app\installer\file\FileInfo;
 use app\installer\modifier\ModifyConfVHost;
-use app\installer\modifier\ModifyMysqlIni;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,12 +19,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ModifyConfVHostTest extends TestCase
 {
-
+    /** @var ModifyConfVHost */
     protected $modifierVHost;
-    /**
-     * @var ModifyMysqlIni
-     */
-    protected $modifierMysqlIni;
 
     /**
      *
@@ -33,12 +28,16 @@ class ModifyConfVHostTest extends TestCase
     public function testModify(): void
     {
 
-        $replacer = $this->createMock();
+        $replacer = [
+            'vhostFile_if_version_is_greater_or_equal_5.4' => 'cu_vhosts.txt',
+            'vhostFile_if_version_is_smaller_than_5.4'     => 'cu_vhosts_5_3.txt',
+            'vhostFile_if_version_is_smaller_than_5'       => 'cu_vhosts_4.txt',
+        ];
 
-        $this->modifierVHost->modify();
-        $this->modifierMysqlIni->modify();
+        $this->modifierVHost->modify($replacer);
 
     }
+
 
     protected function setUp()
     {
@@ -48,8 +47,7 @@ class ModifyConfVHostTest extends TestCase
 
         $fileInfo = FileInfo::createInstance($filePath);
 
-        $this->modifierVHost    = new ModifyConfVHost($fileInfo, $xamppDir);
-        $this->modifierMysqlIni = new ModifyMysqlIni($fileInfo, $xamppDir);
+        $this->modifierVHost = new ModifyConfVHost($fileInfo, $xamppDir);
 
         parent::setUp();
     }

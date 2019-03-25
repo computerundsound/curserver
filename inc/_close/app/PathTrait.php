@@ -3,20 +3,19 @@
  * Copyright Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
- * LastModified: 2019.03.19 at 23:56 MEZ
+ * LastModified: 2019.03.25 at 02:25 MEZ
  */
 
-namespace app\installer\file;
+namespace app;
 
 
 /**
- * Trait PathWorker
+ * Trait PathTrait
  *
- * @package app\installer\file
+ * @package app
  */
-trait PathWorker
+trait PathTrait
 {
-
 
     /**
      * @param string $path
@@ -24,7 +23,7 @@ trait PathWorker
      *
      * @return string
      */
-    protected function buildGoodPath(string $path, string $directorySeparator = DIRECTORY_SEPARATOR): string
+    protected static function buildGoodPath(string $path, string $directorySeparator = DIRECTORY_SEPARATOR)
     {
 
         $pathNew = preg_replace('#[/\\\]+#', $directorySeparator, $path);
@@ -37,7 +36,7 @@ trait PathWorker
      *
      * @return string
      */
-    protected function removeDiskLetter(string $path): string
+    protected static function removeDiskLetter(string $path)
     {
 
         $pathWithoutDiskLetter = preg_replace('#^[a-zA-Z]?:#', '', $path);

@@ -20,8 +20,8 @@ interface ModifyInterface
     /**
      * @param array $replacer
      *
-     * @return void
+     * @return ModifyInterface
      */
-    public function modify(array $replacer):void ;
+    public function modify(array $replacer):ModifyInterface;
 
 }

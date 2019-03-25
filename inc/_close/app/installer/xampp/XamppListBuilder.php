@@ -9,11 +9,6 @@
 namespace app\installer\xampp;
 
 
-use app\installer\file\FileInfo;
-use app\installer\modifier\ModifyConfVHost;
-use app\installer\modifier\ModifyMysqlIni;
-use app\installer\modifier\ModifyPHPIni;
-
 /**
  * Class XamppListBuilder
  *
@@ -23,14 +18,14 @@ class XamppListBuilder
 {
 
     /**
-     * @param string $path
+     * @param string $xamppContainerPath
      *
      * @return XamppList
      */
-    public function getXamppList(string $path): XamppList
+    public function getXamppList(string $xamppContainerPath): XamppList
     {
 
-        $dirs = $this->getDirs($path);
+        $dirs = $this->getDirs($xamppContainerPath);
 
         $xamppList = $this->getList($dirs);
 
@@ -103,29 +98,7 @@ class XamppListBuilder
     protected function getXampp($xamppDir): Xampp
     {
 
-        $vHostFilePath = realpath($xamppDir . '/apache/conf/extra/httpd-vhosts.conf');
-
-        $vHostFile = new ModifyConfVHost(
-            FileInfo::createInstance($vHostFilePath),
-            $xamppDir);
-
-        $mysqlIniPath = realpath($xamppDir . '/mysql/bin/my.ini');
-
-        $mysqlIni = new ModifyMysqlIni(
-            FileInfo::createInstance($mysqlIniPath),
-            $xamppDir);
-
-        $phpIniPath = realpath($xamppDir . '/php/php.ini');
-
-        $phpIni = new ModifyPHPIni(
-            FileInfo::createInstance($phpIniPath),
-            $xamppDir);
-
-
-        return new Xampp($xamppDir,
-                         $mysqlIni,
-                         $vHostFile,
-                         $phpIni);
+        return new Xampp($xamppDir);
 
     }
 
