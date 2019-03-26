@@ -47,7 +47,9 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     protected function buildInsertString(): string
     {
 
-        $path = $this->xampp->getXamppDir();
+        $path = $this->xampp->getXamppDir() . '/../' . $this->xampp->getCorrespondingVHostFileName();
+
+        $path = realpath($path);
 
         $pathWithoutDriveLetter = self::removeDiskLetter($path);
 

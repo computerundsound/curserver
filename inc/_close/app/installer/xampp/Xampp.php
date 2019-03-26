@@ -24,19 +24,19 @@ class Xampp
     /**
      * @var string
      */
-    protected $correspondingVHostFilePath;
+    protected $correspondingVHostFileName;
 
     /**
      * Xampp constructor.
      *
      * @param string $existingXamppDir
-     * @param string $correspondingVHostFilePath
+     * @param string $correspondingVHostFileName
      */
-    public function __construct(string $existingXamppDir, string $correspondingVHostFilePath)
+    public function __construct(string $existingXamppDir, string $correspondingVHostFileName)
     {
 
         $this->xamppDir                   = realpath($existingXamppDir);
-        $this->correspondingVHostFilePath = realpath($correspondingVHostFilePath);
+        $this->correspondingVHostFileName = $correspondingVHostFileName;
     }
 
     /**
@@ -93,10 +93,10 @@ class Xampp
     /**
      * @return string
      */
-    public function getCorrespondingVHostFilePath(): string
+    public function getCorrespondingVHostFileName(): string
     {
 
-        return $this->correspondingVHostFilePath;
+        return $this->correspondingVHostFileName;
     }
 
 }
