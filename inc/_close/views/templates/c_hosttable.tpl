@@ -66,8 +66,6 @@
                                       rows="10">{$hostfile_content|escape}</textarea>
                         </div>
                     </div>
-
-
                 </div>
             {/if}
 

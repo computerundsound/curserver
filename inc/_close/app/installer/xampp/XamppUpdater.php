@@ -62,9 +62,8 @@ class XamppUpdater
     /**
      * @param Replacer $replacer
      */
-    public function update(Replacer $replacer)
+    public function update(Replacer $replacer): void
     {
-
 
         $this->modifyConfVHost->modify($replacer->getVhostReplacer());
         $this->modifyMysqlIni->modify($replacer->getMysqlIniReplacer());

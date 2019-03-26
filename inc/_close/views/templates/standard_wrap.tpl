@@ -117,7 +117,7 @@
                     <div class="alert alert-danger">
                         <p>After that - please restart your mysql-Server</p>
 
-                        <p>Be shure that your DatabaseServer you are working on is running.</p>
+                        <p>Be sure that your DatabaseServer you are working on is running.</p>
                         <p>
                             Also make sure that your database is clean.
                         </p>

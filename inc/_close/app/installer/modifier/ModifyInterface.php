@@ -19,9 +19,7 @@ interface ModifyInterface
 
     /**
      * @param array $replacer
-     *
-     * @return ModifyInterface
      */
-    public function modify(array $replacer):ModifyInterface;
+    public function modify(array $replacer): void;
 
 }

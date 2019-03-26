@@ -34,14 +34,15 @@ class UpdateController
     public function update(string $xamppContainerPath, $pathToReplacerIni): void
     {
 
+        $replaceBuilder = new ReplaceBuilder();
+        $replacer       = $replaceBuilder->getReplacer($pathToReplacerIni);
+
         $xamppController = new XamppListBuilder();
 
-        $xamppList = $xamppController->getXamppList($xamppContainerPath);
+        $xamppList = $xamppController->getXamppList($xamppContainerPath, $replacer);
 
         $xamppListArray = $xamppList->getXampps();
 
-        $replaceBuilder = new ReplaceBuilder();
-        $replacer       = $replaceBuilder->getReplacer($pathToReplacerIni);
 
         foreach ($xamppListArray as $xampp) {
 

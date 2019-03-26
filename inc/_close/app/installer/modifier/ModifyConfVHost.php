@@ -25,7 +25,7 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyConfVHost
      */
-    public function modify(array $replacer): ModifyInterface
+    public function modify(array $replacer): void
     {
 
         $content      = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
@@ -47,7 +47,7 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     protected function buildInsertString(): string
     {
 
-        $path = $this->xampp->getXamppDir() . '/' . $this->xampp->;
+        $path = $this->xampp->getXamppDir();
 
         $pathWithoutDriveLetter = self::removeDiskLetter($path);
 

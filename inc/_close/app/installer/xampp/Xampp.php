@@ -40,6 +40,25 @@ class Xampp
     }
 
     /**
+     * @param string $dirName
+     *
+     * @return string
+     */
+    public static function buildXamppVersion(string $dirName): string
+    {
+
+        $versionString = '';
+
+        if (preg_match('/xampp-([^-]*)/', $dirName, $matches)) {
+
+            $versionString = array_key_exists(1, $matches) ? (string)$matches[1] : '';
+
+        }
+
+        return $versionString;
+    }
+
+    /**
      * @return string
      */
     public function getXamppDir(): string
@@ -66,15 +85,9 @@ class Xampp
 
         $dirName = $this->getXamppDirName();
 
-        $versionString = '';
+        return self::buildXamppVersion($dirName);
 
-        if (preg_match('/xampp-([^-]*)/', $dirName, $matches)) {
 
-            $versionString = array_key_exists(1, $matches) ? (string)$matches[1] : '';
-
-        }
-
-        return $versionString;
     }
 
     /**

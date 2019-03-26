@@ -11,7 +11,6 @@ namespace app\installer\modifier;
 
 use app\ArrayTrait;
 use app\installer\Replacer\Replacer;
-use app\xampp\ReplacerEnvironmentKeys;
 use RuntimeException;
 
 /**
@@ -32,7 +31,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyPHPIni
      */
-    public function modify(array $replacer): ModifyInterface
+    public function modify(array $replacer): void
     {
 
         $iniFilePath = $this->fileInfoFromFileToModify->getFullPath();
@@ -42,8 +41,6 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
         $contentReplaced = $this->replaceContents($content, $replacer);
 
         $this->writeContent($iniFilePath, $contentReplaced);
-
-        return $this;
 
     }
 
@@ -111,39 +108,5 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
 
         return $contentNew;
     }
-
-
-    /**
-     * @param array  $replacer
-     * @param string $xamppVersion
-     *
-     * @return string
-     */
-    protected function getVHostFileName(array $replacer, string $xamppVersion): string
-    {
-
-        $vhostFileName = '';
-
-        if (version_compare(5.4, $xamppVersion, '<=')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_GREATER_OR_EQUAL_THAN_5_4;
-        }
-
-        if (version_compare(5.4, $xamppVersion, '>=')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5_4;
-        }
-
-        if (version_compare(5, $xamppVersion, '>')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5;
-        }
-
-        if (isset($replacerKey)) {
-            $vhostFileName = (string)self::getValueFromArray($replacerKey, $replacer);
-        }
-
-        $vhostFileName = $vhostFileName ?? '';
-
-        return $vhostFileName;
-    }
-
 
 }

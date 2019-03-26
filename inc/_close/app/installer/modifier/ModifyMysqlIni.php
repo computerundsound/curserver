@@ -30,7 +30,7 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyMysqlIni
      */
-    public function modify(array $replacer): ModifyInterface
+    public function modify(array $replacer): void
     {
 
         $this->buildPaths();
