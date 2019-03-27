@@ -47,7 +47,6 @@ class UpdateController
         foreach ($xamppListArray as $xampp) {
 
             $this->updateXampp($xampp, $replacer);
-
         }
 
     }

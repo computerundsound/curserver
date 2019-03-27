@@ -61,6 +61,8 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
                                     array($this->xampp->getXamppDir(), $profilerDirReal),
                                     $xdebugTemplate);
 
+        $xdebugString = preg_replace('/(?<!\\\)\\\n/u', "\n", $xdebugString);
+
         $contentNew = $this->buildNewXdebugContent($contentFromFile, $xdebugString);
 
         $this->writeContent($this->fileInfoFromFileToModify->getFullPath(), $contentNew);
