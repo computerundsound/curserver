@@ -19,8 +19,9 @@ $preInformation .= "\n\nCurrent XamppDir is $xamppDir\n\n";
 
 echo $preInformation;
 
-$input = 'yes';
-//$input        = readline('Do you want to continue (yes/no)]? ');
+//$input = 'yes';
+$input        = readline('Do you want to continue? Enter "yes" or "no": ');
+
 
 $inputTrimmed = trim($input);
 
