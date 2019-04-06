@@ -10,6 +10,7 @@ namespace app\installer;
 
 
 use app\installer\file\FileInfo;
+use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\modifier\ModifyConfVHost;
 use app\installer\modifier\ModifyMysqlIni;
 use app\installer\modifier\ModifyPHPIni;
@@ -18,6 +19,7 @@ use app\installer\Replacer\Replacer;
 use app\installer\xampp\Xampp;
 use app\installer\xampp\XamppListBuilder;
 use app\installer\xampp\XamppUpdater;
+use Throwable;
 
 /**
  * Class UpdateControler
@@ -43,10 +45,18 @@ class UpdateController
 
         $xamppListArray = $xamppList->getXampps();
 
+        InfoPrinter::info('Xampp list: ', $xamppListArray);
+
 
         foreach ($xamppListArray as $xampp) {
 
-            $this->updateXampp($xampp, $replacer);
+            try {
+                $this->updateXampp($xampp, $replacer);
+            } catch (Throwable $e) {
+
+                InfoPrinter::warning('Error updating xamppDir ' . $xampp->getXamppDir());
+
+            }
         }
 
     }
@@ -59,6 +69,8 @@ class UpdateController
     {
 
         $xamppDir = $xampp->getXamppDir();
+
+        InfoPrinter::info('Current XamppDir: ' . $xamppDir);
 
         $vHostFilePath = realpath($xamppDir . '/apache/conf/extra/httpd-vhosts.conf');
 
@@ -88,3 +100,4 @@ class UpdateController
     }
 
 }
+

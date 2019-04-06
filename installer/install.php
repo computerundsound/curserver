@@ -1,5 +1,6 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 
+use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\UpdateController;
 
 require_once __DIR__ . '/../inc/_close/vendor/autoload.php';
@@ -18,7 +19,7 @@ $preInformation .= "\n\nCurrent XamppDir is $xamppDir\n\n";
 
 echo $preInformation;
 
-$input = '';
+$input = 'yes';
 //$input        = readline('Do you want to continue (yes/no)]? ');
 
 $inputTrimmed = trim($input);
@@ -30,14 +31,14 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
     $replacerIniPath = realpath(__DIR__ . '/replacement.ini');
 
     $updateController = new UpdateController();
+
+    InfoPrinter::info('Starting. XamppContainerDir: ' . $xamppDir);
+
     $updateController->update($xamppDir, $replacerIniPath);
 
     echo 'Finished - please check your xampps';
 
 } else {
-
-    $value              = parse_ini_file('replacement.ini', true);
-    $value['templates'] = str_replace('\n', "\n", $value['templates']);
 
     echo "Aborted by user!\n\n";
 }
