@@ -17,8 +17,10 @@ $preInformation = strip_tags($preInformation);
 $preInformation .= "\n\nCurrent XamppDir is $xamppDir\n\n";
 
 echo $preInformation;
+
 $input = '';
 //$input        = readline('Do you want to continue (yes/no)]? ');
+
 $inputTrimmed = trim($input);
 
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
@@ -36,9 +38,6 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
     $value              = parse_ini_file('replacement.ini', true);
     $value['templates'] = str_replace('\n', "\n", $value['templates']);
-
-//    Debug::printText($value);
-
 
     echo "Aborted by user!\n\n";
 }
