@@ -39,6 +39,15 @@ The curserver-Tool provides two vhost-Files in the _install_helper Directory. Pl
 
 Now don't forget to restart Apache!
 
+**You can try to use the *install-script* This script will modify the**
+
++ php.ini
++ my.ini (mysql)
++ httpd-vhosts.conf (apache)
+
+**files. It will add xdebug entries into your php.ini  
+For mor information see [installer/readme.md](installer/readme.md)**
+
 Now open the curservertool in your browser [http://curserver/](http://curserver/) and create an virtual host for curserver.
 
 ## Why must I create a vhost for the curserver with the curserver-Tool after I have installed the tool?
