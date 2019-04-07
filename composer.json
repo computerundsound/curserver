@@ -1,6 +1,6 @@
 {
   "name": "computerundsound/curserver",
-  "description": "Sermanager for Windows XAMPP",
+  "description": "VHost-Manager for Windows (How to use multiple Domains with XAMPP and use multiple XAMPPS for different php-versions",
   "minimum-stability": "dev",
   "license": "proprietary",
   "authors": [
