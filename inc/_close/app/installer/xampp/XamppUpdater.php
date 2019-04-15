@@ -37,6 +37,10 @@ class XamppUpdater
      * @var ModifyPHPIni
      */
     protected $modifyPHPIni;
+    /**
+     * @var string
+     */
+    protected $appRootDir;
 
     /**
      * XamppUpdater constructor.
@@ -45,17 +49,20 @@ class XamppUpdater
      * @param ModifyMysqlIni  $modifyMysqlIni
      * @param ModifyConfVHost $modifyConfVHost
      * @param ModifyPHPIni    $modifyPHPIni
+     * @param string          $appRootDir
      */
     public function __construct(Xampp $xampp,
                                 ModifyMysqlIni $modifyMysqlIni,
                                 ModifyConfVHost $modifyConfVHost,
-                                ModifyPHPIni $modifyPHPIni)
+                                ModifyPHPIni $modifyPHPIni,
+                                string $appRootDir)
     {
 
         $this->xampp           = $xampp;
         $this->modifyMysqlIni  = $modifyMysqlIni;
         $this->modifyConfVHost = $modifyConfVHost;
         $this->modifyPHPIni    = $modifyPHPIni;
+        $this->appRootDir      = $appRootDir;
     }
 
 
@@ -82,7 +89,7 @@ class XamppUpdater
         $xdebugDllPath = realpath($this->xampp->getXamppDir() . '/php/ext/php_xdebug.dll');
 
         if ($xdebugDllPath) {
-            $this->modifyPHPIni->addXDebug($replacer);
+            $this->modifyPHPIni->addXDebug($replacer, $this->appRootDir);
         }
     }
 

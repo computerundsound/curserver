@@ -67,6 +67,7 @@ class Xampp
         return $this->xamppDir;
     }
 
+
     /**
      * @return string
      */

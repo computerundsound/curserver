@@ -46,14 +46,17 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
 
     /**
      * @param Replacer $replacer
+     * @param string   $appRootDir
      */
-    public function addXDebug(Replacer $replacer)
+    public function addXDebug(Replacer $replacer, string $appRootDir)
     {
 
         $contentFromFile = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
 
-        $xdebugTemplate  = self::getValueFromArray('xdebug_template_standard',
-                                                   $replacer->getPhpIniExtend());
+        $xdebugTemplateFileName = self::getValueFromArray('xdebug_template_standard_template_file',
+                                                          $replacer->getPhpIniExtend());
+
+        $xdebugTemplate  = $this->getXdebugIniTemplate($xdebugTemplateFileName, $appRootDir);
         $phpIniExtend    = $replacer->getPhpIniExtend();
         $profilerDirReal = $this->getProfilerDir($phpIniExtend);
 
@@ -66,6 +69,24 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
         $contentNew = $this->buildNewXdebugContent($contentFromFile, $xdebugString);
 
         $this->writeContent($this->fileInfoFromFileToModify->getFullPath(), $contentNew);
+
+    }
+
+    /**
+     * @param string $fileName
+     * @param string $appRootDir
+     *
+     * @return string
+     */
+    protected function getXdebugIniTemplate(string $fileName, string $appRootDir): string
+    {
+
+        $content = file_get_contents($appRootDir .
+                                     '/installer/php.ini/' .
+                                     $fileName);
+
+        return $content;
+
 
     }
 
@@ -88,9 +109,8 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
             throw new RuntimeException(sprintf('Directory "%s" was not created', $profilerDirGood));
         }
 
-        $profilerDirReal = realpath($profilerDirGood);
+        return realpath($profilerDirGood);
 
-        return $profilerDirReal;
     }
 
     /**
@@ -103,12 +123,10 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
     {
 
         $contentFromFileWithoutXdebug = preg_replace('/\[xdebug\][^\[]*/i', '', $contentFromFile);
-
         $contentFromFileWithoutXdebug = rtrim($contentFromFileWithoutXdebug);
 
-        $contentNew = $contentFromFileWithoutXdebug . "\n\n" . $xdebugString;
+        return $contentFromFileWithoutXdebug . "\n\n" . $xdebugString;
 
-        return $contentNew;
     }
 
 }

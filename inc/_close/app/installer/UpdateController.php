@@ -28,6 +28,21 @@ use Throwable;
  */
 class UpdateController
 {
+    /**
+     * @var string
+     */
+    protected $appRootDir;
+
+    /**
+     * UpdateController constructor.
+     *
+     * @param string $appRootDir
+     */
+    public function __construct(string $appRootDir)
+    {
+
+        $this->appRootDir = $appRootDir;
+    }
 
     /**
      * @param string $xamppContainerPath
@@ -93,7 +108,8 @@ class UpdateController
         $xamppUpdater = new XamppUpdater($xampp,
                                          $modifyMysqlIni,
                                          $modifyConfVHost,
-                                         $modifyPhpIni);
+                                         $modifyPhpIni,
+                                         $this->appRootDir);
 
         $xamppUpdater->update($replacer);
 

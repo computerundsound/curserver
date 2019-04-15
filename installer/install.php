@@ -22,8 +22,9 @@ echo $preInformation;
 //$input = 'yes';
 $input        = readline('Do you want to continue? Enter "yes" or "no": ');
 
-
 $inputTrimmed = trim($input);
+
+$appRootDir = dirname(__DIR__) . '/';
 
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
@@ -31,7 +32,7 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
     $replacerIniPath = realpath(__DIR__ . '/replacement.ini');
 
-    $updateController = new UpdateController();
+    $updateController = new UpdateController($appRootDir);
 
     InfoPrinter::info('Starting. XamppContainerDir: ' . $xamppDir);
 

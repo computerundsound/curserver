@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "computerundsound/culibrary",
-            "version": "3.0.5",
+            "version": "3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/computerundsound/cuLibrary.git",
-                "reference": "dee38be2b051b163d1d31454f51a55e5e1860996"
+                "reference": "da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/dee38be2b051b163d1d31454f51a55e5e1860996",
-                "reference": "dee38be2b051b163d1d31454f51a55e5e1860996",
+                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94",
+                "reference": "da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
             ],
             "description": "small helper library",
             "homepage": "https://github.com/computerundsound/cuLibrary",
-            "time": "2018-10-12T01:39:26+00:00"
+            "time": "2019-04-10T15:06:45+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -51,12 +51,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "3825db53a2be5d9ce54436a9cc557c6bdce1808a"
+                "reference": "bfaa76d370ecfae6fac85b30c15b90cc23cce895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3825db53a2be5d9ce54436a9cc557c6bdce1808a",
-                "reference": "3825db53a2be5d9ce54436a9cc557c6bdce1808a",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/bfaa76d370ecfae6fac85b30c15b90cc23cce895",
+                "reference": "bfaa76d370ecfae6fac85b30c15b90cc23cce895",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2019-04-06T16:58:29+00:00"
+            "time": "2019-04-07T15:36:22+00:00"
         },
         {
             "name": "smarty/smarty",

@@ -54,6 +54,8 @@ define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
  *
  */
 
+define('VHOST_DIR', 'e:/Joerg/Proggen/__XAMPP/');
+
 define('VHOST_FILES',
        serialize([
 	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
