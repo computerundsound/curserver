@@ -2,8 +2,6 @@
 
 .idea
 
-inc/_close/vendor
-
 **/.sass-cache/
 **/views/templates_c/
 **/views/cache

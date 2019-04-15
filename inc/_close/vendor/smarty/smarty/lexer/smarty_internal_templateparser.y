@@ -21,9 +21,9 @@ class Smarty_Internal_Templateparser
 }
 %include_class
 {
-    const Err1 = 'Security error: Call to private object member not allowed';
-    const Err2 = 'Security error: Call to dynamic object member not allowed';
-    const Err3 = 'PHP in template not allowed. Use SmartyBC to enable it';
+    const ERR1 = 'Security error: Call to private object member not allowed';
+    const ERR2 = 'Security error: Call to dynamic object member not allowed';
+    const ERR3 = 'PHP in template not allowed. Use SmartyBC to enable it';
 
     /**
      * result status
@@ -61,7 +61,7 @@ class Smarty_Internal_Templateparser
     /**
      * root parse tree buffer
      *
-     * @var Smarty_Internal_ParseTree
+     * @var Smarty_Internal_ParseTree_Template
      */
     public $root_buffer;
 
@@ -147,7 +147,7 @@ class Smarty_Internal_Templateparser
      * @param Smarty_Internal_Templatelexer        $lex
      * @param Smarty_Internal_TemplateCompilerBase $compiler
      */
-    function __construct(Smarty_Internal_Templatelexer $lex, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function __construct(Smarty_Internal_Templatelexer $lex, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $this->lex = $lex;
         $this->compiler = $compiler;
@@ -226,7 +226,7 @@ class Smarty_Internal_Templateparser
 
 %right VERT.
 %left COLON.
-%left UNIMATH.
+
 
     //
     // complete template
@@ -329,10 +329,10 @@ smartytag(A)   ::= SMARTYBLOCKCHILDPARENT(i). {
     $j = strrpos(i,'.');
     if (i[$j+1] == 'c') {
         // {$smarty.block.child}
-        A = $this->compiler->compileTag('child',array(),array(i));;
+        A = $this->compiler->compileTag('child',array(),array(i));
     } else {
         // {$smarty.block.parent}
-       A = $this->compiler->compileTag('parent',array(),array(i));;
+       A = $this->compiler->compileTag('parent',array(),array(i));
      }
 }
 
@@ -632,16 +632,6 @@ expr(res)        ::= expr(e) MATH(m) value(v). {
 expr(res)        ::= expr(e) UNIMATH(m) value(v). {
     res = e . trim(m) . v;
 }
- 
-                  // array
-expr(res)       ::= array(a). {
-    res = a;
-}
-
-                  // modifier
-expr(res)        ::= expr(e) modifierlist(l). {
-    res = $this->compiler->compileTag('private_modifier',array(),array('value'=>e,'modifierlist'=>l));
-}
 
 // if expression
                     // special conditions
@@ -787,7 +777,10 @@ value(res)       ::= NAMESPACE(c). {
     res = c;
 }
 
-
+                  // array
+value(res)       ::= arraydef(a). {
+    res = a;
+}
                   // static class access
 value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
     if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->security->isTrustedStaticClassAccess(c, s, $this->compiler))) {
@@ -922,7 +915,7 @@ indexdef(res)   ::= OPENB INTEGER(n) CLOSEB. {
     res = '['.n.']';
 }
 indexdef(res)   ::= OPENB DOLLARID(i) CLOSEB. {
-    res = '['.$this->compiler->compileVariable('\''.substr(i,1).'\'').']';;
+    res = '['.$this->compiler->compileVariable('\''.substr(i,1).'\'').']';
 }
 indexdef(res)   ::= OPENB variable(v) CLOSEB. {
     res = '['.v.']';
@@ -998,28 +991,28 @@ objectchain(res) ::= objectchain(oc) objectelement(oe). {
                     // variable
 objectelement(res)::= PTR ID(i) arrayindex(a). {
     if ($this->security && substr(i,0,1) === '_') {
-        $this->compiler->trigger_template_error (self::Err1);
+        $this->compiler->trigger_template_error (self::ERR1);
     }
     res = '->'.i.a;
 }
 
 objectelement(res)::= PTR varvar(v) arrayindex(a). {
     if ($this->security) {
-        $this->compiler->trigger_template_error (self::Err2);
+        $this->compiler->trigger_template_error (self::ERR2);
     }
     res = '->{'.$this->compiler->compileVariable(v).a.'}';
 }
 
 objectelement(res)::= PTR LDEL expr(e) RDEL arrayindex(a). {
     if ($this->security) {
-        $this->compiler->trigger_template_error (self::Err2);
+        $this->compiler->trigger_template_error (self::ERR2);
     }
     res = '->{'.e.a.'}';
 }
 
 objectelement(res)::= PTR ID(ii) LDEL expr(e) RDEL arrayindex(a). {
     if ($this->security) {
-        $this->compiler->trigger_template_error (self::Err2);
+        $this->compiler->trigger_template_error (self::ERR2);
     }
     res = '->{\''.ii.'\'.'.e.a.'}';
 }
@@ -1043,14 +1036,14 @@ function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
 //
 method(res)     ::= ID(f) OPENP params(p) CLOSEP. {
     if ($this->security && substr(f,0,1) === '_') {
-        $this->compiler->trigger_template_error (self::Err1);
+        $this->compiler->trigger_template_error (self::ERR1);
     }
     res = f . '('. implode(',',p) .')';
 }
 
 method(res)     ::= DOLLARID(f) OPENP params(p) CLOSEP.  {
     if ($this->security) {
-        $this->compiler->trigger_template_error (self::Err2);
+        $this->compiler->trigger_template_error (self::ERR2);
     }
     $prefixVar = $this->compiler->getNewPrefixVariable();
     $this->compiler->appendPrefixCode("<?php {$prefixVar} = ".$this->compiler->compileVariable('\''.substr(f,1).'\'').';?>');
@@ -1108,6 +1101,9 @@ modparameters(res)      ::= . {
                     // parameter expression
 modparameter(res) ::= COLON value(mp). {
     res = array(mp);
+}
+modparameter(res) ::= COLON UNIMATH(m) value(mp). {
+    res = array(trim(m).mp);
 }
 
 modparameter(res) ::= COLON array(mp). {
@@ -1191,7 +1187,10 @@ scond(res)  ::= SINGLECOND(o). {
 //
 // ARRAY element assignment
 //
-array(res)           ::=  OPENB arrayelements(a) CLOSEB.  {
+arraydef(res)           ::=  OPENB arrayelements(a) CLOSEB.  {
+    res = 'array('.a.')';
+}
+arraydef(res)           ::=  ARRAYOPEN arrayelements(a) CLOSEP.  {
     res = 'array('.a.')';
 }
 
