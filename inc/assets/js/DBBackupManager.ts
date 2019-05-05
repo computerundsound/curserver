@@ -10,6 +10,8 @@
 ///<reference path="Interfaces/IAjaxResponse.ts" />
 ///<reference path="Interfaces/IAjaxResponse.ts" />
 
+import {CuLoader} from "./CuLoader";
+
 interface SendData {
     "action": string,
 }

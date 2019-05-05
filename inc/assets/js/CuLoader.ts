@@ -5,7 +5,9 @@
  * LastModified: 2018.04.30 at 05:41 MESZ
  */
 
-class CuLoader {
+///<reference path="../dts/jquery.d.ts" />
+
+export class CuLoader {
 
     protected static $cuLoader = $("#cuLoader");
 
@@ -14,7 +16,6 @@ class CuLoader {
         CuLoader.$cuLoader.show();
 
     }
-
 
     public static hide() {
         CuLoader.$cuLoader.hide();
