@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9c54c99576ff79bf38a93889e523bfe",
+    "content-hash": "ec5d1d129fdbaa0ad40c1f2049b39764",
     "packages": [
         {
             "name": "computerundsound/culibrary",
@@ -156,6 +156,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7"
+    },
     "platform-dev": []
 }

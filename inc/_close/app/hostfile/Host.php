@@ -41,6 +41,19 @@ class Host
     private       $vhost_htdocs;
 
     /**
+     * @param $dir
+     *
+     * @return mixed
+     */
+    private static function make_vhost_dir($dir)
+    {
+
+        $dir = str_replace('\\', '/', $dir);
+
+        return $dir;
+    }
+
+    /**
      * @param $host_id
      * @param $tld
      * @param $domain
@@ -59,7 +72,9 @@ class Host
                              $comment,
                              $last_change,
                              $vhost_dir,
-                             $vhost_htdocs) {
+                             $vhost_htdocs): void
+    {
+
         $this->host_id      = $host_id;
         $this->tld          = $tld;
         $this->domain       = $domain;
@@ -72,31 +87,22 @@ class Host
     }
 
     /**
-     * @param $dir
-     *
-     * @return mixed
-     */
-    private static function make_vhost_dir($dir) {
-        $dir = str_replace('\\', '/', $dir);
-
-        return $dir;
-    }
-
-    /**
      * @return mixed|string
      */
-    public function getFullDomain() {
+    public function getFullDomain()
+    {
+
         $full_domain = '';
 
-        if (strlen($this->subdomain) > 0) {
+        if ($this->subdomain !== '') {
             $full_domain .= $this->subdomain . '.';
         }
 
-        if (strlen($this->domain) > 0) {
+        if ($this->domain !== '') {
             $full_domain .= $this->domain . '.';
         }
 
-        if (strlen($this->tld) > 0) {
+        if ($this->tld !== '') {
             $full_domain .= $this->tld;
         }
 
@@ -113,7 +119,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getComment() {
+    public function getComment()
+    {
+
         return $this->comment;
     }
 
@@ -121,7 +129,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getDomain() {
+    public function getDomain()
+    {
+
         return $this->domain;
     }
 
@@ -129,7 +139,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getHostId() {
+    public function getHostId()
+    {
+
         return $this->host_id;
     }
 
@@ -137,7 +149,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getIp() {
+    public function getIp()
+    {
+
         return $this->ip;
     }
 
@@ -145,12 +159,16 @@ class Host
     /**
      * @return mixed
      */
-    public function getLastChange() {
+    public function getLastChange()
+    {
+
         return $this->last_change;
     }
 
 
-    public function set_last_change() {
+    public function set_last_change(): void
+    {
+
         $date_time         = date('Y-m-d H-i-s');
         $this->last_change = $date_time;
     }
@@ -159,7 +177,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getSubdomain() {
+    public function getSubdomain()
+    {
+
         return $this->subdomain;
     }
 
@@ -167,7 +187,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getTld() {
+    public function getTld()
+    {
+
         return $this->tld;
     }
 
@@ -175,7 +197,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getVhostDir() {
+    public function getVhostDir()
+    {
+
         return $this->vhost_dir;
     }
 
@@ -183,7 +207,9 @@ class Host
     /**
      * @return mixed
      */
-    public function getVhostHtdocs() {
+    public function getVhostHtdocs()
+    {
+
         return $this->vhost_htdocs;
     }
 }

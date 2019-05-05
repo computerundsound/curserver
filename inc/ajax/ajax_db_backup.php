@@ -10,13 +10,14 @@
 
 use app\ajaxresponse\ResponseStandard;
 use app\mysql_dumper\CuMysqlDump;
+use computerundsound\culibrary\CuConstantsContainer;
 use computerundsound\culibrary\CuRequester;
 
 ini_set('html_errors', 'off');
 
 require_once __DIR__ . '/../_close/includes/_application_top.php';
 
-/** @var \computerundsound\culibrary\CuConstantsContainer $constant_container_coo */
+/** @var CuConstantsContainer $constant_container_coo */
 
 $action = CuRequester::getGetPost('action');
 

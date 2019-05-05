@@ -5,14 +5,16 @@
   "license": "proprietary",
   "authors": [
     {
-      "name": "Jörg Wrase - www.cusp.de",
-      "email": "info@cusp.de"
+      "name": "Jörg Wrase",
+      "email": "info@cusp.de",
+      "homepage": "https://www.cusp.de"
     }
   ],
   "config": {
     "vendor-dir": "inc/_close/vendor/"
   },
-  "require": {
+ "require": {
+   "php": ">=7",
     "computerundsound/cuLibrary": "~3.0",
     "smarty/smarty": "~3.1",
     "erusev/parsedown": "dev-master"

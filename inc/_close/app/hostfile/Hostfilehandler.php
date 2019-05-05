@@ -38,16 +38,12 @@ class Hostfilehandler
     /**
      * @param $path_to_hostfile
      */
-    public function __construct($path_to_hostfile) {
+    public function __construct($path_to_hostfile)
+    {
+
         $this->path_to_hostfile = $path_to_hostfile;
 
         $this->build_host_prefix();
-    }
-
-    private function build_host_prefix() {
-        $host_content                = file_get_contents($this->path_to_hostfile);
-        $host_content_elements_array = explode(self::$hostfile_separator, $host_content);
-        $this->prefix                = $host_content_elements_array[0];
     }
 
     /**
@@ -56,7 +52,9 @@ class Hostfilehandler
      *
      * @return array
      */
-    public static function get_post_data_as_array($p_prefix, $p_get_id = true) {
+    public static function get_post_data_as_array($p_prefix, $p_get_id = true): array
+    {
+
         $data_array = [];
         foreach (Host::$fields_from_post_for_db_array as $field_name) {
             if ($p_get_id === false && $field_name === 'host_id') {
@@ -81,11 +79,15 @@ class Hostfilehandler
     /**
      * @return mixed
      */
-    public function getPathToHostfile() {
+    public function getPathToHostfile()
+    {
+
         return $this->path_to_hostfile;
     }
 
-    public function build_host_content() {
+    public function build_host_content(): void
+    {
+
         $host_content = $this->prefix;
         $host_content .= self::$hostfile_separator . PHP_EOL . PHP_EOL;
 
@@ -97,26 +99,29 @@ class Hostfilehandler
         $this->host_file_content = $host_content;
     }
 
-
     /**
      * @return mixed
      */
-    public function getPrefix() {
+    public function getPrefix()
+    {
+
         return $this->prefix;
     }
 
-
     /**
      * @return mixed
      */
-    public function getHostFileContent() {
+    public function getHostFileContent()
+    {
+
         return $this->host_file_content;
     }
 
     /**
-     * @param \app\hostfile\Hostlist $host_list_coo
+     * @param Hostlist $host_list_coo
      */
-    public function add_host_list(Hostlist $host_list_coo) {
+    public function add_host_list(Hostlist $host_list_coo): void
+    {
 
         $hostListArray = $host_list_coo->get_host_list_array();
 
@@ -128,9 +133,19 @@ class Hostfilehandler
     }
 
     /**
-     * @param \app\hostfile\Host $host_coo
+     * @param Host $host_coo
      */
-    public function add_host(Host $host_coo) {
+    public function add_host(Host $host_coo): void
+    {
+
         $this->hosts_array[] = $host_coo;
+    }
+
+    private function build_host_prefix(): void
+    {
+
+        $host_content                = file_get_contents($this->path_to_hostfile);
+        $host_content_elements_array = explode(self::$hostfile_separator, $host_content);
+        $this->prefix                = $host_content_elements_array[0];
     }
 }

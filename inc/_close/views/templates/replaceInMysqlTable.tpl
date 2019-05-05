@@ -1,5 +1,6 @@
 {extends file='standard_wrap.tpl'}
 {block name=content}
+    <!--suppress HtmlFormInputWithoutLabel -->
     <div class="row">
         <div class="col-md-12">
 

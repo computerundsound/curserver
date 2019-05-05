@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection StaticClosureCanBeUsedInspection */
+
 /**
  * Copyright Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
@@ -77,7 +78,7 @@ class XamppListBuilder
      *
      * @return array
      */
-    protected function getDirs(string $path): array
+    protected function getDirs($path): array
     {
 
         $dirs = glob($path . '/*', GLOB_ONLYDIR);

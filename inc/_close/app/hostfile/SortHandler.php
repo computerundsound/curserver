@@ -30,7 +30,8 @@ class SortHandler
     /**
      * @param $p_name_appendix
      */
-    public function __construct($p_name_appendix) {
+    public function __construct($p_name_appendix)
+    {
 
         $this->vari_name .= $p_name_appendix;
 
@@ -55,7 +56,9 @@ class SortHandler
     /**
      * @return string
      */
-    public function getAktSortDirection() {
+    public function getAktSortDirection(): string
+    {
+
         return $this->akt_sort_direction;
     }
 
@@ -63,7 +66,9 @@ class SortHandler
     /**
      * @return string
      */
-    public function getAktSortItem() {
+    public function getAktSortItem(): string
+    {
+
         return $this->akt_sort_item;
     }
 
@@ -71,7 +76,9 @@ class SortHandler
     /**
      * @return string
      */
-    public function get_vari_name() {
+    public function get_vari_name(): string
+    {
+
         return $this->vari_name;
     }
 }

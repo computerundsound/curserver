@@ -27,15 +27,19 @@ class Hostlist
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
+
         $this->test = 'Das ist ein Test';
     }
 
 
     /**
-     * @param \app\hostfile\Host $host_coo
+     * @param Host $host_coo
      */
-    public function add_host(Host $host_coo) {
+    public function add_host(Host $host_coo): void
+    {
+
         $this->host_list_array[] = $host_coo;
     }
 
@@ -43,7 +47,9 @@ class Hostlist
     /**
      * @return array
      */
-    public function get_host_list_array() {
+    public function get_host_list_array(): array
+    {
+
         return $this->host_list_array;
     }
 }

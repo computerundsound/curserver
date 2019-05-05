@@ -11,7 +11,7 @@
 
 
 if (version_compare('5.5', PHP_VERSION, '>')) {
-    include dirname(__FILE__) . '/hostlister4.php';
+    include __DIR__ . '/hostlister4.php';
 } else {
-    include dirname(__FILE__) . '/hostlister5.php';
+    include __DIR__ . '/hostlister5.php';
 }

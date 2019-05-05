@@ -22,37 +22,47 @@ class VHostFileList
     protected $vhostsList = [];
 
     /**
-     * @param \app\hostfile\VHostFileHandler $vHostFileHandler
+     * @param VHostFileHandler $vHostFileHandler
      */
-    public function add(VHostFileHandler $vHostFileHandler) {
+    public function add(VHostFileHandler $vHostFileHandler): void
+    {
+
         $this->vhostsList[] = $vHostFileHandler;
     }
 
     /**
      *
      */
-    public function reset() {
+    public function reset(): void
+    {
+
         reset($this->vhostsList);
     }
 
     /**
      *
      */
-    public function clear() {
+    public function clear(): void
+    {
+
         $this->vhostsList = [];
     }
 
     /**
      * @return array
      */
-    public function getListAsArray() {
+    public function getListAsArray(): array
+    {
+
         return $this->vhostsList;
     }
 
     /**
      * @return mixed
      */
-    public function getNext() {
+    public function getNext()
+    {
+
         /** @noinspection OneTimeUseVariablesInspection */
         $vHost = next($this->vhostsList);
 

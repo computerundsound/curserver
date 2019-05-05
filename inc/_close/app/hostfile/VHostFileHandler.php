@@ -12,7 +12,9 @@
 namespace app\hostfile;
 
 use app\viewer\MakeView;
+use Exception;
 use Smarty;
+use SmartyException;
 
 /**
  * Class VHostFileHandler
@@ -38,7 +40,8 @@ class VHostFileHandler
      * @param                 $smarty_tpl
      * @param                 $vhost_file_path
      */
-    public function __construct(MakeView $smarty_vhost, $smarty_tpl, $vhost_file_path) {
+    public function __construct(MakeView $smarty_vhost, $smarty_tpl, $vhost_file_path)
+    {
 
         $this->smarty_vhost    = $smarty_vhost;
         $this->smarty_tpl      = $smarty_tpl;
@@ -48,10 +51,11 @@ class VHostFileHandler
     /**
      * @param int $port
      *
-     * @throws \Exception
-     * @throws \SmartyException
+     * @throws Exception
+     * @throws SmartyException
      */
-    public function build_content($port) {
+    public function build_content($port): void
+    {
 
         $smarty_coo = $this->smarty_vhost;
 
@@ -61,7 +65,8 @@ class VHostFileHandler
         $this->content = $smarty_coo->fetch($this->smarty_tpl);
     }
 
-    public function write_content_to_vhost_file() {
+    public function write_content_to_vhost_file(): void
+    {
 
         $fh = fopen($this->vhost_file_path, 'wb+');
         fwrite($fh, $this->content);
@@ -69,9 +74,10 @@ class VHostFileHandler
     }
 
     /**
-     * @param \app\hostfile\Hostlist $host_list_coo
+     * @param Hostlist $host_list_coo
      */
-    public function addHostList(Hostlist $host_list_coo) {
+    public function addHostList(Hostlist $host_list_coo): void
+    {
 
         $hostListAsArray = $host_list_coo->get_host_list_array();
 
@@ -87,7 +93,8 @@ class VHostFileHandler
      * @param Host $host_coo
      *
      */
-    public function add_host(Host $host_coo) {
+    public function add_host(Host $host_coo): void
+    {
 
         $this->hosts_array[] = $host_coo;
     }

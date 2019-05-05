@@ -62,6 +62,7 @@ abstract class AResponse
      */
     protected function sendJsonToBrowser(array $jsonArray) {
         header('Content-Type: application/json');
+        /** @noinspection PhpComposerExtensionStubsInspection */
         echo json_encode($jsonArray);
     }
 }

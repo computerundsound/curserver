@@ -10,6 +10,7 @@
 'use strict';
 /*jshint globalstrict: true*/
 /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, noarg:true, noempty:true, nonew:true, undef:true, strict:true, browser:true */
+
 /*global $:false, alert:false, confirm:false, prompt:false, bootbox: false, document:true */
 
 
@@ -21,13 +22,13 @@ function HostTableManager() {
     this.bind_prozess_btns();
 }
 
-HostTableManager.prototype.input_standard_subdomain            = '';
-HostTableManager.prototype.input_standard_tld                  = $(
+HostTableManager.prototype.input_standard_subdomain = '';
+HostTableManager.prototype.input_standard_tld = $(
     "meta[name=javascriptVariables][data-name=standardTLD]")
     .attr("data-value");
-HostTableManager.prototype.input_standard_ip                   = '127.0.0.1';
-HostTableManager.prototype.input_standard_vhost_dir            = 'd:/_SERVER/_SELF';
-HostTableManager.prototype.input_standard_domain               = '';
+HostTableManager.prototype.input_standard_ip = '127.0.0.1';
+HostTableManager.prototype.input_standard_vhost_dir = 'd:/_SERVER/_SELF';
+HostTableManager.prototype.input_standard_domain = '';
 HostTableManager.prototype.input_standard_vhost_htdocs_relativ = '/htdocs';
 
 HostTableManager.prototype.bind_add_btn = function () {
@@ -62,13 +63,13 @@ HostTableManager.prototype.bind_click_show_edit = function () {
 HostTableManager.prototype.bind_kill_btn = function () {
     $("[data-action='kill_host']").click(function () {
 
-        var action_id   = $(this).attr('data-action_id');
-        var host_name   = $(this).attr('data-host_name');
+        var action_id = $(this).attr('data-action_id');
+        var host_name = $(this).attr('data-host_name');
         var confirm_msg = 'Do you want to remove Host <strong>' + host_name + '</strong>?';
 
         bootbox.confirm(confirm_msg, function (data) {
             if (data === true) {
-                document.form_host_action.action.value    = 'host_kill';
+                document.form_host_action.action.value = 'host_kill';
                 document.form_host_action.action_id.value = action_id;
                 document.form_host_action.submit();
             }
@@ -132,20 +133,22 @@ HostTableManager.prototype.bind_prozess_btns = function () {
 
 HostTableManager.prototype.set_inputs_standards = function () {
 
-    var subdomain     = this.input_standard_subdomain;
-    var domain        = this.input_standard_domain;
-    var tld           = this.input_standard_tld;
-    var ip            = this.input_standard_ip;
-    var vhost_dir     = this.input_standard_vhost_dir;
+    var subdomain = this.input_standard_subdomain;
+    var domain = this.input_standard_domain;
+    var tld = this.input_standard_tld;
+    var ip = this.input_standard_ip;
+    var vhost_dir = this.input_standard_vhost_dir;
     var vhost_dir_rel = this.input_standard_vhost_htdocs_relativ;
 
     $('[name="subdomain"]').val(subdomain);
     $('[name="domain"]').val(domain);
     $('[name="tld"]').val(tld);
     $('[name="ip"]').val(ip);
+    // noinspection JSJQueryEfficiency
     $('[name="vhost_dir"]').val(vhost_dir);
     $('[name="vhost_htdocs"]').val(vhost_dir + vhost_dir_rel);
 
+    // noinspection JSJQueryEfficiency
     $('[name="vhost_dir"]').blur(function () {
         var value = $(this).val();
         $('[name="vhost_htdocs"]').val(value + vhost_dir_rel);

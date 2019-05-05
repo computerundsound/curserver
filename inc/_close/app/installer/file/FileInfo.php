@@ -9,6 +9,8 @@
 namespace app\installer\file;
 
 
+use DomainException;
+
 /**
  * Class FileInfo
  *
@@ -36,7 +38,7 @@ class FileInfo
         $fullPath = $this->createFullPath($dirName, $baseName);
 
         if (file_exists($fullPath) !== true) {
-            throw new \DomainException('File ' . $fullPath . ' not found');
+            throw new DomainException('File ' . $fullPath . ' not found');
         }
 
         $this->dirName   = $dirName;

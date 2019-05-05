@@ -11,6 +11,8 @@ use app\hostfile\Hostfilehandler;
 use app\hostfile\Hostlist;
 use app\hostfile\SortHandler;
 use app\hostfile\VHostFileHandler;
+use app\hostfile\VHostFileList;
+use app\mysql_dumper\CuMysqlDump;
 use app\viewer\MakeView;
 use computerundsound\culibrary\CuRequester;
 
@@ -39,8 +41,8 @@ $hostfile_content = '';
 
 $update_msg = false;
 
-$mysqlDumper = \app\mysql_dumper\CuMysqlDump::getInstance($constant_container_coo,
-                                                          MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
+$mysqlDumper = CuMysqlDump::getInstance($constant_container_coo,
+                                        MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT);
 
 
 $checkMysqlBackupFile = $mysqlDumper->checkMysqlBackupExists();
@@ -70,7 +72,7 @@ if ($action === 'host_add') {
     $update_msg = true;
 }
 
-$searchHandler = isset($_GET['search_handler']) ? $_GET['search_handler'] : '';
+$searchHandler = $_GET['search_handler'] ?? '';
 $smarty_standard->assign('searchHandlerString', $searchHandler);
 
 $smarty_standard->assign('port', CU_PORT);
@@ -90,7 +92,7 @@ $server_multi_array = $dbi_coo->selectAsArray('hosts',
 
 $smarty_vhost_coo = new MakeView(CU_SMARTY_DIR);
 
-$vHostFileList = new \app\hostfile\VHostFileList();
+$vHostFileList = new VHostFileList();
 $host_list_coo = new Hostlist();
 
 foreach ($server_multi_array as $server_array) {
