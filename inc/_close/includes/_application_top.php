@@ -10,8 +10,6 @@
  */
 
 use computerundsound\culibrary\CuConstantsContainer;
-use computerundsound\culibrary\db\mysqli\CuDBi;
-use computerundsound\culibrary\db\mysqli\CuDBiResult;
 
 session_start();
 
@@ -57,5 +55,11 @@ define('CU_SMARTY_DIR',
        DIRECTORY_SEPARATOR);
 
 define('XML_HOST_REPOSITORY_FILE', __DIR__ . '/../../../__writer/vhost_repository.xml');
+
+if (file_exists(XML_HOST_REPOSITORY_FILE) === false) {
+    $fh = fopen(XML_HOST_REPOSITORY_FILE, 'wb+');
+    fwrite($fh, '<?xml version="1.0" encoding="UTF-8"?><vhosts></vhosts>');
+    fclose($fh);
+}
 
 $vHostFiles = unserialize(VHOST_FILES);
