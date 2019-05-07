@@ -5,7 +5,6 @@
  *
  * Created by IntelliJ IDEA
  *
- * Filename: ${FILE_NAME}
  */
 'use strict';
 /*jshint globalstrict: true*/
@@ -47,7 +46,12 @@ HostTableManager.prototype.bind_click_show_edit = function () {
         var id = $(this).attr('data-action_id');
 
         $.post("/inc/ajax/ajax_get_host_datas.php", {action: 'load_host', action_id: id}, function (data) {
-            host_data_array = $.parseJSON(data);
+            try {
+                host_data_array = $.parseJSON(data);
+            } catch (e) {
+
+                bootbox.alert(e.message);
+            }
             thiz.show_edit_mask(host_data_array);
         })
 
@@ -84,14 +88,17 @@ HostTableManager.prototype.bind_update_btn = function () {
     });
 };
 
-HostTableManager.prototype.show_edit_mask = function (host_data_array) {
+HostTableManager.prototype.show_edit_mask = function (host_data) {
 
-    for (var key in host_data_array) { // jshint ignore:line
-        $('#hostmask_' + key).val(host_data_array[key]);
+    for (var key in host_data) { // jshint ignore:line
+        $('#hostmask_' + key).val(host_data[key]);
     }
 
+    var id = host_data.id;
+
     $('#hostmask_action').val('host_update');
-    $('#hostmask_action_id').val(host_data_array.host_id);
+
+    $('#hostmask_action_id').val(id);
     $('#hostmask_headline').html('Edit Host');
     $('#hostmask_submit_btn').html('Update');
 

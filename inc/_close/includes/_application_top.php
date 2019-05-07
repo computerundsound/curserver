@@ -17,7 +17,7 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if(file_exists(__DIR__ . '/../../../_config.php') === false){
+if (file_exists(__DIR__ . '/../../../_config.php') === false) {
 
     die('_config.php file not found. Please make sure that you have the _config.php - file in application root. You can copy the _config.sample.php to _config.php and insert your own values (maybe most values are already good for you');
 
@@ -30,7 +30,8 @@ require_once __DIR__ . '/../config.system.inc.php';
  * @param mixed $value
  * @param bool  $endScript
  */
-function cuPrint($value, $endScript = false) {
+function cuPrint($value, $endScript = false)
+{
 
     $value = (array)$value;
 
@@ -55,19 +56,6 @@ define('CU_SMARTY_DIR',
        'views' .
        DIRECTORY_SEPARATOR);
 
-try {
-
-    /** @var CuDBi $dbi_coo */
-    $dbi_coo = CuDBi::getInstance(new CuDBiResult(), DB_SERVER, DB_USER, DB_PW, DB_NAME);
-
-    define('NO_DB_CONNECTION', false);
-
-} catch (Exception $exception) {
-
-    define('NO_DB_CONNECTION', true);
-
-    die('Could not connect do Database. Please make sure that mysql is running and you have insert the credentials in _config.php');
-}
-
+define('XML_HOST_REPOSITORY_FILE', __DIR__ . '/../../../__writer/vhost_repository.xml');
 
 $vHostFiles = unserialize(VHOST_FILES);

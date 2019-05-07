@@ -20,7 +20,7 @@
 
     <title>{$siteTitle}</title>
     <link rel="stylesheet"
-          href="inc/assets/bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css">
+          href="inc/assets/bower_components/font-awesome/css/all.css">
 
     <link href="inc/assets/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="inc/assets/css/main.css" rel="stylesheet">
@@ -152,20 +152,14 @@
         </div>
     </div>
 
-    <!-- Bootstrap-JavaScript
-    ================================================== -->
-    <!-- Am Ende des Dokuments platziert, damit Seiten schneller laden -->
-
-    <!-- build:js -->
     <script type="text/javascript" src="inc/assets/bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="inc/assets/bower_components/popper.js/dist/popper.js"></script>
+    <script type="text/javascript" src="inc/assets/bower_components/popper.js/dist/umd/popper.js"></script>
     <script type="text/javascript" src="inc/assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="inc/assets/bower_components/bootbox.js/bootbox.js"></script>
     <script type="text/javascript" src="inc/assets/bower_components/mustache.js/mustache.js"></script>
     <script type="text/javascript" src="inc/assets/js/_main.js"></script>
-    <script type="text/javascript" src="inc/assets/js/CuLoader.js"></script>
     <script type="text/javascript" src="inc/assets/js/HostTableManager.js"></script>
+    <script type="text/javascript" src="inc/assets/js/CuLoader.js"></script>
     <script type="text/javascript" src="inc/assets/js/DBBackupManager.js"></script>
-    <!-- endbuild -->
 </body>
 </html>

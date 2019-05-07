@@ -21,7 +21,7 @@ class Debug
      * @param mixed $value
      * @param bool  $exit
      */
-    public static function printHtml($value, bool $exit = false): void
+    public static function printHtml($value, $exit = false)
     {
 
         self::output($value, $exit, true);
@@ -32,7 +32,7 @@ class Debug
      * @param mixed $value
      * @param bool  $exit
      */
-    public static function printText($value, bool $exit = false): void
+    public static function printText($value, $exit = false)
     {
 
         self::output($value, $exit, false);
@@ -43,7 +43,7 @@ class Debug
      * @param bool  $exit
      * @param bool  $isHtml
      */
-    protected static function output($value, bool $exit, bool $isHtml): void
+    protected static function output($value, $exit, $isHtml)
     {
 
         $outputValue = is_array($value) ? $value : [$value];

@@ -23,7 +23,7 @@ trait PathTrait
      *
      * @return string
      */
-    protected static function buildGoodPath(string $path, string $directorySeparator = DIRECTORY_SEPARATOR): string
+    protected static function buildGoodPath($path, $directorySeparator = DIRECTORY_SEPARATOR)
     {
 
         $pathNew = preg_replace('#[/\\\]+#', $directorySeparator, $path);
@@ -36,7 +36,7 @@ trait PathTrait
      *
      * @return string
      */
-    protected static function removeDiskLetter(string $path): string
+    protected static function removeDiskLetter($path)
     {
 
         $pathWithoutDiskLetter = preg_replace('#^[a-zA-Z]?:#', '', $path);

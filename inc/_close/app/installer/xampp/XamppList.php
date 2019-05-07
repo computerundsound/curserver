@@ -22,7 +22,7 @@ class XamppList
     /**
      * @param Xampp $xampp
      */
-    public function add(Xampp $xampp): void
+    public function add(Xampp $xampp)
     {
 
         $this->xampps[] = $xampp;
@@ -32,7 +32,7 @@ class XamppList
     /**
      * @return Xampp[]
      */
-    public function getXampps(): array
+    public function getXampps()
     {
 
         return $this->xampps;

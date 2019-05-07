@@ -30,7 +30,7 @@ class XamppListBuilder
      *
      * @return string
      */
-    protected static function getCorrespondingVHostFile(string $xamppVersion, Replacer $replacer): string
+    protected static function getCorrespondingVHostFile($xamppVersion, Replacer $replacer)
     {
 
         $vhostFileName = '';
@@ -51,7 +51,7 @@ class XamppListBuilder
             $vhostFileName = (string)self::getValueFromArray($replacerKey, $replacer->getVhostReplacer());
         }
 
-        $vhostFileName = $vhostFileName ?? '';
+        $vhostFileName = isset($vhostFileName) ? $vhostFileName : '';
 
         return $vhostFileName;
     }
@@ -62,7 +62,7 @@ class XamppListBuilder
      *
      * @return XamppList
      */
-    public function getXamppList(string $xamppContainerPath, Replacer $replacer): XamppList
+    public function getXamppList($xamppContainerPath, Replacer $replacer)
     {
 
         $dirs = $this->getDirs($xamppContainerPath);
@@ -78,7 +78,7 @@ class XamppListBuilder
      *
      * @return array
      */
-    protected function getDirs($path): array
+    protected function getDirs($path)
     {
 
         $dirs = glob($path . '/*', GLOB_ONLYDIR);
@@ -114,7 +114,7 @@ class XamppListBuilder
      *
      * @return XamppList
      */
-    protected function getList(array $dirs, Replacer $replacer): XamppList
+    protected function getList(array $dirs, Replacer $replacer)
     {
 
         $xamppList = new XamppList();
@@ -138,7 +138,7 @@ class XamppListBuilder
      *
      * @return Xampp
      */
-    protected function getXampp(string $xamppDir, Replacer $replacer): Xampp
+    protected function getXampp($xamppDir, Replacer $replacer)
     {
 
         $version = Xampp::buildXamppVersion($xamppDir);

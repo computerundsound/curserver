@@ -28,7 +28,7 @@ class ModifyPHPIniTest extends TestCase
     /**
      *
      */
-    public function testModify(): void
+    public function testModify()
     {
 
         $replacerPhpIni = [
@@ -50,7 +50,7 @@ class ModifyPHPIniTest extends TestCase
 
     }
 
-    public function testAddXdebug(): void
+    public function testAddXdebug()
     {
 
         $replacerVHost = [

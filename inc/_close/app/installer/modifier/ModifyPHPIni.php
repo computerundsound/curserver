@@ -31,7 +31,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyPHPIni
      */
-    public function modify(array $replacer): void
+    public function modify(array $replacer)
     {
 
         $iniFilePath = $this->fileInfoFromFileToModify->getFullPath();
@@ -48,7 +48,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      * @param Replacer $replacer
      * @param string   $appRootDir
      */
-    public function addXDebug(Replacer $replacer, string $appRootDir)
+    public function addXDebug(Replacer $replacer, $appRootDir)
     {
 
         $contentFromFile = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
@@ -78,7 +78,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return string
      */
-    protected function getXdebugIniTemplate(string $fileName, string $appRootDir): string
+    protected function getXdebugIniTemplate($fileName, $appRootDir)
     {
 
         $content = file_get_contents($appRootDir .
@@ -95,7 +95,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return string
      */
-    public function getProfilerDir(array $phpIniExtend): string
+    public function getProfilerDir(array $phpIniExtend)
     {
 
         $profilerDirFromXamppContainer = self::getValueFromArray('profilerDirFromXamppContainerDir', $phpIniExtend);
@@ -119,7 +119,7 @@ class ModifyPHPIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return string
      */
-    public function buildNewXdebugContent(string $contentFromFile, string $xdebugString): string
+    public function buildNewXdebugContent($contentFromFile, $xdebugString)
     {
 
         $contentFromFileWithoutXdebug = preg_replace('/\[xdebug\][^\[]*/i', '', $contentFromFile);

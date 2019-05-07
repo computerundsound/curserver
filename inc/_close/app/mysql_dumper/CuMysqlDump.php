@@ -87,7 +87,7 @@ class CuMysqlDump
      * @return CuMysqlDump
      */
     public static function getInstance(CuConstantsContainer $constant_container_coo,
-                                       $mysqlDumpFilePathFromAppRoot): CuMysqlDump
+                                       $mysqlDumpFilePathFromAppRoot)
     {
 
         $pathToMysqlBackupFile = $constant_container_coo->getAppRootServer() . $mysqlDumpFilePathFromAppRoot;
@@ -102,7 +102,7 @@ class CuMysqlDump
      * @return string
      * @throws RuntimeException
      */
-    public function dumpMysql(): string
+    public function dumpMysql()
     {
 
         try {
@@ -123,7 +123,7 @@ class CuMysqlDump
     /**
      * @return ResponseDeleteBackupFile
      */
-    public function deleteFile(): ResponseDeleteBackupFile
+    public function deleteFile()
     {
 
         if ($this->checkMysqlBackupExists()) {
@@ -145,7 +145,7 @@ class CuMysqlDump
     /**
      * @return bool
      */
-    public function checkMysqlBackupExists(): bool
+    public function checkMysqlBackupExists()
     {
 
         $fileExists = (file_exists($this->pathToMySqlBackupFile) && is_file($this->pathToMySqlBackupFile));
@@ -155,7 +155,7 @@ class CuMysqlDump
 
     }
 
-    public function provideFile(): void
+    public function provideFile()
     {
 
         if (file_exists($this->pathToMySqlBackupFile)) {
@@ -174,7 +174,7 @@ class CuMysqlDump
     /**
      * @return ResponseCreateDBBackup
      */
-    public function restoreMySqlDatabase(): ResponseCreateDBBackup
+    public function restoreMySqlDatabase()
     {
 
         try {
@@ -218,7 +218,7 @@ class CuMysqlDump
      * @return string
      * @throws RuntimeException
      */
-    protected function getMysqlDumperPath(): string
+    protected function getMysqlDumperPath()
     {
 
         $pathToMysqlDump = $this->getPathFromMysqlBin('mysqldump.exe');
@@ -229,7 +229,7 @@ class CuMysqlDump
     /**
      * @return string
      */
-    protected function getPhpInfoContent(): string
+    protected function getPhpInfoContent()
     {
 
         ob_clean();
@@ -251,7 +251,7 @@ class CuMysqlDump
      *
      * @throws RuntimeException
      */
-    private function getPathFromMysqlBin($fileName): string
+    private function getPathFromMysqlBin($fileName)
     {
 
         $pattern        = ';Server Root </td><td[^>]*>([^<]*);i';
@@ -281,7 +281,7 @@ class CuMysqlDump
      *
      * @return ResponseCreateDBBackup
      */
-    private function dumpToFile($mysqlDumperPath): ResponseCreateDBBackup
+    private function dumpToFile($mysqlDumperPath)
     {
 
         $passwordElement = $this->mysqlPassword !== '' ? ' -p ' . $this->mysqlPassword : '';
@@ -313,7 +313,7 @@ class CuMysqlDump
      * @return string
      * @throws RuntimeException
      */
-    private function getMysqlPath(): string
+    private function getMysqlPath()
     {
 
         $mysqlExe = $this->getPathFromMysqlBin('mysql.exe');

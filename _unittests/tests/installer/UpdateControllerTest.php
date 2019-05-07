@@ -21,7 +21,7 @@ class UpdateControllerTest extends TestCase
     /**
      *
      */
-    public function testUpdate(): void
+    public function testUpdate()
     {
 
         $updateController = new UpdateController();

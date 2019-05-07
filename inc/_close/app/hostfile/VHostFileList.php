@@ -24,7 +24,7 @@ class VHostFileList
     /**
      * @param VHostFileHandler $vHostFileHandler
      */
-    public function add(VHostFileHandler $vHostFileHandler): void
+    public function add(VHostFileHandler $vHostFileHandler)
     {
 
         $this->vhostsList[] = $vHostFileHandler;
@@ -33,7 +33,7 @@ class VHostFileList
     /**
      *
      */
-    public function reset(): void
+    public function reset()
     {
 
         reset($this->vhostsList);
@@ -42,7 +42,7 @@ class VHostFileList
     /**
      *
      */
-    public function clear(): void
+    public function clear()
     {
 
         $this->vhostsList = [];
@@ -51,7 +51,7 @@ class VHostFileList
     /**
      * @return array
      */
-    public function getListAsArray(): array
+    public function getListAsArray()
     {
 
         return $this->vhostsList;

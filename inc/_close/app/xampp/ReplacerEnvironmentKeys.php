@@ -18,8 +18,8 @@ namespace app\xampp;
 class ReplacerEnvironmentKeys
 {
 
-    public const  VHOST_FILE_IF_VERSION_IS_GREATER_OR_EQUAL_THAN_5_4 = 'vhostFile_if_version_is_greater_or_equal_5.4';
-    public const  VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5_4          = 'vhostFile_if_version_is_smaller_than_5.4';
-    public const  VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5            = 'vhostFile_if_version_is_smaller_than_5';
+    const  VHOST_FILE_IF_VERSION_IS_GREATER_OR_EQUAL_THAN_5_4 = 'vhostFile_if_version_is_greater_or_equal_5.4';
+    const  VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5_4          = 'vhostFile_if_version_is_smaller_than_5.4';
+    const  VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5            = 'vhostFile_if_version_is_smaller_than_5';
 
 }

@@ -123,33 +123,33 @@
 
                     </thead>
                     <tbody>
-                    {foreach $servers->get_host_list_array() as $server}
+                    {foreach $hosts->getHostListArray() as $host}
                         <tr class="table_show_a">
                             <td>
 
                                 <dl>
-                                    <dt><a href="http://{$server->getFullDomain()}"
-                                           target="_blank">{$server->getFullDomain()}</a></dt>
-                                    <dd>{$server->getIp()}</dd>
+                                    <dt><a href="http://{$host->getFullDomain()}"
+                                           target="_blank">{$host->getFullDomain()}</a></dt>
+                                    <dd>{$host->getIp()}</dd>
                                 </dl>
 
                             </td>
                             <td>
-                                {$server->getVhostDir()}<br>
-                                {$server->getVhostHtdocs()}
+                                {$host->getVhostDir()}<br>
+                                {$host->getVhostHtdocs()}
                             </td>
                             <td>
-                                {$server->getComment()|escape|nl2br}
+                                {$host->getComment()|escape|nl2br}
                             </td>
                             <td>
                                 <i class="fas fa-edit cuHoverPointer"
                                    data-action='edit_host'
-                                   data-action_id='{$server->getHostId()}'>&nbsp;
+                                   data-action_id='{$host->getId()}'>&nbsp;
                                 </i>
                                 <i class="fas fa fa-trash-alt text-danger cuHoverPointer"
                                    data-action='kill_host'
-                                   data-action_id='{$server->getHostId()}'
-                                   data-host_name='{$server->getFullDomain()}'>
+                                   data-action_id='{$host->getId()}'
+                                   data-host_name='{$host->getFullDomain()}'>
 
                                 </i>
                             </td>

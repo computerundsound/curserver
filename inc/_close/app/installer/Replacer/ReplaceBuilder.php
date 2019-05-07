@@ -26,7 +26,7 @@ class ReplaceBuilder
      *
      * @return Replacer
      */
-    public function getReplacer(string $pathToReplacerIni): Replacer
+    public function getReplacer($pathToReplacerIni)
     {
 
         $parsedIni = parse_ini_file($pathToReplacerIni, true);

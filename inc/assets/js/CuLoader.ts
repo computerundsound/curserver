@@ -7,7 +7,7 @@
 
 ///<reference path="../dts/jquery.d.ts" />
 
-export class CuLoader {
+class CuLoader {
 
     protected static $cuLoader = $("#cuLoader");
 

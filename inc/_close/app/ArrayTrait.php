@@ -24,7 +24,7 @@ trait ArrayTrait
      *
      * @return mixed|string
      */
-    protected static function getValueFromArray(string $key, array $array, $default = '')
+    protected static function getValueFromArray($key, array $array, $default = '')
     {
 
         $value = array_key_exists($key, $array) ? $array[$key] : $default;

@@ -45,7 +45,7 @@ class Replacer
     /**
      * @return array
      */
-    public function getVhostReplacer(): array
+    public function getVhostReplacer()
     {
 
         return $this->vhostReplacer;
@@ -54,7 +54,7 @@ class Replacer
     /**
      * @return array
      */
-    public function getPhpIniReplacer(): array
+    public function getPhpIniReplacer()
     {
 
         return $this->phpIniReplacer;
@@ -63,7 +63,7 @@ class Replacer
     /**
      * @return array
      */
-    public function getMysqlIniReplacer(): array
+    public function getMysqlIniReplacer()
     {
 
         return $this->mysqlIniReplacer;
@@ -72,7 +72,7 @@ class Replacer
     /**
      * @return array
      */
-    public function getPhpIniExtend(): array
+    public function getPhpIniExtend()
     {
 
         return $this->phpIniExtend;

@@ -32,7 +32,7 @@ class Xampp
      * @param string $existingXamppDir
      * @param string $correspondingVHostFileName
      */
-    public function __construct(string $existingXamppDir, string $correspondingVHostFileName)
+    public function __construct($existingXamppDir, $correspondingVHostFileName)
     {
 
         $this->xamppDir                   = realpath($existingXamppDir);
@@ -44,7 +44,7 @@ class Xampp
      *
      * @return string
      */
-    public static function buildXamppVersion(string $dirName): string
+    public static function buildXamppVersion($dirName)
     {
 
         $versionString = '';
@@ -61,7 +61,7 @@ class Xampp
     /**
      * @return string
      */
-    public function getXamppDir(): string
+    public function getXamppDir()
     {
 
         return $this->xamppDir;
@@ -71,7 +71,7 @@ class Xampp
     /**
      * @return string
      */
-    public function getXamppDirName(): string
+    public function getXamppDirName()
     {
 
         return basename($this->xamppDir);
@@ -81,7 +81,7 @@ class Xampp
     /**
      * @return string
      */
-    public function getXamppVersion(): string
+    public function getXamppVersion()
     {
 
         $dirName = $this->getXamppDirName();
@@ -94,7 +94,7 @@ class Xampp
     /**
      * @return string
      */
-    public function getCorrespondingVHostFileName(): string
+    public function getCorrespondingVHostFileName()
     {
 
         return $this->correspondingVHostFileName;

@@ -9,19 +9,23 @@
  * Filename: ajax_get_host_datas.php
  */
 
+use app\repositories\hosts\HostRepositoryXML;
 use computerundsound\culibrary\CuRequester;
+
+ini_set('html_errors', false);
 
 require_once __DIR__ . '/../_close/includes/_application_top.php';
 
 $action    = CuRequester::getGetPost('action');
-$action_id = CuRequester::getGetPost('action_id');
+$action_id = (int)CuRequester::getGetPost('action_id');
 
-if ($action !== 'load_host' || empty($action_id)) {
+if ($action !== 'load_host' || !is_numeric($action_id)) {
     die('wrong parameter');
 }
 
-$dataset_array = $dbi_coo->selectOneDataSet('hosts', 'host_id', $action_id);
+$hostRepository = new HostRepositoryXML(XML_HOST_REPOSITORY_FILE);
+$host           = $hostRepository->getHostById($action_id);
 
-$dataset_json = json_encode($dataset_array);
+$out = json_encode($host);
 
-echo $dataset_json;
+echo $out;

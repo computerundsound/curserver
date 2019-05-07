@@ -44,15 +44,15 @@ if ('' !== $tableName && '' !== $colName) {
 
 }
 
-$smarty_standard->assign('replaceData',
-                         [
+$smartyStandard->assign('replaceData',
+                        [
                              'tableName' => $tableName,
                              'colName' => $colName,
                              'replaceThis' => $replaceThis,
                              'replaceByThis' => $replaceByThis,
                          ]);
 
-$smarty_standard->assign('queries', $allQueries);
+$smartyStandard->assign('queries', $allQueries);
 
-$smarty_standard->display('replaceInMysqlTable.tpl');
+$smartyStandard->display('replaceInMysqlTable.tpl');
 

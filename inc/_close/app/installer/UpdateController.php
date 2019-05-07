@@ -48,7 +48,7 @@ class UpdateController
      * @param string $xamppContainerPath
      * @param string $pathToReplacerIni
      */
-    public function update(string $xamppContainerPath, $pathToReplacerIni): void
+    public function update($xamppContainerPath, $pathToReplacerIni)
     {
 
         $replaceBuilder = new ReplaceBuilder();
@@ -80,7 +80,7 @@ class UpdateController
      * @param Xampp    $xampp
      * @param Replacer $replacer
      */
-    protected function updateXampp(Xampp $xampp, Replacer $replacer): void
+    protected function updateXampp(Xampp $xampp, Replacer $replacer)
     {
 
         $xamppDir = $xampp->getXamppDir();

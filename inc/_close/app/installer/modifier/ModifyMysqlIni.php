@@ -30,12 +30,12 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyMysqlIni
      */
-    public function modify(array $replacer): void
+    public function modify(array $replacer)
     {
 
-        self::$pathIniTemplateFileFromXamppRoot = $replacer['copyContentFrom']
-                                                  ??
-                                                  self::$pathIniTemplateFileFromXamppRoot;
+        self::$pathIniTemplateFileFromXamppRoot = isset($replacer['copyContentFrom']) ?
+            $replacer['copyContentFrom'] :
+            self::$pathIniTemplateFileFromXamppRoot;
 
         $this->buildPaths();
         $this->backup();
@@ -67,7 +67,7 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
      *
      * @return void
      */
-    protected function copyTemplate(array $replacer): void
+    protected function copyTemplate(array $replacer)
     {
 
         $content = $this->getContentFromFile($this->pathIniTemplateFile);

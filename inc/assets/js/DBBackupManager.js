@@ -1,16 +1,13 @@
-"use strict";
 /*
  * Copyright Jörg Wrase - www.Computer-Und-Sound.de
  * Hire me! coder@cusp.de
  *
  * LastModified: 2017.03.27 at 21:51 MESZ
  */
-Object.defineProperty(exports, "__esModule", { value: true });
 ///<reference path="../dts/jquery.d.ts" />
 ///<reference path="../dts/bootbox.d.ts" />
 ///<reference path="Interfaces/IAjaxResponse.ts" />
 ///<reference path="Interfaces/IAjaxResponse.ts" />
-var CuLoader_1 = require("./CuLoader");
 var DBBackupManager = /** @class */ (function () {
     function DBBackupManager(urlMySqlDumpFile, secret) {
         this.ajaxURL = "/inc/ajax/ajax_db_backup.php";
@@ -21,7 +18,7 @@ var DBBackupManager = /** @class */ (function () {
         this.urlMySqlDumpFile = urlMySqlDumpFile;
         $(".hostmask_db_curserver_backup").on("click", function () {
             $('#hostmask_db_curserver_backup_info').show();
-            CuLoader_1.CuLoader.show();
+            CuLoader.show();
             dbBackup._createBackup();
         });
         $(".hostmask_db_curserver_backup_download").on("click", function () {
@@ -66,12 +63,12 @@ var DBBackupManager = /** @class */ (function () {
         });
     };
     DBBackupManager.prototype._restore = function () {
-        CuLoader_1.CuLoader.show();
+        CuLoader.show();
         var dataToSend = {
             action: "RestoreMySqlBackupIntoDataBase"
         };
         $.post(this.ajaxURL, dataToSend, function (data) {
-            CuLoader_1.CuLoader.hide();
+            CuLoader.hide();
             if (data.hasError === false) {
                 bootbox.alert('Database updated - please restart mysql-server', DBBackupManager._reload);
             }
@@ -87,7 +84,7 @@ var DBBackupManager = /** @class */ (function () {
         };
         $.post(this.ajaxURL, sendDataLocal, function (data) {
             console.log(data);
-            CuLoader_1.CuLoader.hide();
+            CuLoader.hide();
             var message = "";
             try {
                 if (data.hasError === false) {

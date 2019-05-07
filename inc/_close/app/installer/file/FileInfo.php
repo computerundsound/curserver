@@ -52,7 +52,7 @@ class FileInfo
      *
      * @return FileInfo
      */
-    public static function createInstance(string $filePath): FileInfo
+    public static function createInstance($filePath)
     {
 
         $pathInfo = pathinfo($filePath);
@@ -68,7 +68,7 @@ class FileInfo
     /**
      * @return string
      */
-    public function getDirName(): string
+    public function getDirName()
     {
 
         return $this->dirName;
@@ -77,7 +77,7 @@ class FileInfo
     /**
      * @return string
      */
-    public function getBaseName(): string
+    public function getBaseName()
     {
 
         return $this->baseName;
@@ -86,7 +86,7 @@ class FileInfo
     /**
      * @return string
      */
-    public function getExtension(): string
+    public function getExtension()
     {
 
         return $this->extension;
@@ -95,7 +95,7 @@ class FileInfo
     /**
      * @return string
      */
-    public function getFileName(): string
+    public function getFileName()
     {
 
         return $this->fileName;
@@ -104,7 +104,7 @@ class FileInfo
     /**
      * @return string
      */
-    public function getFullPath(): string
+    public function getFullPath()
     {
 
         return $this->createFullPath($this->getDirName(), $this->getBaseName());
@@ -117,7 +117,7 @@ class FileInfo
      *
      * @return string
      */
-    protected function createFullPath(string $dirPath, string $baseName): string
+    protected function createFullPath($dirPath, $baseName)
     {
 
         return $dirPath . DIRECTORY_SEPARATOR . $baseName;

@@ -25,7 +25,7 @@ class ModifyConfVHostTest extends TestCase
     /**
      *
      */
-    public function testModify(): void
+    public function testModify()
     {
 
         $replacer = [

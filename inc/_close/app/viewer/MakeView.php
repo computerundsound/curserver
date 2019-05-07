@@ -75,7 +75,7 @@ class MakeView extends Smarty
      *
      * @throws RuntimeException
      */
-    private function test_and_create_smarty_dirs(): void
+    private function test_and_create_smarty_dirs()
     {
 
         $error = false;
@@ -119,7 +119,7 @@ class MakeView extends Smarty
      * @return bool
      * @throws RuntimeException
      */
-    private function mkDir($dirname): bool
+    private function mkDir($dirname)
     {
 
         if (!mkdir($dirname) && !is_dir($dirname)) {

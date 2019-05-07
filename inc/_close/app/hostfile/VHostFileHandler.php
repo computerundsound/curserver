@@ -54,7 +54,7 @@ class VHostFileHandler
      * @throws Exception
      * @throws SmartyException
      */
-    public function build_content($port): void
+    public function build_content($port)
     {
 
         $smarty_coo = $this->smarty_vhost;
@@ -65,7 +65,7 @@ class VHostFileHandler
         $this->content = $smarty_coo->fetch($this->smarty_tpl);
     }
 
-    public function write_content_to_vhost_file(): void
+    public function write_content_to_vhost_file()
     {
 
         $fh = fopen($this->vhost_file_path, 'wb+');
@@ -74,14 +74,14 @@ class VHostFileHandler
     }
 
     /**
-     * @param Hostlist $host_list_coo
+     * @param HostList $host_list_coo
      */
-    public function addHostList(Hostlist $host_list_coo): void
+    public function addHostList(HostList $host_list_coo)
     {
 
-        $hostListAsArray = $host_list_coo->get_host_list_array();
+        $hostListAsArray = $host_list_coo->getHostListArray();
 
-        /** @var Host $host */
+        /** @var HostInterface $host */
         foreach ($hostListAsArray as $host) {
             $this->add_host($host);
         }
@@ -90,10 +90,10 @@ class VHostFileHandler
     }
 
     /**
-     * @param Host $host_coo
+     * @param HostInterface $host_coo
      *
      */
-    public function add_host(Host $host_coo): void
+    public function add_host(HostInterface $host_coo)
     {
 
         $this->hosts_array[] = $host_coo;

@@ -21,10 +21,10 @@ use computerundsound\culibrary\CuRequester;
 class SortHandler
 {
 
-    private $akt_sort_item;
-    private $akt_sort_direction;
+    private $currentSortItem;
+    private $currentSortDirection;
 
-    private $vari_name = 'sort_handler_array';
+    private $variableName = 'sort_handler_array';
 
 
     /**
@@ -33,9 +33,9 @@ class SortHandler
     public function __construct($p_name_appendix)
     {
 
-        $this->vari_name .= $p_name_appendix;
+        $this->variableName .= $p_name_appendix;
 
-        $akt_sort_array = CuRequester::getGetPostSession($this->vari_name);
+        $akt_sort_array = CuRequester::getGetPostSession($this->variableName);
 
         /** array $akt_sort_array */
         if (!isset($akt_sort_array['item'])) {
@@ -46,39 +46,39 @@ class SortHandler
             $akt_sort_array['direction'] = 'ASC';
         }
 
-        $_SESSION[$this->vari_name] = $akt_sort_array;
+        $_SESSION[$this->variableName] = $akt_sort_array;
 
-        $this->akt_sort_item      = $akt_sort_array['item'];
-        $this->akt_sort_direction = $akt_sort_array['direction'];
+        $this->currentSortItem      = $akt_sort_array['item'];
+        $this->currentSortDirection = $akt_sort_array['direction'];
     }
 
 
     /**
      * @return string
      */
-    public function getAktSortDirection(): string
+    public function getCurrentSortDirection()
     {
 
-        return $this->akt_sort_direction;
+        return $this->currentSortDirection;
     }
 
 
     /**
      * @return string
      */
-    public function getAktSortItem(): string
+    public function getCurrentSortItem()
     {
 
-        return $this->akt_sort_item;
+        return $this->currentSortItem;
     }
 
 
     /**
      * @return string
      */
-    public function get_vari_name(): string
+    public function getVariableName()
     {
 
-        return $this->vari_name;
+        return $this->variableName;
     }
 }

@@ -17,20 +17,20 @@ namespace app\installer\InfoPrinter;
 class InfoPrinter
 {
 
-    protected const INFO_PREFIX    = '[INFO] ';
-    protected const WARNING_PREFIX = '[WARNING] ';
-    protected const ERROR_PREFIX   = '[ERROR] ';
+    const INFO_PREFIX    = '[INFO] ';
+    const WARNING_PREFIX = '[WARNING] ';
+    const ERROR_PREFIX   = '[ERROR] ';
 
-    protected const NEW_LINE = "\n";
+    const NEW_LINE = "\n";
 
     /**
      * @param string $message
      * @param array  $dataToAppend
      */
-    public static function info(string $message, array $dataToAppend = []): void
+    public static function info($message, array $dataToAppend = [])
     {
 
-        self::echo(self::INFO_PREFIX, $message, $dataToAppend);
+        self::echoIt(self::INFO_PREFIX, $message, $dataToAppend);
 
     }
 
@@ -38,10 +38,10 @@ class InfoPrinter
      * @param string $message
      * @param array  $dataToAppend
      */
-    public static function warning(string $message, array $dataToAppend = []): void
+    public static function warning($message, array $dataToAppend = [])
     {
 
-        self::echo(self::WARNING_PREFIX, $message, $dataToAppend);
+        self::echoIt(self::WARNING_PREFIX, $message, $dataToAppend);
 
     }
 
@@ -49,10 +49,10 @@ class InfoPrinter
      * @param string $message
      * @param array  $dataToAppend
      */
-    public static function error(string $message, array $dataToAppend = []): void
+    public static function error($message, array $dataToAppend = [])
     {
 
-        self::echo(self::ERROR_PREFIX, $message, $dataToAppend);
+        self::echoIt(self::ERROR_PREFIX, $message, $dataToAppend);
 
     }
 
@@ -61,7 +61,7 @@ class InfoPrinter
      * @param string $message
      * @param array  $dataToAppend
      */
-    protected static function echo(string $prefix, string $message, array $dataToAppend): void
+    protected static function echoIt($prefix, $message, array $dataToAppend)
     {
 
         $dataToAppendAsString = self::buildDataToAppendString($dataToAppend);
@@ -74,7 +74,7 @@ class InfoPrinter
      *
      * @return string
      */
-    protected static function buildDataToAppendString(array $dataToAppend): string
+    protected static function buildDataToAppendString(array $dataToAppend)
     {
 
         $dataToAppendString = '';

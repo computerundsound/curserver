@@ -25,7 +25,7 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
      *
      * @return ModifyConfVHost
      */
-    public function modify(array $replacer): void
+    public function modify(array $replacer)
     {
 
         $content      = $this->getContentFromFile($this->fileInfoFromFileToModify->getFullPath());
@@ -44,7 +44,7 @@ class ModifyConfVHost extends ModifyFileAbstract implements ModifyInterface
     /**
      * @return string
      */
-    protected function buildInsertString(): string
+    protected function buildInsertString()
     {
 
         $path = $this->xampp->getXamppDir() . '/../' . $this->xampp->getCorrespondingVHostFileName();

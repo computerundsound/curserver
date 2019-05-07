@@ -53,7 +53,7 @@ class ModifyFileAbstract
      *
      * @return string
      */
-    protected function getContentFromFile(string $path): string
+    protected function getContentFromFile($path)
     {
 
         $content = file_get_contents($path);
@@ -69,7 +69,7 @@ class ModifyFileAbstract
      * @param string $path
      * @param string $content
      */
-    protected function writeContent(string $path, string $content): void
+    protected function writeContent($path, $content)
     {
 
         file_put_contents($path, $content);
@@ -82,7 +82,7 @@ class ModifyFileAbstract
      *
      * @return string
      */
-    protected function replaceContents(string $content, array $replacer): string
+    protected function replaceContents($content, array $replacer)
     {
 
         foreach ($replacer as $search => $newValue) {
@@ -99,7 +99,7 @@ class ModifyFileAbstract
      *
      * @return string
      */
-    protected function replaceLine(string $search, string $newValue, string $content): string
+    protected function replaceLine($search, $newValue, $content)
     {
 
         $replace = "$search = $newValue";

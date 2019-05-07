@@ -13,7 +13,7 @@ use app\viewer\MakeView;
 
 require_once __DIR__ . '/_application_top.php';
 
-$smarty_standard = new MakeView(CU_SMARTY_DIR);
+$smartyStandard = new MakeView(CU_SMARTY_DIR);
 
 $standards_view_elements = [
     'application_root_HTTP' => $constant_container_coo->getAppRootHTTP(),
@@ -26,12 +26,12 @@ $content
 	<p>{$standards_view_elements['application_root_HTTP']}</p>
 HTML;
 
-$smarty_standard->assign('siteTitle', '');
-$smarty_standard->assign('standards', $standards_view_elements);
-$smarty_standard->assign('content', $content);
+$smartyStandard->assign('siteTitle', '');
+$smartyStandard->assign('standards', $standards_view_elements);
+$smartyStandard->assign('content', $content);
 
-$smarty_standard->assign('javaScriptVariables',
-                         [
+$smartyStandard->assign('javaScriptVariables',
+                        [
                              'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
                              'secret' => AJAX_SECRET,
                              'standardTLD' => STANDARD_TLD,

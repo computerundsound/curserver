@@ -55,7 +55,7 @@ class XamppUpdater
                                 ModifyMysqlIni $modifyMysqlIni,
                                 ModifyConfVHost $modifyConfVHost,
                                 ModifyPHPIni $modifyPHPIni,
-                                string $appRootDir)
+                                $appRootDir)
     {
 
         $this->xampp           = $xampp;
@@ -69,7 +69,7 @@ class XamppUpdater
     /**
      * @param Replacer $replacer
      */
-    public function update(Replacer $replacer): void
+    public function update(Replacer $replacer)
     {
 
         $this->modifyConfVHost->modify($replacer->getVhostReplacer());
@@ -83,7 +83,7 @@ class XamppUpdater
     /**
      * @param Replacer $replacer
      */
-    protected function xdebug(Replacer $replacer): void
+    protected function xdebug(Replacer $replacer)
     {
 
         $xdebugDllPath = realpath($this->xampp->getXamppDir() . '/php/ext/php_xdebug.dll');
