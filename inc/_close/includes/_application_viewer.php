@@ -17,8 +17,8 @@ $smartyStandard = new MakeView(CU_SMARTY_DIR);
 
 $standards_view_elements = [
     'application_root_HTTP' => $constant_container_coo->getAppRootHTTP(),
-    'project_name' => 'curServer',
-    'php_self' => $constant_container_coo->getFilePath_HTTP(),
+    'project_name'          => 'curServer',
+    'php_self'              => $constant_container_coo->getFilePath_HTTP(),
 ];
 
 $content
@@ -26,13 +26,16 @@ $content
 	<p>{$standards_view_elements['application_root_HTTP']}</p>
 HTML;
 
+$flashMessage = '';
+
 $smartyStandard->assign('siteTitle', '');
 $smartyStandard->assign('standards', $standards_view_elements);
 $smartyStandard->assign('content', $content);
+$smartyStandard->assign('flashMessage', $flashMessage);
 
 $smartyStandard->assign('javaScriptVariables',
                         [
-                             'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
-                             'secret' => AJAX_SECRET,
-                             'standardTLD' => STANDARD_TLD,
-                         ]);
+                            'mysqlFileURL' => MYSQL_DUMP_FILE_PATH_FROM_APP_ROOT,
+                            'secret'       => AJAX_SECRET,
+                            'standardTLD'  => STANDARD_TLD,
+                        ]);

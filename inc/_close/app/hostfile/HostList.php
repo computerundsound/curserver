@@ -83,4 +83,35 @@ class HostList
 
         $this->hostListArray = [];
     }
+
+    /**
+     * @param HostListSearch $hostListSearcher
+     * @param string         $searchString
+     *
+     * @return HostList
+     */
+    public function search(HostListSearch $hostListSearcher, $searchString)
+    {
+
+        $hostList = $hostListSearcher->search($this, $searchString);
+
+        return $hostList;
+
+    }
+
+    public function sort(HostListSorter $hostListSort, SortHandler $sortHandler)
+    {
+
+        $hostListSort->sort($this, $sortHandler);
+
+    }
+
+    /**
+     * @param array $hostListArray
+     */
+    public function setHostListArray(array $hostListArray)
+    {
+
+        $this->hostListArray = $hostListArray;
+    }
 }

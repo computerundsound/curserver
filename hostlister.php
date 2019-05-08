@@ -7,6 +7,8 @@
  */
 
 use app\hostfile\HostFileHandler;
+use app\hostfile\HostListSearch;
+use app\hostfile\HostListSorter;
 use app\hostfile\SortHandler;
 use app\hostfile\VHostFileHandler;
 use app\hostfile\VHostFileList;
@@ -27,8 +29,6 @@ if ($action === 'phpinfo') {
     phpinfo();
     exit;
 }
-
-$sortHandler = new SortHandler('hostlister');
 
 $hostFileHandler = new HostFileHandler(HOST_FILE_PATH);
 
@@ -52,28 +52,30 @@ $hostRepository = new HostRepositoryXML(XML_HOST_REPOSITORY_FILE);
 
 /* On Update */
 
-/** @noinspection IsEmptyFunctionUsageInspection */
-if ($action === 'host_update' && empty($action_id) === false) {
-    $dataArray       = HostFileHandler::getPostDataAsArray(false, false);
-    $dataArray['id'] = $action_id;
-    $hostRepository->saveFromArray($dataArray);
-    $updateMessageIsSet = true;
-}
+try {
 
-/** @noinspection IsEmptyFunctionUsageInspection */
-if ($action === 'host_kill') {
-    $hostRepository->delete($action_id);
-    $updateMessageIsSet = true;
-}
+    /** @noinspection IsEmptyFunctionUsageInspection */
+    if ($action === 'host_update' && empty($action_id) === false) {
+        $dataArray       = HostFileHandler::getPostDataAsArray(false, false);
+        $dataArray['id'] = $action_id;
+        $hostRepository->saveFromArray($dataArray);
+        $updateMessageIsSet = true;
+    }
 
-if ($action === 'host_add') {
-    $dataArray = HostFileHandler::getPostDataAsArray(false, false);
-    $hostRepository->saveFromArray($dataArray);
-    $updateMessageIsSet = true;
-}
+    /** @noinspection IsEmptyFunctionUsageInspection */
+    if ($action === 'host_kill') {
+        $hostRepository->delete($action_id);
+        $updateMessageIsSet = true;
+    }
 
-$searchHandler = isset($_GET['search_handler']) ? $_GET['search_handler'] : '';
-$smartyStandard->assign('searchHandlerString', $searchHandler);
+    if ($action === 'host_add') {
+        $dataArray = HostFileHandler::getPostDataAsArray(false, false);
+        $hostRepository->saveFromArray($dataArray);
+        $updateMessageIsSet = true;
+    }
+} catch (Exception $exception) {
+    $flashMessage = 'Error in Repository: ' . $exception->getMessage();
+}
 
 $smartyStandard->assign('port', CU_PORT);
 
@@ -107,6 +109,19 @@ $hostfileContent = $hostFileHandler->getHostFileContent();
 
 $smartyStandard->assign('update_msg', $updateMessageIsSet);
 
+$sortHandler   = new SortHandler('hostlister');
+$searchHandler = CuRequester::getGetPost('search_handler') ?: '';
+$smartyStandard->assign('searchHandlerString', $searchHandler);
+
+if ($searchHandler) {
+    $hostListSearcher = new HostListSearch();
+    $hostList         = $hostList->search($hostListSearcher, $searchHandler);
+}
+
+$hostListSorter = new HostListSorter();
+
+$hostList->sort($hostListSorter, $sortHandler);
+
 /* Get Server */
 
 $smartyStandard->assign('hostlist_sorter_options',
@@ -120,11 +135,11 @@ $smartyStandard->assign('hostlist_sorter_options',
                             'vhost_htdocs' => 'vhost_htdocs',
                         ]);
 
+
 $smartyStandard->assign('hostlist_sort_handler_item', $sortHandler->getCurrentSortItem());
-
 $smartyStandard->assign('hosts', $hostList);
-
 $smartyStandard->assign('hostfile_content', $hostfileContent);
+$smartyStandard->assign('flashMessage', $flashMessage);
 
 try {
     $smartyStandard->display('c_hosttable.tpl');

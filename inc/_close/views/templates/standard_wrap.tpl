@@ -80,7 +80,9 @@
 <div class="container-fluid" style="width: 90%; padding-bottom: 5rem;">
     <div class="row">
         <div class="col-12">
-
+            {if $flashMessage}
+                <div class="alert alert-danger">{{$flashMessage}}</div>
+            {/if}
             <h1>curServer</h1>
 
             <p>
