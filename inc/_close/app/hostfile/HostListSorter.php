@@ -59,7 +59,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getIp() > $hostB->getIp();
             });
@@ -76,7 +76,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getSubdomain() > $hostB->getSubdomain();
             });
@@ -93,7 +93,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getDomain() > $hostB->getDomain();
             });
@@ -110,7 +110,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getTld() > $hostB->getTld();
             });
@@ -127,7 +127,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getComment() > $hostB->getComment();
             });
@@ -144,7 +144,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getVhostDir() > $hostB->getVhostDir();
             });
@@ -161,7 +161,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getVhostHtdocs() > $hostB->getVhostHtdocs();
             });
@@ -178,7 +178,7 @@ class HostListSorter
 
         $hostListArray = $hostList->getHostListArray();
         usort($hostListArray,
-            function (Host $hostA, Host $hostB) {
+            static function (Host $hostA, Host $hostB) {
 
                 return $hostA->getLastChange() < $hostB->getLastChange();
             });
