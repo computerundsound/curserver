@@ -20,7 +20,7 @@ $preInformation .= "\n\nCurrent XamppDir is $xamppDir\n\n";
 echo $preInformation;
 
 //$input = 'yes';
-$input        = readline('Do you want to continue? Enter "yes" or "no": ');
+$input = readline('Do you want to continue? Enter "yes" or "no": ');
 
 $inputTrimmed = trim($input);
 
@@ -29,6 +29,12 @@ $appRootDir = dirname(__DIR__) . '/';
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
     echo "Start: \n\n";
+
+    if (file_exists(__DIR__ . '/../_config.php') === false) {
+        copy(__DIR__ . '/../_config.sample.php', __DIR__ . '/../_config.php');
+    }
+
+    include __DIR__ . '/../_config.php';
 
     $replacerIniPath = realpath(__DIR__ . '/replacement.ini');
 
