@@ -15,9 +15,7 @@
   },
  "require": {
    "php": ">=5.4",
-    "computerundsound/cuLibrary": "~3.0",
-    "smarty/smarty": "~3.1",
-    "erusev/parsedown": "dev-master"
+   "smarty/smarty": "~3.1"
   },
   "autoload": {
     "psr-4": {
