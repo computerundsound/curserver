@@ -17,7 +17,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 if (file_exists(__DIR__ . '/../../../_config.php') === false) {
 
-    die('_config.php file not found. Please make sure that you have the _config.php - file in application root. You can copy the _config.sample.php to _config.php and insert your own values (maybe most values are already good for you');
+    copy(__DIR__ . '/../../../_config.sample.php', __DIR__ . '/../../../_config.php');
+
 
 }
 
