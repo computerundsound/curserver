@@ -54,13 +54,11 @@ define('HOST_FILE_PATH', 'c:\Windows\System32\drivers\etc\hosts');
  *
  */
 
-define('VHOST_DIR', 'e:/Joerg/Proggen/__XAMPP/');
-
 define('VHOST_FILES',
        serialize([
-	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
-	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
-	                 'D:\CUSP\_PROGGEN\_SERVER\_____XAMPPS\cu_vhosts_4.txt'   => ['templateName' => 'vhosts_4.tpl'],
+                     __DIR__ . '/../cu_vhosts.txt'     => ['templateName' => 'vhosts.tpl'],
+                     __DIR__ . '/../cu_vhosts_5_3.txt' => ['templateName' => 'vhosts_5_3.tpl'],
+                     __DIR__ . '/../cu_vhosts_4.txt'   => ['templateName' => 'vhosts_4.tpl'],
                  ]
 
        ));
