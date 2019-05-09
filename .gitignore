@@ -8,9 +8,11 @@
 
 package-lock.json
 
-/_config.php
+_config.php
 
-/app_api
+#inc/_close/vendor/*
 
-/__writer/*
-!/__writer/mysqlDumpFile/index.html
+app_api
+
+__writer/*
+!__writer/mysqlDumpFile/index.html

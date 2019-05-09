@@ -16,14 +16,12 @@
   "require": {
     "php": ">=5.4",
     "computerundsound/culibrary": "4.0.*",
-    "smarty/smarty": "~3.1"
+    "smarty/smarty": "~3.1",
+    "erusev/parsedown": "master"
   },
   "autoload": {
     "psr-4": {
       "app\\": "inc/_close/app/"
-    },
-    "files": [
-      "inc/_close/libs/parsedown-1.7.3/Parsedown.php"
-    ]
+    }
   }
 }
