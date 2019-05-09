@@ -22,9 +22,6 @@
   "autoload": {
     "psr-4": {
       "app\\": "inc/_close/app/"
-    },
-    "files": [
-      "inc/_close/libs/parsedown-1.7.3/Parsedown.php"
-    ]
+    }
   }
 }

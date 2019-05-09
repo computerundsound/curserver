@@ -10,6 +10,8 @@ package-lock.json
 
 _config.php
 
+#inc/_close/vendor/*
+
 app_api
 
 __writer/*
