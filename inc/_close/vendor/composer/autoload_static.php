@@ -6,11 +6,11 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0
 {
+    public static $files = array (
+        '7618197617c88586f5f539a694fe66cf' => __DIR__ . '/../../../..' . '/inc/_close/libs/parsedown-1.7.3/Parsedown.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'c' => 
-        array (
-            'computerundsound\\culibrary\\' => 27,
-        ),
         'a' => 
         array (
             'app\\' => 4,
@@ -18,23 +18,9 @@ class ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0
     );
 
     public static $prefixDirsPsr4 = array (
-        'computerundsound\\culibrary\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/computerundsound/culibrary',
-        ),
         'app\\' => 
         array (
             0 => __DIR__ . '/../../../..' . '/inc/_close/app',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'Parsedown' => 
-            array (
-                0 => __DIR__ . '/..' . '/erusev/parsedown',
-            ),
         ),
     );
 
@@ -219,7 +205,6 @@ class ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd9cf65ff751f8cda4a3d74428446ebe0::$classMap;
 
         }, null, ClassLoader::class);

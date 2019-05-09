@@ -4,93 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "172e6be170a8071157bdb106d4789488",
+    "content-hash": "e25b40753c85ed5ee7088814374fe130",
     "packages": [
-        {
-            "name": "computerundsound/culibrary",
-            "version": "3.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/computerundsound/cuLibrary.git",
-                "reference": "da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94",
-                "reference": "da2e99a2c28a1ec2aa54c3b32bc71766e9d4de94",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "computerundsound\\culibrary\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jörg Wrase",
-                    "email": "info@cusp.de",
-                    "homepage": "http://www.cusp.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "small helper library",
-            "homepage": "https://github.com/computerundsound/cuLibrary",
-            "time": "2019-04-10T15:06:45+00:00"
-        },
-        {
-            "name": "erusev/parsedown",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/erusev/parsedown.git",
-                "reference": "bfaa76d370ecfae6fac85b30c15b90cc23cce895"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/bfaa76d370ecfae6fac85b30c15b90cc23cce895",
-                "reference": "bfaa76d370ecfae6fac85b30c15b90cc23cce895",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Parsedown": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Emanuil Rusev",
-                    "email": "hello@erusev.com",
-                    "homepage": "http://erusev.com"
-                }
-            ],
-            "description": "Parser for Markdown.",
-            "homepage": "http://parsedown.org",
-            "keywords": [
-                "markdown",
-                "parser"
-            ],
-            "time": "2019-04-07T15:36:22+00:00"
-        },
         {
             "name": "smarty/smarty",
             "version": "dev-master",
@@ -151,9 +66,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "erusev/parsedown": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
