@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname(dirname($vendorDir)));
 
 return array(
+    'computerundsound\\culibrary\\' => array($vendorDir . '/computerundsound/culibrary'),
     'app\\' => array($baseDir . '/inc/_close/app'),
 );

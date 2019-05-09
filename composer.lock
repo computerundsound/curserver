@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e25b40753c85ed5ee7088814374fe130",
+    "content-hash": "91f5769755200e4d56bc8c012a8c4461",
     "packages": [
+        {
+            "name": "computerundsound/culibrary",
+            "version": "4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/computerundsound/cuLibrary.git",
+                "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/449bd06291eff3dee156d3e0eaf27663b80d0adb",
+                "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "computerundsound\\culibrary\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jörg Wrase",
+                    "email": "info@cusp.de",
+                    "homepage": "http://www.cusp.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "small helper library",
+            "homepage": "https://github.com/computerundsound/cuLibrary",
+            "time": "2019-05-04T00:04:19+00:00"
+        },
         {
             "name": "smarty/smarty",
             "version": "dev-master",

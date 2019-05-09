@@ -1,5 +1,46 @@
 [
     {
+        "name": "computerundsound/culibrary",
+        "version": "4.0.2",
+        "version_normalized": "4.0.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/computerundsound/cuLibrary.git",
+            "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/449bd06291eff3dee156d3e0eaf27663b80d0adb",
+            "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2019-05-04T00:04:19+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "computerundsound\\culibrary\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jörg Wrase",
+                "email": "info@cusp.de",
+                "homepage": "http://www.cusp.de",
+                "role": "Developer"
+            }
+        ],
+        "description": "small helper library",
+        "homepage": "https://github.com/computerundsound/cuLibrary"
+    },
+    {
         "name": "smarty/smarty",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
