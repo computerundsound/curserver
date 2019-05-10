@@ -19,8 +19,8 @@ $preInformation .= "\n\nCurrent XamppDir is $xamppDir\n\n";
 
 echo $preInformation;
 
-//$input = 'yes';
-$input = readline('Do you want to continue? Enter "yes" or "no": ');
+$input = 'yes';
+//$input = readline('Do you want to continue? Enter "yes" or "no": ');
 
 $inputTrimmed = trim($input);
 
@@ -44,7 +44,10 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
     $updateController->update($xamppDir, $replacerIniPath);
 
-    echo 'Finished - please check your xampps';
+
+    echo "Finished - please check your xampps\n\n";
+    echo "\n\n";
+    echo 'You can call http://localhost/ in your browser and insert your first host (curserver)';
 
 } else {
 
