@@ -19,6 +19,7 @@ use app\installer\Replacer\Replacer;
 use app\installer\xampp\Xampp;
 use app\installer\xampp\XamppListBuilder;
 use app\installer\xampp\XamppUpdater;
+use app\vhost\VHostFiles;
 use Throwable;
 
 /**
@@ -56,7 +57,9 @@ class UpdateController
 
         $xamppController = new XamppListBuilder();
 
-        $xamppList = $xamppController->getXamppList($xamppContainerPath, $replacer);
+        $vHostFile = new VHostFiles(VHOST_FILES);
+
+        $xamppList = $xamppController->getXamppList($xamppContainerPath, $replacer, $vHostFile);
 
         $xamppListArray = $xamppList->getXampps();
 
