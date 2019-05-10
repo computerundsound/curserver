@@ -56,4 +56,6 @@ Usage:
 >dir *directoryFrom/curserver/installer/*  
 >php install.php
 
+*The first think you should do after finished the installation is to create a domain for this tool*
+
 
