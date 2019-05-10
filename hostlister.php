@@ -92,14 +92,17 @@ $hostFileHandler->addHostList($hostList);
 if ($action === 'host_prozess_vhostfile') {
 
     foreach ($vHostFiles as $vHostFileName => $vHostInfos) {
-        $vhost_coo = new VHostFileHandler($smarty_vhost_coo, $vHostInfos['templateName'], $vHostFileName);
-        $vhost_coo->addHostList($hostList);
+        $vhostFileHandler = new VHostFileHandler($smarty_vhost_coo, $vHostInfos['templateName'], $vHostFileName);
+
+        $vhostFileHandler->createFileIfNotExist();
+
+        $vhostFileHandler->addHostList($hostList);
         try {
-            $vhost_coo->build_content(CU_PORT);
+            $vhostFileHandler->buildContent(CU_PORT);
         } catch (Exception $e) {
             die('Unable to build host');
         }
-        $vhost_coo->write_content_to_vhost_file();
+        $vhostFileHandler->writeContentToVhostFile();
     }
 
     $updateMessageIsSet = true;

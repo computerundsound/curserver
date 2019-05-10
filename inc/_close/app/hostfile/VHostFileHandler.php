@@ -24,28 +24,34 @@ use SmartyException;
 class VHostFileHandler
 {
 
-    private $hosts_array = [];
+    private $hostsArray = [];
     /**
      * @var Smarty
      */
-    private $smarty_vhost;
-    private $smarty_tpl;
+    private $smartyVhost;
+    private $smartyTpl;
 
     private $content;
-    private $vhost_file_path;
+    private $vhostFilePath;
 
 
     /**
-     * @param Smarty|MakeView $smarty_vhost
-     * @param                 $smarty_tpl
-     * @param                 $vhost_file_path
+     * @param Smarty|MakeView $smartyVhost
+     * @param string          $smartyTpl
+     * @param string          $vhostFilePath
      */
-    public function __construct(MakeView $smarty_vhost, $smarty_tpl, $vhost_file_path)
+    public function __construct(MakeView $smartyVhost, $smartyTpl, $vhostFilePath)
     {
 
-        $this->smarty_vhost    = $smarty_vhost;
-        $this->smarty_tpl      = $smarty_tpl;
-        $this->vhost_file_path = $vhost_file_path;
+        $this->smartyVhost   = $smartyVhost;
+        $this->smartyTpl     = $smartyTpl;
+        $this->vhostFilePath = $vhostFilePath;
+    }
+
+    public function createFileIfNotExist()
+    {
+
+        touch($this->vhostFilePath);
     }
 
     /**
@@ -54,32 +60,32 @@ class VHostFileHandler
      * @throws Exception
      * @throws SmartyException
      */
-    public function build_content($port)
+    public function buildContent($port)
     {
 
-        $smarty_coo = $this->smarty_vhost;
+        $smarty_coo = $this->smartyVhost;
 
-        $smarty_coo->assign('vhosts_array', $this->hosts_array);
+        $smarty_coo->assign('vhosts_array', $this->hostsArray);
         $smarty_coo->assign('port', $port);
 
-        $this->content = $smarty_coo->fetch($this->smarty_tpl);
+        $this->content = $smarty_coo->fetch($this->smartyTpl);
     }
 
-    public function write_content_to_vhost_file()
+    public function writeContentToVhostFile()
     {
 
-        $fh = fopen($this->vhost_file_path, 'wb+');
+        $fh = fopen($this->vhostFilePath, 'wb+');
         fwrite($fh, $this->content);
         fclose($fh);
     }
 
     /**
-     * @param HostList $host_list_coo
+     * @param HostList $hostList
      */
-    public function addHostList(HostList $host_list_coo)
+    public function addHostList(HostList $hostList)
     {
 
-        $hostListAsArray = $host_list_coo->getHostListArray();
+        $hostListAsArray = $hostList->getHostListArray();
 
         /** @var Host $host */
         foreach ($hostListAsArray as $host) {
@@ -90,12 +96,12 @@ class VHostFileHandler
     }
 
     /**
-     * @param Host $host_coo
+     * @param Host $hostCoo
      *
      */
-    public function add_host(Host $host_coo)
+    public function add_host(Host $hostCoo)
     {
 
-        $this->hosts_array[] = $host_coo;
+        $this->hostsArray[] = $hostCoo;
     }
 }
