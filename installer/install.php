@@ -1,9 +1,11 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 
+use app\hostfile\Host;
 use app\hostfile\VHostFileHandler;
 use app\hostfile\VHostFileList;
 use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\UpdateController;
+use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
 
 require_once __DIR__ . '/../inc/_close/vendor/autoload.php';
@@ -63,6 +65,20 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
     InfoPrinter::info('Starting. XamppContainerDir: ' . $xamppDir);
 
     $updateController->update($xamppDir, $replacerIniPath);
+
+    $hostRepository = new HostRepositoryXML(XML_HOST_REPOSITORY_FILE);
+    try {
+        $hostRepository->saveFromArray(
+            [
+                Host::FieldName_tld          => 'curserver',
+                Host::FieldName_vhost_htdocs => dirname(__DIR__) . '/',
+                Host::FieldName_vhost_dir    => dirname(__DIR__) . '/',
+                Host::FieldName_ip           => '127.0.0.1',
+            ]
+        );
+    } catch (Exception $e) {
+        die('ERROR saving curserver host');
+    }
 
 
     echo "Finished - please check your xampps\n\n";
