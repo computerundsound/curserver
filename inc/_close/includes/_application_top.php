@@ -9,6 +9,7 @@
  * Filename: _application_top.php
  */
 
+use app\vhost\VHostFiles;
 use app\xampp\ReplacerEnvironmentKeys;
 use computerundsound\culibrary\CuConstantsContainer;
 
@@ -64,7 +65,16 @@ if (file_exists(XML_HOST_REPOSITORY_FILE) === false) {
     fclose($fh);
 }
 
-$vHostFiles = [
-    ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5_4,
-    ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_GREATER_OR_EQUAL_THAN_5_4,
-];
+$vHostFiles = new VHostFiles();
+
+foreach ($vHostFiles->getAllVHostFiles() as $vHostFile) {
+
+    $fileName = $vHostFile['templateName'];
+
+    $vHostPath = __DIR__ . '/../../../../' . $fileName;
+
+    if (file_exists($vHostPath) === false) {
+        touch($vHostPath);
+    }
+
+}

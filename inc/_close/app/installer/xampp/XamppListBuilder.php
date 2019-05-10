@@ -12,6 +12,7 @@ namespace app\installer\xampp;
 
 use app\ArrayTrait;
 use app\installer\Replacer\Replacer;
+use app\vhost\VHostFiles;
 use app\xampp\ReplacerEnvironmentKeys;
 
 /**
@@ -25,31 +26,16 @@ class XamppListBuilder
     use ArrayTrait;
 
     /**
-     * @param string   $xamppVersion
-     * @param Replacer $replacer
+     * @param VHostFiles $VHostFile
+     * @param string     $xamppVersion
+     * @param Replacer   $replacer
      *
      * @return string
      */
-    protected static function getCorrespondingVHostFile($xamppVersion, Replacer $replacer)
+    protected static function getCorrespondingVHostFile(VHostFiles $VHostFile, $xamppVersion, Replacer $replacer)
     {
 
-        $vhostFileName = '';
-
-        if (version_compare(5.4, $xamppVersion, '<=')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_GREATER_OR_EQUAL_THAN_5_4;
-        }
-
-        if (version_compare(5.4, $xamppVersion, '>=')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5_4;
-        }
-
-        if (version_compare(5, $xamppVersion, '>')) {
-            $replacerKey = ReplacerEnvironmentKeys::VHOST_FILE_IF_VERSION_IS_SMALLER_THAN_5;
-        }
-
-        if (isset($replacerKey)) {
-            $vhostFileName = (string)self::getValueFromArray($replacerKey, $replacer->getVhostReplacer());
-        }
+        $vhostFileName = $VHostFile->getVHostFileName($xamppVersion);
 
         $vhostFileName = isset($vhostFileName) ? $vhostFileName : '';
 
@@ -57,17 +43,18 @@ class XamppListBuilder
     }
 
     /**
-     * @param string   $xamppContainerPath
-     * @param Replacer $replacer
+     * @param string     $xamppContainerPath
+     * @param Replacer   $replacer
+     * @param VHostFiles $vHostFile
      *
      * @return XamppList
      */
-    public function getXamppList($xamppContainerPath, Replacer $replacer)
+    public function getXamppList($xamppContainerPath, Replacer $replacer, VHostFiles $vHostFile)
     {
 
         $dirs = $this->getDirs($xamppContainerPath);
 
-        $xamppList = $this->getList($dirs, $replacer);
+        $xamppList = $this->getList($dirs, $replacer, $vHostFile);
 
         return $xamppList;
 
@@ -108,13 +95,13 @@ class XamppListBuilder
     }
 
     /**
-     * @param array    $dirs
-     *
-     * @param Replacer $replacer
+     * @param array      $dirs
+     * @param Replacer   $replacer
+     * @param VHostFiles $VHostFile
      *
      * @return XamppList
      */
-    protected function getList(array $dirs, Replacer $replacer)
+    protected function getList(array $dirs, Replacer $replacer, VHostFiles $VHostFile)
     {
 
         $xamppList = new XamppList();
@@ -122,7 +109,7 @@ class XamppListBuilder
         foreach ($dirs as $dir) {
 
             if ($dir) {
-                $xampp = $this->getXampp($dir, $replacer);
+                $xampp = $this->getXampp($dir, $replacer, $VHostFile);
                 $xamppList->add($xampp);
             }
 
@@ -133,17 +120,18 @@ class XamppListBuilder
     }
 
     /**
-     * @param string   $xamppDir
-     * @param Replacer $replacer
+     * @param string     $xamppDir
+     * @param Replacer   $replacer
+     * @param VHostFiles $vHostFile
      *
      * @return Xampp
      */
-    protected function getXampp($xamppDir, Replacer $replacer)
+    protected function getXampp($xamppDir, Replacer $replacer, VHostFiles $vHostFile)
     {
 
         $version = Xampp::buildXamppVersion($xamppDir);
 
-        $correspondingVHostFilePath = self::getCorrespondingVHostFile($version, $replacer);
+        $correspondingVHostFilePath = self::getCorrespondingVHostFile($vHostFile, $version, $replacer);
 
         return new Xampp($xamppDir, $correspondingVHostFilePath);
 
