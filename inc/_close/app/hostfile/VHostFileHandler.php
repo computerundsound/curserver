@@ -81,7 +81,7 @@ class VHostFileHandler
 
         $hostListAsArray = $host_list_coo->getHostListArray();
 
-        /** @var HostInterface $host */
+        /** @var Host $host */
         foreach ($hostListAsArray as $host) {
             $this->add_host($host);
         }
@@ -90,10 +90,10 @@ class VHostFileHandler
     }
 
     /**
-     * @param HostInterface $host_coo
+     * @param Host $host_coo
      *
      */
-    public function add_host(HostInterface $host_coo)
+    public function add_host(Host $host_coo)
     {
 
         $this->hosts_array[] = $host_coo;
