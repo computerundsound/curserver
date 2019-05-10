@@ -1,7 +1,10 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 
+use app\hostfile\VHostFileHandler;
+use app\hostfile\VHostFileList;
 use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\UpdateController;
+use app\viewer\MakeView;
 
 require_once __DIR__ . '/../inc/_close/vendor/autoload.php';
 
@@ -35,6 +38,23 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
     }
 
     include __DIR__ . '/../_config.php';
+
+    $smartyVhost   = new MakeView(CU_SMARTY_DIR);
+    $vHostFileList = new VHostFileList();
+
+    $hostFileHandler->addHostList($hostList);
+
+
+    foreach ($vHostFiles as $vHostFileName => $vHostInfos) {
+
+        $vhostFileHandler = new VHostFileHandler($smartyVhost,
+                                                 $vHostInfos['templateName'],
+                                                 $vHostFileName);
+
+        $vhostFileHandler->createFileIfNotExist();
+
+    }
+
 
     $replacerIniPath = realpath(__DIR__ . '/replacement.ini');
 

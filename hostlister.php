@@ -84,15 +84,15 @@ $smartyStandard->assign('port', CU_PORT);
 
 $hostList = $hostRepository->getAllHosts();
 
-$smarty_vhost_coo = new MakeView(CU_SMARTY_DIR);
-$vHostFileList    = new VHostFileList();
+$smartyVhost   = new MakeView(CU_SMARTY_DIR);
+$vHostFileList = new VHostFileList();
 
 $hostFileHandler->addHostList($hostList);
 
 if ($action === 'host_prozess_vhostfile') {
 
     foreach ($vHostFiles as $vHostFileName => $vHostInfos) {
-        $vhostFileHandler = new VHostFileHandler($smarty_vhost_coo, $vHostInfos['templateName'], $vHostFileName);
+        $vhostFileHandler = new VHostFileHandler($smartyVhost, $vHostInfos['templateName'], $vHostFileName);
 
         $vhostFileHandler->createFileIfNotExist();
 
