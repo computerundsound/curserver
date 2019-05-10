@@ -1,7 +1,11 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 
+use app\hostfile\Host;
+use app\hostfile\VHostFileHandler;
+use app\hostfile\VHostFileList;
 use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\UpdateController;
+use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
 
 require_once __DIR__ . '/../inc/_close/vendor/autoload.php';
