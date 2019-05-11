@@ -198,10 +198,10 @@ class CuConstantsContainer
     private function getProtocol()
     {
 
-        $serverPort = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+        $port = isset($_SERVER['SERVER_PORT']) ? (int)$_SERVER['SERVER_PORT'] : 80;
 
         $protocol
-            = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $serverPort === 443) ?
+            = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $port === 443) ?
             'https://' : 'http://';
 
         return $protocol;

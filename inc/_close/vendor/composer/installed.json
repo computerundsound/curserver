@@ -1,23 +1,23 @@
 [
     {
         "name": "computerundsound/culibrary",
-        "version": "4.0.2",
-        "version_normalized": "4.0.2.0",
+        "version": "4.0.3",
+        "version_normalized": "4.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/computerundsound/cuLibrary.git",
-            "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb"
+            "reference": "e53ba56b48c3430d1250437ecfb49f6f2e008056"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/449bd06291eff3dee156d3e0eaf27663b80d0adb",
-            "reference": "449bd06291eff3dee156d3e0eaf27663b80d0adb",
+            "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/e53ba56b48c3430d1250437ecfb49f6f2e008056",
+            "reference": "e53ba56b48c3430d1250437ecfb49f6f2e008056",
             "shasum": ""
         },
         "require": {
             "php": ">=5.4.0"
         },
-        "time": "2019-05-04T00:04:19+00:00",
+        "time": "2019-05-11T03:20:23+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
