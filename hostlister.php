@@ -94,7 +94,7 @@ $hostFileHandler->addHostList($hostList);
 if ($action === 'host_process_vhostfile') {
 
 
-    foreach ($vHostFiles as $vHostInfos) {
+    foreach ($vHostFiles->getAllVHostFiles() as $vHostInfos) {
 
         $vHostFilePath = PATH_TO_VHOSTS . $vHostInfos['fileName'];
 
@@ -164,11 +164,4 @@ try {
     $smartyStandard->display('c_hosttable.tpl');
 } catch (Exception $e) {
     die($e->getMessage());
-}
-
-if ($action === 'host_process_hostfile') {
-    $exec_command = $constant_container_coo->getAppRootServer();
-    $exec_command = str_replace('/', DIRECTORY_SEPARATOR, $exec_command);
-    $exec_command .= EDITOR_COMMAND_OPEN_HOST_FILE;
-    exec($exec_command);
 }
