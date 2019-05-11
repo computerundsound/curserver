@@ -132,10 +132,6 @@ HostTableManager.prototype.bind_prozess_btns = function () {
         document.form_host_action.action.value = 'host_process_vhostfile';
         document.form_host_action.submit();
     });
-    $('#hostmask_process_hostfile_btn').click(function () {
-        document.form_host_action.action.value = 'host_process_hostfile';
-        document.form_host_action.submit();
-    });
 };
 
 HostTableManager.prototype.set_inputs_standards = function () {
