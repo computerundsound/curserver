@@ -33,6 +33,8 @@ if ($action === 'phpinfo') {
 
 $hostFileHandler = new HostFileHandler(HOST_FILE_PATH);
 
+$hostFileHandler->getHostFileContent();
+
 $prefix = $hostFileHandler->getPrefix();
 
 $smartyStandard->assign('prefix', $prefix);
@@ -94,7 +96,7 @@ if ($action === 'host_process_vhostfile') {
 
     foreach ($vHostFiles as $vHostInfos) {
 
-        $vHostFilePath =  PATH_TO_VHOSTS . $vHostInfos['fileName'];
+        $vHostFilePath = PATH_TO_VHOSTS . $vHostInfos['fileName'];
 
         $vhostFileHandler = new VHostFileHandler($smartyVhost,
                                                  $vHostInfos['templateName'],
@@ -115,8 +117,15 @@ if ($action === 'host_process_vhostfile') {
 }
 
 $hostFileHandler->buildHostContent();
-$hostfileContent = $hostFileHandler->getHostFileContent();
+$hostfileContent        = $hostFileHandler->getHostFileContent();
+$windowsHostFileContent = file_get_contents(HOST_FILE_PATH);
+$diffToWindowsHostfile  = false;
 
+if (trim($hostfileContent) !== trim($windowsHostFileContent)) {
+    $diffToWindowsHostfile = true;
+}
+
+$smartyStandard->assign('diffToWindowsHostfile', $diffToWindowsHostfile);
 $smartyStandard->assign('update_msg', $updateMessageIsSet);
 
 $sortHandler   = new SortHandler('hostlister');

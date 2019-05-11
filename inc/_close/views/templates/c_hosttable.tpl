@@ -11,14 +11,21 @@
 
             </form>
 
-            <div class="alert alert-warning" role="alert">
-                <p>All Templates run on the
-                    <strong>port {$smarty.const.CU_PORT}</strong>. If you ever change this value in the _config.php,
-                   please
-                   make
-                   sure, that you have changed it in all httpd.conf - files from
-                   XAMPP, too</p>
-            </div>
+            {if $diffToWindowsHostfile}
+                <div class="alert alert-danger">
+                    <p>Your content from your real windows Hostfile differs from the content that is created by this
+                       tool!</p>
+
+                    <p>Please update your Windows host-file {$smarty.const.HOST_FILE_PATH}</p>
+
+                    <p>For this, you have edit the host-file with administrator rights.</p>
+
+                </div>
+            {/if}
+
+
+            <p>All Templates run on the <strong>port {$smarty.const.CU_PORT}</strong> We strongly recommend not to
+               change this!</p>
 
             <p>
 
@@ -28,9 +35,6 @@
                 <button type="button" id="hostmask_process_vhostfile_btn" class="btn btn-danger"><i
                             class="fas fa-save"></i> Process - write vhost-File (Xampp)
                 </button>
-                <button type="button" id="hostmask_process_hostfile_btn" class="btn btn-danger"><i
-                            class="fas fa-pencil-alt"></i> Process - edit Windows host-File
-                </button>
             </p>
 
             {if $update_msg === true}
@@ -39,10 +43,7 @@
                     <div class="alert alert-primary">
                         <p>You have updated your hosts...</p>
                         <ul>
-                            <li>Edit your Windows host-File (click edit Hostfile, if you have everthing configured -
-                                read
-                                readmefile)
-                            </li>
+                            <li>Edit your Windows host-File</li>
                             <li>Restart Apache (Xampp)</li>
                         </ul>
                     </div>
