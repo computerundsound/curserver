@@ -39,7 +39,7 @@ class UpdateController
      *
      * @param string $appRootDir
      */
-    public function __construct(string $appRootDir)
+    public function __construct($appRootDir)
     {
 
         $this->appRootDir = $appRootDir;

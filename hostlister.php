@@ -91,8 +91,14 @@ $hostFileHandler->addHostList($hostList);
 
 if ($action === 'host_prozess_vhostfile') {
 
-    foreach ($vHostFiles as $vHostFileName => $vHostInfos) {
-        $vhostFileHandler = new VHostFileHandler($smartyVhost, $vHostInfos['templateName'], $vHostFileName);
+
+    foreach ($vHostFiles as $vHostInfos) {
+
+        $vHostFilePath =  PATH_TO_VHOSTS . $vHostInfos['fileName'];
+
+        $vhostFileHandler = new VHostFileHandler($smartyVhost,
+                                                 $vHostInfos['templateName'],
+                                                 $vHostFilePath);
 
         $vhostFileHandler->createFileIfNotExist();
 

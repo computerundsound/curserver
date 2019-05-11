@@ -74,9 +74,11 @@ class VHostFileHandler
     public function writeContentToVhostFile()
     {
 
-        $fh = fopen($this->vhostFilePath, 'wb+');
-        fwrite($fh, $this->content);
-        fclose($fh);
+        if ($this->vhostFilePath) {
+            $fh = fopen($this->vhostFilePath, 'wb+');
+            fwrite($fh, $this->content);
+            fclose($fh);
+        }
     }
 
     /**

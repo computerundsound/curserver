@@ -1,6 +1,8 @@
 <?php /** @noinspection PhpComposerExtensionStubsInspection */
 
 use app\hostfile\Host;
+use app\hostfile\HostFileHandler;
+use app\hostfile\HostList;
 use app\hostfile\VHostFileHandler;
 use app\hostfile\VHostFileList;
 use app\installer\InfoPrinter\InfoPrinter;
@@ -8,7 +10,9 @@ use app\installer\UpdateController;
 use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
 
-require_once __DIR__ . '/../inc/_close/vendor/autoload.php';
+define('CU_SEND_SESSION', false);
+
+require_once __DIR__ . '/../inc/_close/includes/_application_top.php';
 
 $xamppDir = dirname(__DIR__, 2) . '/';
 
@@ -29,34 +33,20 @@ $input = 'yes';
 
 $inputTrimmed = trim($input);
 
-$appRootDir = dirname(__DIR__) . '/';
+$appRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
     echo "Start: \n\n";
 
-    if (file_exists(__DIR__ . '/../_config.php') === false) {
-        copy(__DIR__ . '/../_config.sample.php', __DIR__ . '/../_config.php');
-    }
-
-    include __DIR__ . '/../_config.php';
-
     $smartyVhost   = new MakeView(CU_SMARTY_DIR);
     $vHostFileList = new VHostFileList();
 
+    $hostFileHandler = new HostFileHandler(HOST_FILE_PATH);
+
+    $hostList = new HostList();
+
     $hostFileHandler->addHostList($hostList);
-
-
-    foreach ($vHostFiles as $vHostFileName => $vHostInfos) {
-
-        $vhostFileHandler = new VHostFileHandler($smartyVhost,
-                                                 $vHostInfos['templateName'],
-                                                 $vHostFileName);
-
-        $vhostFileHandler->createFileIfNotExist();
-
-    }
-
 
     $replacerIniPath = realpath(__DIR__ . '/replacement.ini');
 
@@ -80,6 +70,26 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
         die('ERROR saving curserver host');
     }
 
+    $hostList = $hostRepository->getAllHosts();
+
+    foreach ($vHostFiles->getAllVHostFiles() as $vHostInfos) {
+
+        $vHostFilePath = PATH_TO_VHOSTS . $vHostInfos['fileName'];
+
+        $vhostFileHandler = new VHostFileHandler($smartyVhost,
+                                                 $vHostInfos['templateName'],
+                                                 $vHostFilePath);
+
+        $vhostFileHandler->createFileIfNotExist();
+
+        $vhostFileHandler->addHostList($hostList);
+        try {
+            $vhostFileHandler->buildContent(CU_PORT);
+        } catch (Exception $e) {
+            die('Unable to build host');
+        }
+        $vhostFileHandler->writeContentToVhostFile();
+    }
 
     echo "Finished - please check your xampps\n\n";
     echo "\n\n";

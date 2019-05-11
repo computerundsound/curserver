@@ -10,10 +10,11 @@
  */
 
 use app\vhost\VHostFiles;
-use app\xampp\ReplacerEnvironmentKeys;
 use computerundsound\culibrary\CuConstantsContainer;
 
-session_start();
+if (!defined('CU_SEND_SESSION') || CU_SEND_SESSION === true) {
+    session_start();
+}
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -49,7 +50,7 @@ function cuPrint($value, $endScript = false)
 $constant_container_coo = new CuConstantsContainer('/');
 
 define('CU_SMARTY_DIR',
-       $constant_container_coo->getAppRootServer() .
+       dirname(dirname(dirname(__DIR__))) . '/' .
        'inc' .
        DIRECTORY_SEPARATOR .
        '_close' .
@@ -69,9 +70,9 @@ $vHostFiles = new VHostFiles();
 
 foreach ($vHostFiles->getAllVHostFiles() as $vHostFile) {
 
-    $fileName = $vHostFile['templateName'];
+    $fileName = $vHostFile['fileName'];
 
-    $vHostPath = __DIR__ . '/../../../../' . $fileName;
+    $vHostPath = PATH_TO_VHOSTS . $fileName;
 
     if (file_exists($vHostPath) === false) {
         touch($vHostPath);
