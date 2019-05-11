@@ -89,7 +89,7 @@ $vHostFileList = new VHostFileList();
 
 $hostFileHandler->addHostList($hostList);
 
-if ($action === 'host_prozess_vhostfile') {
+if ($action === 'host_process_vhostfile') {
 
 
     foreach ($vHostFiles as $vHostInfos) {
@@ -157,7 +157,7 @@ try {
     die($e->getMessage());
 }
 
-if ($action === 'host_prozess_hostfile') {
+if ($action === 'host_process_hostfile') {
     $exec_command = $constant_container_coo->getAppRootServer();
     $exec_command = str_replace('/', DIRECTORY_SEPARATOR, $exec_command);
     $exec_command .= EDITOR_COMMAND_OPEN_HOST_FILE;

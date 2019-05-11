@@ -129,11 +129,11 @@ HostTableManager.prototype.show_add_mask = function () {
 
 HostTableManager.prototype.bind_prozess_btns = function () {
     $('#hostmask_process_vhostfile_btn').click(function () {
-        document.form_host_action.action.value = 'host_prozess_vhostfile';
+        document.form_host_action.action.value = 'host_process_vhostfile';
         document.form_host_action.submit();
     });
     $('#hostmask_process_hostfile_btn').click(function () {
-        document.form_host_action.action.value = 'host_prozess_hostfile';
+        document.form_host_action.action.value = 'host_process_hostfile';
         document.form_host_action.submit();
     });
 };
