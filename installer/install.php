@@ -37,7 +37,8 @@ $appRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
-    echo "Start: \n\n";
+
+    InfoPrinter::info('Start installing:');
 
     $smartyVhost   = new MakeView(CU_SMARTY_DIR);
     $vHostFileList = new VHostFileList();
@@ -86,16 +87,17 @@ if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
         try {
             $vhostFileHandler->buildContent(CU_PORT);
         } catch (Exception $e) {
-            die('Unable to build host');
+            InfoPrinter::error('Unable to build host');
+            exit;
         }
         $vhostFileHandler->writeContentToVhostFile();
     }
 
-    echo "Finished - please check your xampps\n\n";
-    echo "\n\n";
-    echo 'You can call http://localhost/ in your browser and insert your first host (curserver)';
+    InfoPrinter::info('Finished - please check your XAMPPs');
+    InfoPrinter::newLine();
+    InfoPrinter::info('You can call http://localhost/ in your browser and insert your first host (curserver)');
 
 } else {
 
-    echo "Aborted by user!\n\n";
+    InfoPrinter::warning('Aborted by user!');
 }

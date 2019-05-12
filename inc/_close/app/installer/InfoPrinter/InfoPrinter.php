@@ -56,6 +56,10 @@ class InfoPrinter
 
     }
 
+    public static function newLine(){
+        self::echoIt('', "\n\n", []);
+    }
+
     /**
      * @param string $prefix
      * @param string $message
