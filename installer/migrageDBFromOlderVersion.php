@@ -9,11 +9,12 @@
 
 use app\Debug;
 use app\hostfile\Host;
+use app\installer\InfoPrinter\InfoPrinter;
 use app\repositories\hosts\HostRepositoryXML;
 use computerundsound\culibrary\db\mysqli\CuDBi;
 use computerundsound\culibrary\db\mysqli\CuDBiResult;
 
-die('Comment out this line');
+die('Comment out this line in sourcecode');
 
 require_once __DIR__ . '/../inc/_close/includes/_application_viewer.php';
 
@@ -32,7 +33,7 @@ try {
 }
 
 
-$vhosts = $dbi->selectAsArray('hosts');
+$vhosts = $dbi->cuSelectAsArray('hosts');
 
 Debug::printHtml($vhosts);
 
@@ -58,10 +59,19 @@ foreach ($vhosts as $hostArray) {
     $vhostDir    = $hostArray['vhost_dir'];
     $vhostHtdocs = $hostArray['vhost_htdocs'];
 
-    $host->setHost($hostId, $tld, $domain, $subdomain, $ip, $comment, $lastChange, $vhostDir, $vhostHtdocs);
+    try {
+        $host->setHost($hostId, $tld, $domain, $subdomain, $ip, $comment, $lastChange, $vhostDir, $vhostHtdocs);
+    } catch (Exception $e) {
+        InfoPrinter::error("Could not create host $subdomain.$domain.$tld");
+        InfoPrinter::error($e->getMessage());
+    }
 
     $hostList->addHost($host);
 
 }
 
-$hostRepository->saveCurrentHostList();
+try {
+    $hostRepository->saveCurrentHostList();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
