@@ -6,6 +6,7 @@
  * LastModified: 2018.06.09 at 04:20 MESZ
  */
 
+use app\hostfile\Host;
 use app\hostfile\HostFileHandler;
 use app\hostfile\HostListSearch;
 use app\hostfile\HostListSorter;

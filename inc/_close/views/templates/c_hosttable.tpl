@@ -236,7 +236,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary host_action_btn"
+                            <button type="button" class="btn btn-primary host_action_btn"
                                     id="hostmask_submit_btn"></button>
                         </div>
                     </div>
