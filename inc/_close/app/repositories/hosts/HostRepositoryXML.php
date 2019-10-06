@@ -206,6 +206,7 @@ class HostRepositoryXML extends RepositoryXML
     {
 
         $vhostNode = $this->XMLElement->addChild('vhost', '');
+        $vhostNode->addChild('id', $host->getId());
         $vhostNode->addChild('tld', $host->getTld());
         $vhostNode->addChild('domain', $host->getDomain());
         $vhostNode->addChild('subdomain', $host->getSubdomain());
@@ -227,9 +228,9 @@ class HostRepositoryXML extends RepositoryXML
     protected function insert(Host $host)
     {
 
-        $vhostNode = $this->appendHostToXmlElement($host);
         $id        = $this->getNewId();
-        $vhostNode->addChild('id', $id);
+        $host->setId($id);
+        $vhostNode = $this->appendHostToXmlElement($host);
 
         $this->updateFile();
 

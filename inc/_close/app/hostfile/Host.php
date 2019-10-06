@@ -32,7 +32,6 @@ class Host implements JsonSerializable
     const FieldName_last_change  = 'last_change';
 
 
-
     private $hostId    = '';
     private $tld       = '';
     private $domain    = '';
@@ -363,5 +362,11 @@ class Host implements JsonSerializable
             self::FieldName_last_change  => $this->getLastChange()->format('Y-m-d H:i:s'),
 
         ];
+    }
+
+    public function setId($id)
+    {
+
+        $this->hostId = (int)$id;
     }
 }
