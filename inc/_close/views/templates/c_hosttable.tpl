@@ -134,8 +134,6 @@
                                     <dd>{$host->getIp()}</dd>
                                 </dl>
 
-                                {$host->getId()}
-
                             </td>
                             <td>
                                 {$host->getVhostDir()}<br>
