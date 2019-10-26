@@ -45,13 +45,19 @@ DIRECTORY STRUCTURE:
 WARNING: USE THIS TOOL ON YOUR OWN RISK. IT CAN BREAK YOUR XAMPP-INSTALLATIONS
 I'M NOT RESPONSIBLE FOR ANY PROBLEMS WITH THIS TOOL OR ANY DAMAGES THROUGH THIS TOOL
 
-Usage:
-
     We assume that you have installed a php-version which  
     is in your %PATH% - Variable.  
     For me I have one xampp installed on  
     C:\xampp (standard-path). And this xampp has nothing to do  
-    with the xampps controlled by this curserver-tool  
+    with the xampps controlled by this curserver-tool, except we need the php to run some
+    console php-files during installation
+
+## Installation:
+
+Check out from git or download it.
+Make sure, you have installed composer on your system.
+
+
 
 >dir *directoryFrom/curserver/installer/*  
 >php install.php

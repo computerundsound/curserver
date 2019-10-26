@@ -12,6 +12,7 @@ namespace app\installer;
 use app\installer\file\FileInfo;
 use app\installer\InfoPrinter\InfoPrinter;
 use app\installer\modifier\ModifyConfVHost;
+use app\installer\modifier\ModifyMariaDbIni;
 use app\installer\modifier\ModifyMysqlIni;
 use app\installer\modifier\ModifyPHPIni;
 use app\installer\Replacer\ReplaceBuilder;
@@ -29,6 +30,9 @@ use Throwable;
  */
 class UpdateController
 {
+
+    /** @var string[] */
+    protected $errorMessages = [];
     /**
      * @var string
      */
@@ -102,6 +106,10 @@ class UpdateController
             FileInfo::createInstance($mysqlIniPath),
             $xampp);
 
+        $modifyMariaAbIni = new ModifyMariaDbIni(
+            FileInfo::createInstance($mysqlIniPath),
+            $xampp);
+
         $phpIniPath = realpath($xamppDir . '/php/php.ini');
 
         $modifyPhpIni = new ModifyPHPIni(
@@ -112,6 +120,7 @@ class UpdateController
                                          $modifyMysqlIni,
                                          $modifyConfVHost,
                                          $modifyPhpIni,
+                                         $modifyMariaAbIni,
                                          $this->appRootDir);
 
         $xamppUpdater->update($replacer);

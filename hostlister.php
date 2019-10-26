@@ -13,9 +13,11 @@ use app\hostfile\HostListSorter;
 use app\hostfile\SortHandler;
 use app\hostfile\VHostFileHandler;
 use app\hostfile\VHostFileList;
+use app\installer\UpdateController;
 use app\mysql_dumper\CuMysqlDump;
 use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
+use computerundsound\culibrary\CuConstantsContainer;
 use computerundsound\culibrary\CuRequester;
 
 
@@ -30,6 +32,17 @@ if ($action === 'phpinfo') {
     /** @noinspection ForgottenDebugOutputInspection */
     phpinfo();
     exit;
+}
+
+if ($action === 'xampp_install') {
+
+    $updateController = new UpdateController($constant_container_coo->getAppRootServer());
+
+    ob_start();
+    $updateController->update(PATH_TO_VHOSTS, PATH_TO_REPLACEMENT_INI);
+
+    $flashMessage = '<pre>' . ob_get_clean() . '</pre>';
+
 }
 
 $hostFileHandler = new HostFileHandler(HOST_FILE_PATH);

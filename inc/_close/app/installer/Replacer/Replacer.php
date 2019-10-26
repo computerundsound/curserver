@@ -21,6 +21,10 @@ class Replacer
     protected $phpIniReplacer   = [];
     protected $phpIniExtend     = [];
     protected $mysqlIniReplacer = [];
+    /**
+     * @var array
+     */
+    protected $mariaDbIni;
 
     /**
      * Replacer constructor.
@@ -29,17 +33,20 @@ class Replacer
      * @param array $phpIniReplacer
      * @param array $phpIniExtend
      * @param array $mysqlIniReplacer
+     * @param array $mariaDbIni
      */
     public function __construct(array $vhostReplacer,
                                 array $phpIniReplacer,
                                 array $phpIniExtend,
-                                array $mysqlIniReplacer)
+                                array $mysqlIniReplacer,
+                                array $mariaDbIni)
     {
 
         $this->vhostReplacer    = $vhostReplacer;
         $this->phpIniReplacer   = $phpIniReplacer;
         $this->phpIniExtend     = $phpIniExtend;
         $this->mysqlIniReplacer = $mysqlIniReplacer;
+        $this->mariaDbIni       = $mariaDbIni;
     }
 
     /**
@@ -76,6 +83,15 @@ class Replacer
     {
 
         return $this->phpIniExtend;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMariaDbIniReplacer()
+    {
+
+        return $this->mariaDbIni;
     }
 
 }

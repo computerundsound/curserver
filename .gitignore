@@ -16,3 +16,7 @@ app_api
 
 __writer/*
 !__writer/mysqlDumpFile/index.html
+
+
+inc/_close/vendor
+_unittests/vendor

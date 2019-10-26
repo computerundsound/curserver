@@ -38,8 +38,16 @@ class ModifyMysqlIni extends ModifyFileAbstract implements ModifyInterface
             self::$pathIniTemplateFileFromXamppRoot;
 
         $this->buildPaths();
-        $this->backup();
-        $this->copyTemplate($replacer);
+        if (realpath($this->pathIniFile)) {
+
+            $this->backup();
+
+            if (realpath($this->pathIniTemplateFile)) {
+                $this->copyTemplate($replacer);
+            }
+
+
+        }
 
     }
 

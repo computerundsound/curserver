@@ -29,15 +29,12 @@
 
 <body>
 
-{*<div id="cuLoader">*}
-{*<div>Working :<i class="fas fa-spinner fa-3x fa-spin"></i></div>*}
-{*</div>*}
-
-{*<iframe id="cu-iframe" style="display:none;"></iframe>*}
-
-{*<div id="top_impressum_short">*}
-{*Jörg Wrase &copy; 2016 - <a href="http://www.cusp.de">cusp.de</a>*}
-{*</div>*}
+<div id="cuLoader">
+    <div>
+        Working :<br>
+        <i class="fas fa-spinner fa-3x fa-spin"></i>
+    </div>
+</div>
 
 <div class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
 
@@ -54,6 +51,16 @@
 
 
     <div class="navbar-collapse collapse" id="navbarNavDropdown">
+        #
+        <ul class="navbar-nav mr-0">
+            <li class="nav-item">
+                <a href="hostlister.php?action=xampp_install" class="nav-link">
+                    <button class="btn btn-warning" type="button">
+                        Install Xampps
+                    </button>
+                </a>
+            </li>
+        </ul>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
@@ -79,7 +86,7 @@
 
 <div class="container-fluid" style="width: 90%; padding-bottom: 5rem;">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 mt-2">
             {if $flashMessage}
                 <div class="alert alert-danger">{{$flashMessage}}</div>
             {/if}

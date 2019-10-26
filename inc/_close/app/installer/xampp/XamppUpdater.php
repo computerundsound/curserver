@@ -10,6 +10,7 @@ namespace app\installer\xampp;
 
 
 use app\installer\modifier\ModifyConfVHost;
+use app\installer\modifier\ModifyMariaDbIni;
 use app\installer\modifier\ModifyMysqlIni;
 use app\installer\modifier\ModifyPHPIni;
 use app\installer\Replacer\Replacer;
@@ -41,20 +42,26 @@ class XamppUpdater
      * @var string
      */
     protected $appRootDir;
+    /**
+     * @var ModifyMariaDbIni
+     */
+    protected $modifyMariaDbIni;
 
     /**
      * XamppUpdater constructor.
      *
-     * @param Xampp           $xampp
-     * @param ModifyMysqlIni  $modifyMysqlIni
-     * @param ModifyConfVHost $modifyConfVHost
-     * @param ModifyPHPIni    $modifyPHPIni
-     * @param string          $appRootDir
+     * @param Xampp            $xampp
+     * @param ModifyMysqlIni   $modifyMysqlIni
+     * @param ModifyConfVHost  $modifyConfVHost
+     * @param ModifyPHPIni     $modifyPHPIni
+     * @param ModifyMariaDbIni $modifyMariaDbIni
+     * @param string           $appRootDir
      */
     public function __construct(Xampp $xampp,
                                 ModifyMysqlIni $modifyMysqlIni,
                                 ModifyConfVHost $modifyConfVHost,
                                 ModifyPHPIni $modifyPHPIni,
+                                ModifyMariaDbIni $modifyMariaDbIni,
                                 $appRootDir)
     {
 
@@ -63,6 +70,7 @@ class XamppUpdater
         $this->modifyConfVHost = $modifyConfVHost;
         $this->modifyPHPIni    = $modifyPHPIni;
         $this->appRootDir      = $appRootDir;
+        $this->modifyMariaDbIni = $modifyMariaDbIni;
     }
 
 
@@ -74,6 +82,7 @@ class XamppUpdater
 
         $this->modifyConfVHost->modify($replacer->getVhostReplacer());
         $this->modifyMysqlIni->modify($replacer->getMysqlIniReplacer());
+        $this->modifyMariaDbIni->modify($replacer->getMariaDbIniReplacer());
         $this->xdebug($replacer);
         $this->modifyPHPIni->modify($replacer->getPhpIniReplacer());
 

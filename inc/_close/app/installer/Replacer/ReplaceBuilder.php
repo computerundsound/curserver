@@ -34,9 +34,10 @@ class ReplaceBuilder
         $vhost    = self::getValueFromArray('vhost', $parsedIni, []);
         $phpIni   = self::getValueFromArray('phpIni', $parsedIni, []);
         $mysqlIni = self::getValueFromArray('mysqlIni', $parsedIni, []);
+        $mariaDbIni = self::getValueFromArray('mariaDbIni', $parsedIni, []);
         $phpIniExtended = self::getValueFromArray('phpIniExtend', $parsedIni, []);
 
-        $replacer = new Replacer($vhost, $phpIni, $phpIniExtended, $mysqlIni);
+        $replacer = new Replacer($vhost, $phpIni, $phpIniExtended, $mysqlIni, $mariaDbIni);
 
         return $replacer;
 

@@ -64,7 +64,7 @@ class MakeView extends Smarty
         $this->setConfigDir($smartyDir . 'configs/');
         $this->setCacheDir($smartyDir . 'cache/');
 
-        if (CU_DEBUG_MODUS) {
+        if (CU_DEBUG_MODE) {
             $this->caching = false;
             $this->clearAllCache(true);
         }

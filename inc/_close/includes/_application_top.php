@@ -59,6 +59,7 @@ define('CU_SMARTY_DIR',
        DIRECTORY_SEPARATOR);
 
 define('XML_HOST_REPOSITORY_FILE', __DIR__ . '/../../../__writer/vhost_repository.xml');
+define('PATH_TO_REPLACEMENT_INI', __DIR__ . '/../../../installer/replacement.ini');
 
 if (file_exists(XML_HOST_REPOSITORY_FILE) === false) {
     $fh = fopen(XML_HOST_REPOSITORY_FILE, 'wb+');

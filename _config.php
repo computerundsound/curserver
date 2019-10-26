@@ -1,4 +1,5 @@
 <?php
+/** @noinspection DuplicatedCode */
 /**
  * Copyright by Jörg Wrase - www.Computer-Und-Sound.de
  * Date: 30.06.2014
@@ -11,19 +12,19 @@
 
 // copy this file to _config.php
 
-define('CU_DEBUG_MODUS', false); // false | true
+define('CU_DEBUG_MODE', false); // false | true
 
 /* mysql */
 
 define('DB_SERVER', 'localhost'); // Database ServerName.  # Normal: localhost
-define('DB_NAME', 'curserver'); // DatabaseName - Insert your own value please
-define('DB_USER', 'curserver'); // Database UserName - Insert your own value please
-define('DB_PW', 'curserver'); // Database Password - Insert your own value please
+define('DB_NAME', 'curserver');   // DatabaseName - Insert your own value please
+define('DB_USER', 'curserver');   // Database UserName - Insert your own value please
+define('DB_PW', 'curserver');     // Database Password - Insert your own value please
 
 /* If you want to make a backup from all Databases, curServer needs root credentials: */
 
 define('DB_USER_ROOT', 'root'); // Database UserName from Database-Root-User - Insert your own value please
-define('DB_PW_ROOT', ''); // Database Password from Database-Root-User - Insert your own value please
+define('DB_PW_ROOT', '');       // Database Password from Database-Root-User - Insert your own value please
 
 define('PATH_TO_VHOSTS', dirname(__DIR__) . '/');
 
