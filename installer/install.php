@@ -10,11 +10,17 @@ use app\installer\UpdateController;
 use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
 
+exec('cd .. && composer update', $output);
+
+/** @noinspection ForgottenDebugOutputInspection */
+print_r($output);
+
 define('CU_SEND_SESSION', false);
 
 require_once __DIR__ . '/../inc/_close/includes/_application_top.php';
 
-$xamppDir = dirname(__DIR__, 2) . '/';
+$xamppDir   = dirname(__DIR__, 2) . '/';
+$appRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
 $preInformationMD = file_get_contents(__DIR__ . '/readme.md');
 
@@ -33,7 +39,6 @@ $input = readline('Do you want to continue? Enter "yes" or "no": ');
 
 $inputTrimmed = trim($input);
 
-$appRootDir = dirname(__DIR__) . DIRECTORY_SEPARATOR;
 
 if ($inputTrimmed === 'yes' || $inputTrimmed === 'y') {
 
