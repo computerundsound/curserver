@@ -29,7 +29,7 @@
 
             <p>
 
-                <button type="button" class="btn btn-default" id="hostmask_add_btn">
+                <button type="button" class="btn btn-info" id="hostmask_add_btn">
                     <i class="fas fa-plus"></i> New Host
                 </button>
                 <button type="button" id="hostmask_process_vhostfile_btn" class="btn btn-danger"><i

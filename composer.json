@@ -14,10 +14,14 @@
     "vendor-dir": "inc/_close/vendor/"
   },
   "require": {
-    "php": ">=5.4",
-    "computerundsound/culibrary": "4.*",
-    "smarty/smarty": "3.1.*",
+    "php": ">=7.4",
+    "computerundsound/culibrary": "^4",
+    "smarty/smarty": "^3",
     "erusev/parsedown": "master"
+  }
+  ,
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
   },
   "autoload": {
     "psr-4": {

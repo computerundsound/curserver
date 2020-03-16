@@ -6,7 +6,6 @@
  * LastModified: 2018.06.09 at 04:20 MESZ
  */
 
-use app\hostfile\Host;
 use app\hostfile\HostFileHandler;
 use app\hostfile\HostListSearch;
 use app\hostfile\HostListSorter;
@@ -17,7 +16,6 @@ use app\installer\UpdateController;
 use app\mysql_dumper\CuMysqlDump;
 use app\repositories\hosts\HostRepositoryXML;
 use app\viewer\MakeView;
-use computerundsound\culibrary\CuConstantsContainer;
 use computerundsound\culibrary\CuRequester;
 
 
@@ -71,7 +69,6 @@ $hostRepository = new HostRepositoryXML(XML_HOST_REPOSITORY_FILE);
 
 try {
 
-    /** @noinspection IsEmptyFunctionUsageInspection */
     if ($action === 'host_update' && empty($action_id) === false) {
         $dataArray       = HostFileHandler::getPostDataAsArray(false, false);
         $dataArray['id'] = $action_id;
@@ -79,7 +76,6 @@ try {
         $updateMessageIsSet = true;
     }
 
-    /** @noinspection IsEmptyFunctionUsageInspection */
     if ($action === 'host_kill') {
         $hostRepository->delete($action_id);
         $updateMessageIsSet = true;
