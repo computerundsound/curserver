@@ -14,7 +14,7 @@
     "vendor-dir": "inc/_close/vendor/"
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=5.6",
     "computerundsound/culibrary": "^4",
     "smarty/smarty": "^3",
     "erusev/parsedown": "master"
