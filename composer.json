@@ -18,8 +18,7 @@
     "computerundsound/culibrary": "^4",
     "smarty/smarty": "^3",
     "erusev/parsedown": "master"
-  }
-  ,
+  },
   "require-dev": {
     "roave/security-advisories": "dev-master"
   },

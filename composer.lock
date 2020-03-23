@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd1ebd0b211370c4b60dcfc04778541f",
+    "content-hash": "1ed0d9e70364e5725a326d63bca8442b",
     "packages": [
         {
             "name": "computerundsound/culibrary",
-            "version": "4.0.3",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/computerundsound/cuLibrary.git",
-                "reference": "e53ba56b48c3430d1250437ecfb49f6f2e008056"
+                "reference": "005f49b20da21969dc2fa54e71d67d0e62392e51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/e53ba56b48c3430d1250437ecfb49f6f2e008056",
-                "reference": "e53ba56b48c3430d1250437ecfb49f6f2e008056",
+                "url": "https://api.github.com/repos/computerundsound/cuLibrary/zipball/005f49b20da21969dc2fa54e71d67d0e62392e51",
+                "reference": "005f49b20da21969dc2fa54e71d67d0e62392e51",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=7.4.0"
             },
             "type": "library",
             "autoload": {
@@ -43,7 +43,7 @@
             ],
             "description": "small helper library",
             "homepage": "https://github.com/computerundsound/cuLibrary",
-            "time": "2019-05-11T03:20:23+00:00"
+            "time": "2020-03-23T02:19:09+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -421,7 +421,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">=5.6"
     },
     "platform-dev": []
 }
