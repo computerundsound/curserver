@@ -1,0 +1,153 @@
+{% extends "elements/container.html.twig" %}
+
+{% block content %}
+
+    <!-- Modal Ask Delete -->
+    <div class="modal fade"
+         id="modal_ask_delete_host"
+         tabindex="-1"
+         aria-labelledby="modal_ask_delete_host"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Delete Host</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure, you want to delete</p>
+                    <p class="fw-bold"><span id="modal_ask_delete_host_hostname"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+                    <button type="button" class="btn btn-primary" data-modal-host_ask_delete="true">Yes</button>
+                    <input type="hidden" name="modal_ask_delete_host_id"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"
+         id="modal_edit_host"
+         tabindex="-1"
+         aria-labelledby="modal_edit_host"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create / Edit Host</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modal_edit_host_content"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+                    <button type="button" class="btn btn-primary" data-form_submit="edit_host">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--suppress ALL, HttpUrlsUsage -->
+    <div class="row">
+        <div class="col">
+            <h1>{{ page.h1 }}</h1>
+
+            <div class="alert alert-warning visually-hidden"></div>
+
+            <div class="alert alert-info">All Templates run on the <strong>port 80</strong>
+                                          We strongly recommend not to
+                                          change this!
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <button type="button" class="btn btn-dark" data-action="create_host">
+                <i class="fa fa-plus"></i> New Host
+            </button>
+
+            <button type="button" class="btn btn-danger" data-action="write_vhost_files">
+                <i class="fa fa-file"></i>
+                Process - write vhost-File (Xampp)
+            </button>
+
+            <button type="button" class="btn btn-danger" data-action="new_include_hostfile_apache">
+                <i class="fa fa-file"></i>
+                Update includes vhost-files
+            </button>
+
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+
+            <h3>Your hostfile-content:</h3>
+            <div class="form-group">
+                <label class="text-info mb-2" for="hostfile_content">
+                    <button class="btn btn-info" type="button">Click to select</button>
+                </label>
+                <textarea name="hostfile_content"
+                          class="form-control"
+                          id="hostfile_content"
+                          cols="30"
+                          rows="10">{{ hostFileContent|escape }}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <div class="mt-4">
+                <table class="table table-striped useTableData" data-order='[[ 0, "asc" ]]' data-page-length='25'>
+                    <thead>
+                    <tr>
+                        <th>Host</th>
+                        <th>Path</th>
+                        <th>Comment</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for host in hostList %}
+                        <tr>
+                            <td>
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="http://{{ host.fullDomain }}"
+                                           class="text-decoration-none"
+                                           target="_blank">{{ host.fullDomain }}</a>
+                                    </li>
+                                    <li>{{ host.ip }}</li>
+                                </ul>
+                            </td>
+                            <td>
+                                {{ host.vhostDir }}<br>
+                                {{ host.vhostHtdocs }}
+                            </td>
+                            <td>{{ host.comment|nl2br }}</td>
+                            <td>
+                                <i class="fa fa-edit cuHoverPointer"
+                                   data-action="edit_host"
+                                   data-host_id="{{ host.id }}">
+                                </i>
+                                <i class="fa fa fa-trash text-danger cuHoverPointer"
+                                   data-action="kill_host"
+                                   data-host_id="{{ host.id }}"
+                                   data-host_name="{{ host.fullDomain }}">
+                                </i>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

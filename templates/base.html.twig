@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
+
+    {% if page.javaScriptVariables is defined %}
+        {% for key,myValue in page.javaScriptVariables %}
+            <meta name="javaScriptVariables" data-name="{{ key }}" data-value="{{ myValue }}">
+        {% endfor %}
+    {% endif %}
+
+</head>
+<body>
+<div id="cuLoader">
+    <div>
+        Working :<br>
+        <i class="fa fa-spinner fa-3x fa-spin"></i>
+    </div>
+</div>
+{% block body %}{% endblock %}
+{{ encore_entry_script_tags('app') }}
+</body>
+</html>

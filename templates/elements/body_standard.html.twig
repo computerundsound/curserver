@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if page.showNavbar %}
+        {% include("elements/navbar.html.twig") %}
+    {% endif %}
+    {% block container %}No Content in Block{% endblock %}
+{% endblock %}
